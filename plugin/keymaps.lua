@@ -93,13 +93,13 @@ end, mt(opts, { desc = 'Flash Treesitter Search' }))
 -- Screenkey
 map(
   'n',
-  '<leader>kst',
+  '<leader>kt',
   ':Screenkey toggle<cr>',
   mt(opts, { desc = 'toggle Screenkey' })
 )
 map(
   'n',
-  '<leader>ksr',
+  '<leader>kr',
   ':Screenkey redraw<cr>',
   mt(opts, { desc = 'redraw Screenkey' })
 )
@@ -117,9 +117,11 @@ map(
   '<cmd>e ' .. vim.fn.stdpath 'config' .. '/init.lua<cr>',
   mt(opts, { desc = 'Jump to configuration file' })
 )
-map('n', '<leader>q', ':x<cr>', mt(opts, { desc = 'quit current window' }))
-map('n', '<leader>Q', ':qa!<cr>', { silent = true, desc = 'quit neovim' })
-map('n', '<leader>w', ':silent! write<cr>', opts)
+map('n', '<leader>q', ':x<cr>', opts)
+map('n', '<leader>Q', ':qa!<cr>', { desc = 'quit neovim' })
+map('n', '<leader>w', ':write<cr>', opts)
+map('n', '<leader>o', ':update<CR> :source<CR>')
+
 map(
   'n',
   '<leader>cd',
@@ -136,12 +138,6 @@ map(
 
 -- Execute code
 -- map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<cr>', mt(opts, { desc = 'Execute line/selection' }))
-map(
-  'n',
-  '<leader><leader>x',
-  '<cmd>so %<cr>',
-  mt(opts, { desc = 'source current file' })
-)
 
 -- Toggle tab width 2 <-> 4
 map('n', '<leader>tw', function()
