@@ -221,12 +221,12 @@ map('v', '<', '<gv', opts)
 map('v', '>', '>gv', opts)
 
 -- Divide code chunk with comment toggle
-map(
-  'n',
-  ';;',
-  'O<Esc>33i- <Esc>:lua toggle_comment()<cr>',
-  mt(opts, { desc = 'Divide code chunk' })
-)
+-- map(
+--   'n',
+--   ';;',
+--   'O<Esc>33i- <Esc>:lua toggle_comment()<cr>',
+--   mt(opts, { desc = 'Divide code chunk' })
+-- )
 
 -- Toggle diagnostics on/off
 map('n', '<leader>td', function()
