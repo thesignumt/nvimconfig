@@ -53,12 +53,6 @@ return {
     end,
   },
   {
-    'seandewar/nvimesweeper',
-  },
-  {
-    'alec-gibson/nvim-tetris',
-  },
-  {
     'ThePrimeagen/vim-be-good',
   },
   { 'eandrju/cellular-automaton.nvim' },
