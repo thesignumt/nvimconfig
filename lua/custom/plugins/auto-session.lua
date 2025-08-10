@@ -23,12 +23,12 @@ return {
 
     local keymap = vim.keymap
 
-    keymap.set('n', '<leader>wr', '<cmd>SessionRestore<CR>', {
+    keymap.set('n', '<leader>er', '<cmd>SessionRestore<CR>', {
       desc = 'Restore last session for current working directory',
       noremap = true,
       silent = true,
     })
-    keymap.set('n', '<leader>ws', '<cmd>SessionSave<CR>', {
+    keymap.set('n', '<leader>es', '<cmd>SessionSave<CR>', {
       desc = 'Save session for auto-session root directory',
       noremap = true,
       silent = true,
