@@ -3,32 +3,21 @@ local lspservers = {
   'pyright',
 }
 vim.lsp.enable(lspservers)
--- require('lspconfig').pylsp.setup {
---   settings = {
---     pylsp = {
---       plugins = {
---         pycodestyle = {
---           enabled = false,
---         },
---       },
---     },
---   },
--- }
 
---- mt: merge tables
---- Merges the contents of table t2 into table t1.
---- If keys overlap, values from t2 overwrite those in t1.
---- @param t1 table The first table (modified in place).
---- @param t2 table The second table (merged into t1).
---- @return table The merged table (same as t1).
+vim.cmd [[set mouse=]]
+vim.opt.winborder = 'rounded'
 local function mt(t1, t2)
   local out = {}
+  -- copy everything from t1
+  for k, v in pairs(t1) do
+    out[k] = v
+  end
+  -- overwrite/add from t2
   for k, v in pairs(t2) do
     out[k] = v
   end
   return out
 end
-
 vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
 
 local function is_in_list(x, list)
@@ -44,6 +33,7 @@ local tab2 = { 'c', 'cpp', 'lua' }
 if is_in_list(vim.bo.filetype, tab2) then
   tab = 2
 end
+
 vim.opt.expandtab = true
 local function setTab(t)
   vim.opt.tabstop = t
@@ -124,17 +114,17 @@ vim.keymap.set('n', '<leader><leader>time', function()
   vim.fn.chansend(job_id, { 'time ' .. vim.fn.expand '%:p' })
 end)
 
-vim.keymap.set('n', '<leader><leader>cppa', function()
-  local p = vim.fn.expand '%:p'
-  local n = vim.fn.expand '%:p:r'
-  if job_id == 0 then
-    crtTerm()
-  end
-  vim.fn.chansend(
-    job_id,
-    { 'cls && g++ ' .. p .. ' -o ' .. n .. ' && ' .. n .. '\r\n' }
-  )
-end)
+-- vim.keymap.set('n', '<leader><leader>cppa', function()
+--   local p = vim.fn.expand '%:p'
+--   local n = vim.fn.expand '%:p:r'
+--   if job_id == 0 then
+--     crtTerm()
+--   end
+--   vim.fn.chansend(
+--     job_id,
+--     { 'cls && g++ ' .. p .. ' -o ' .. n .. ' && ' .. n .. '\r\n' }
+--   )
+-- end)
 
 -- LuaSnip configuration
 local ls = require 'luasnip'
@@ -182,12 +172,5 @@ vim.api.nvim_create_autocmd('FileType', {
   callback = function()
     vim.bo.filetype = 'cpp' -- Ensure filetype is set
     setTab(2)
-  end,
-})
-
-vim.api.nvim_create_autocmd({ 'BufRead', 'BufNewFile' }, {
-  pattern = 'config.py',
-  callback = function()
-    vim.diagnostic.disable(0) -- Disable diagnostics for the current buffer
   end,
 })
