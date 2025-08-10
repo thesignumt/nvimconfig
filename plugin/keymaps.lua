@@ -111,12 +111,7 @@ map('n', '<leader>u', ':ZenMode<cr>', opts)
 -- File and Config Management
 ------------------------------------------------------------
 
-map(
-  'n',
-  '<leader>vpp',
-  '<cmd>e ' .. vim.fn.stdpath 'config' .. '/init.lua<cr>',
-  mt(opts, { desc = 'Jump to configuration file' })
-)
+map('n', '<leader>v', ':e $MYVIMRC', opts)
 map('n', '<leader>q', ':x<cr>', opts)
 map('n', '<leader>Q', ':qa!<cr>', { desc = 'quit neovim' })
 map('n', '<leader>w', ':write<cr>', opts)
@@ -189,6 +184,8 @@ map('n', '<C-u>', '<C-u>zz', opts)
 map('n', 'G', 'Gzz', opts)
 map('n', 'n', 'nzzzv', opts)
 map('n', 'N', 'Nzzzv', opts)
+
+map('n', '<leader>zig', '<cmd>LspRestart<cr>')
 
 -- Clipboard yank
 map({ 'n', 'v' }, '<leader>y', '"+y', opts)
