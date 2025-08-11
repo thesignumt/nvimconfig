@@ -25,6 +25,7 @@ vim.opt.wrap = true
 vim.opt.title = true
 vim.opt.titlelen = 0
 vim.o.cmdheight = 1
+vim.o.swapfile = false
 
 vim.o.shell = 'pwsh'
 vim.o.shellcmdflag =
