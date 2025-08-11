@@ -111,11 +111,11 @@ map('n', '<leader>u', ':ZenMode<cr>', opts)
 -- File and Config Management
 ------------------------------------------------------------
 
-map('n', '<leader>v', ':e $MYVIMRC', opts)
+map('n', '<leader>v', ':e $MYVIMRC<cr>', opts)
 map('n', '<leader>q', ':x<cr>', opts)
 map('n', '<leader>Q', ':qa!<cr>', { desc = 'quit neovim' })
 map('n', '<leader>w', ':write<cr>', opts)
-map('n', '<leader>o', ':update<CR> :source<CR>')
+map('n', '<leader>o', ':update<cr> :source<cr>')
 
 map(
   'n',
