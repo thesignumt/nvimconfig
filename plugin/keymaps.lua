@@ -103,13 +103,6 @@ map('n', '<leader>Q', ':qa!<cr>', { desc = 'quit neovim' })
 map('n', '<leader>w', ':write<cr>', opts)
 map('n', '<leader>o', ':update<cr> :source<cr>')
 
-map(
-  'n',
-  '<leader>cd',
-  '<cmd>lcd %:p:h<cr><cmd>pwd<cr>',
-  { desc = 'change cwd' }
-)
-
 -- Uncomment if you want explorer keymap
 -- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
 
@@ -169,8 +162,10 @@ map('n', 'N', 'Nzzzv', opts)
 map('n', '<leader>zig', '<cmd>LspRestart<cr>')
 
 -- Clipboard yank
-map({ 'n', 'v' }, '<leader>y', '"+y', opts)
 map('n', '<leader>Y', '"+Y', opts)
+map({ 'n', 'v' }, '<leader>y', '"+y', opts)
+map({ 'n', 'v' }, '<leader>d', '"+d', opts)
+map({ 'n', 'v' }, '<leader>c', '1z=', opts)
 
 -- Search & replace word under cursor
 map(
