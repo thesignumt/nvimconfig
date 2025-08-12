@@ -645,7 +645,7 @@ require('lazy').setup({
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map(
-            '<leader>gs',
+            '<leader>ed',
             require('telescope.builtin').lsp_document_symbols,
             'document symbols'
           )

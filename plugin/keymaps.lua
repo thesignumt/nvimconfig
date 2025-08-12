@@ -114,7 +114,7 @@ map('n', '<leader>o', ':update<cr> :source<cr>')
 -- map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<cr>', mt(opts, { desc = 'Execute line/selection' }))
 
 -- Toggle tab width 2 <-> 4
-map('n', '<leader>tw', function()
+map('n', '<leader>ew', function()
   local new_width = (vim.bo.tabstop == 2) and 4 or 2
   vim.bo.tabstop = new_width
   vim.bo.shiftwidth = new_width
