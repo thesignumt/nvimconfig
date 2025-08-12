@@ -12,6 +12,8 @@ vim.lsp.enable(lspservers)
 -- General Vim Options
 ------------------------------------------------------------
 
+vim.g.copilot_enabled = 0
+
 vim.opt.winborder = 'rounded'
 
 vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'

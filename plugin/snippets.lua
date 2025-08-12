@@ -1,4 +1,4 @@
-local snippets_dir = vim.fn.stdpath 'config' .. 'snippets/'
+local snippets_dir = vim.fn.stdpath 'config' .. '\\snippets'
 require('luasnip').setup { enable_autosnippets = true }
 require('luasnip.loaders.from_lua').load {
   paths = snippets_dir,
