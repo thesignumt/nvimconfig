@@ -61,12 +61,12 @@ end
 ------------------------------------------------------------
 
 -- CodeCompanion
-map(
-  { 'n', 'v' },
-  '<leader>cp',
-  ':CodeCompanionChat<cr>',
-  mt(opts, { desc = 'CodeCompanionChat' })
-)
+-- map(
+--   { 'n', 'v' },
+--   '<leader>cp',
+--   ':CodeCompanionChat<cr>',
+--   mt(opts, { desc = 'CodeCompanionChat' })
+-- )
 
 -- Oil
 map('n', '-', ':Oil<cr>', opts)
