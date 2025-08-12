@@ -105,7 +105,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -669,12 +669,14 @@ require('lazy').setup({
 
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
-          map(
-            '<leader>ca',
-            vim.lsp.buf.code_action,
-            '[C]ode [A]ction',
-            { 'n', 'x' }
-          )
+          -- NOTE: this is replaced by ` la` in options.lua
+
+          -- map(
+          --   '<leader>ca',
+          --   vim.lsp.buf.code_action,
+          --   '[C]ode [A]ction',
+          --   { 'n', 'x' }
+          -- )
 
           -- WARN: This is not Goto Definition, this is Goto Declaration.
           --  For example, in C this would take you to the header.

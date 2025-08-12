@@ -90,20 +90,6 @@ map('n', '<leader>lr', function()
   require('flash').treesitter_search()
 end, mt(opts, { desc = 'Flash Treesitter Search' }))
 
--- Screenkey
-map(
-  'n',
-  '<leader>kt',
-  ':Screenkey toggle<cr>',
-  mt(opts, { desc = 'toggle Screenkey' })
-)
-map(
-  'n',
-  '<leader>kr',
-  ':Screenkey redraw<cr>',
-  mt(opts, { desc = 'redraw Screenkey' })
-)
-
 -- ZenMode
 map('n', '<leader>u', ':ZenMode<cr>', opts)
 
@@ -155,16 +141,11 @@ map('n', '<A-o>', 'o<Esc>0"_D', opts)
 map('n', '<A-O>', 'O<Esc>0"_D', opts)
 
 -- Select all / Replace all
-map('n', '==', 'ggVG', mt(opts, { desc = 'Select entire buffer' }))
-map(
-  'n',
-  '=p',
-  'ggVGp',
-  mt(opts, { desc = 'Replace entire buffer with clipboard' })
-)
+map('n', '==', 'ggVG', mt(opts, { desc = 'select all' }))
+map('n', '=p', 'ggVGp', mt(opts, { desc = 'change buffer into clipboard' }))
 
 -- Yank entire buffer
-map('n', 'yA', '<cmd>%yank<cr>', { desc = 'Yank entire buffer' })
+map('n', 'yA', '<cmd>%yank<cr>', { desc = 'yank buffer' })
 
 -- Visual mode move lines up/down
 map('v', 'J', ":m '>+1<cr>gv=gv", opts)
@@ -196,7 +177,7 @@ map(
   'n',
   '<leader>s',
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  opts
+  mt(opts, { desc = 'replace word' })
 )
 
 -- Paste without overwriting register
@@ -222,9 +203,9 @@ map('v', '>', '>gv', opts)
 -- )
 
 -- Toggle diagnostics on/off
-map('n', '<leader>td', function()
-  vim.diagnostic.enable(not vim.diagnostic.is_enabled())
-end, { silent = true, noremap = true, desc = 'Toggle diagnostics' })
+-- map('n', '<leader>td', function()
+--   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+-- end, { silent = true, noremap = true, desc = 'Toggle diagnostics' })
 
 -- Paste line above/below preserving cursor
 map('n', '<leader>p', 'm`o<ESC>p``', { desc = 'Paste line below' })

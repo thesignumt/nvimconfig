@@ -12,7 +12,6 @@ vim.lsp.enable(lspservers)
 -- General Vim Options
 ------------------------------------------------------------
 
-vim.cmd [[set mouse=]]
 vim.opt.winborder = 'rounded'
 
 vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
@@ -81,6 +80,15 @@ setTab(tab)
 ------------------------------------------------------------
 -- Autocommands
 ------------------------------------------------------------
+local modes = { 'n', 'x', 'v', 'o', 's', 'i', 't' } -- all relevant modes
+
+for _, mode in ipairs(modes) do
+  for _, map in ipairs(vim.api.nvim_get_keymap(mode)) do
+    if map.lhs:match '^gr.' and map.lhs ~= 'gr' then
+      pcall(vim.keymap.del, mode, map.lhs) -- pcall avoids errors if already removed
+    end
+  end
+end
 
 -- LSP Attach keymaps
 vim.api.nvim_create_autocmd('LspAttach', {
