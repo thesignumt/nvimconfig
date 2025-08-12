@@ -365,11 +365,8 @@ require('lazy').setup({
 
       -- Document existing key chains
       spec = {
-        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
-        { '<leader>d', group = '[D]ocument' },
-        { '<leader>e', group = 'sessions' },
-        { '<leader>k', group = 'screenkey', mode = { 'n' } },
-        { '<leader>f', group = '[F]ind' },
+        { '<leader>e', group = 'env' },
+        { '<leader>f', group = 'find' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
 
@@ -648,9 +645,9 @@ require('lazy').setup({
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map(
-            '<leader>ds',
+            '<leader>gs',
             require('telescope.builtin').lsp_document_symbols,
-            '[D]ocument [S]ymbols'
+            'document symbols'
           )
 
           -- Fuzzy find all the symbols in your current workspace.
@@ -742,20 +739,20 @@ require('lazy').setup({
           -- code, if the language server you are using supports them
           --
           -- This may be unwanted, since they displace some of your code
-          if
-            client
-            and client_supports_method(
-              client,
-              vim.lsp.protocol.Methods.textDocument_inlayHint,
-              event.buf
-            )
-          then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(
-                not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }
-              )
-            end, '[T]oggle Inlay [H]ints')
-          end
+          -- if
+          --   client
+          --   and client_supports_method(
+          --     client,
+          --     vim.lsp.protocol.Methods.textDocument_inlayHint,
+          --     event.buf
+          --   )
+          -- then
+          --   map('<leader>th', function()
+          --     vim.lsp.inlay_hint.enable(
+          --       not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf }
+          --     )
+          --   end, '[T]oggle Inlay [H]ints')
+          -- end
         end,
       })
 
