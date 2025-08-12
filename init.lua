@@ -134,8 +134,6 @@ vim.opt.signcolumn = 'yes'
 -- Decrease update time
 vim.opt.updatetime = 250
 
-vim.opt.foldmethod = 'manual'
-
 -- Decrease mapped sequence wait time
 vim.opt.timeoutlen = 300
 
