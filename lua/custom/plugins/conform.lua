@@ -53,19 +53,12 @@ return {
     -- Keybind: <leader>tf to toggle format-on-save globally
     vim.keymap.set('n', '<leader>ef', function()
       vim.g.disable_autoformat = not vim.g.disable_autoformat
-      if vim.g.disable_autoformat then
-        vim.notify(
-          'Format-on-save DISABLED globally',
-          vim.log.levels.INFO,
-          { title = 'conform.nvim' }
-        )
-      else
-        vim.notify(
-          'Format-on-save ENABLED globally',
-          vim.log.levels.INFO,
-          { title = 'conform.nvim' }
-        )
-      end
+      vim.notify(
+        'Format-on-save ' .. vim.g.disable_autoformat and 'DISABLED'
+          or 'ENABLED' .. ' globally',
+        vim.log.levels.INFO,
+        { title = 'conform.nvim' }
+      )
     end, { desc = 'Toggle format-on-save globally' })
 
     -- Optional: buffer-local toggle command
