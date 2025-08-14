@@ -67,34 +67,20 @@ return {
       function(args)
         if args.bang then
           vim.b.disable_autoformat = not vim.b.disable_autoformat
-          if vim.b.disable_autoformat then
-            vim.notify(
-              'Format-on-save DISABLED for this buffer',
-              vim.log.levels.INFO,
-              { title = 'conform.nvim' }
-            )
-          else
-            vim.notify(
-              'Format-on-save ENABLED for this buffer',
-              vim.log.levels.INFO,
-              { title = 'conform.nvim' }
-            )
-          end
+          vim.notify(
+            'Format-on-save ' .. vim.b.disable_autoformat and 'DISABLED'
+              or 'ENABLED' .. ' for this buffer',
+            vim.log.levels.INFO,
+            { title = 'conform.nvim' }
+          )
         else
           vim.g.disable_autoformat = not vim.g.disable_autoformat
-          if vim.g.disable_autoformat then
-            vim.notify(
-              'Format-on-save DISABLED globally',
-              vim.log.levels.INFO,
-              { title = 'conform.nvim' }
-            )
-          else
-            vim.notify(
-              'Format-on-save ENABLED globally',
-              vim.log.levels.INFO,
-              { title = 'conform.nvim' }
-            )
-          end
+          vim.notify(
+            'Format-on-save ' .. vim.g.disable_autoformat and 'DISABLED'
+              or 'ENABLED' .. ' globally',
+            vim.log.levels.INFO,
+            { title = 'conform.nvim' }
+          )
         end
       end,
       { desc = 'Toggle format-on-save (add ! for buffer-local)', bang = true }
