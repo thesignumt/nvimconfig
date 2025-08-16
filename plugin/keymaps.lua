@@ -114,7 +114,7 @@ map('n', '<leader>o', ':update<cr> :source<cr>')
 -- map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<cr>', mt(opts, { desc = 'Execute line/selection' }))
 
 -- Toggle tab width 2 <-> 4
-map('n', '<leader>ew', function()
+map('n', '<leader>tw', function()
   local new_width = (vim.bo.tabstop == 2) and 4 or 2
   vim.bo.tabstop = new_width
   vim.bo.shiftwidth = new_width
@@ -130,8 +130,8 @@ map({ 'n', 'v' }, '<C-A-j>', function()
 end, { expr = true, desc = 'Yank and paste below' })
 
 -- New line without yanking
-map('n', '<A-o>', 'o<Esc>0"_D', opts)
-map('n', '<A-O>', 'O<Esc>0"_D', opts)
+map('n', '<A-o>', 'mzo<Esc>0"_D`z:delm z<cr>', opts)
+map('n', '<A-O>', 'mzO<Esc>0"_D`z:delm z<cr>', opts)
 
 -- Select all / Replace all
 map('n', '==', 'ggVG', mt(opts, { desc = 'select all' }))
@@ -145,12 +145,8 @@ map('v', 'J', ":m '>+1<cr>gv=gv", opts)
 map('v', 'K', ":m '<-2<cr>gv=gv", opts)
 
 -- Join lines without moving cursor
-map('n', 'J', function()
-  vim.cmd [[ normal! mzJ`z | delmarks z ]]
-end, { desc = 'Join lines without moving cursor' })
-map('n', 'gJ', function()
-  vim.cmd [[ normal! mzgJ`z | delmarks z ]]
-end, { desc = 'Join lines without moving cursor' })
+map('n', 'J', 'mzJ`z:delm z<cr>')
+map('n', 'gJ', 'mzgJ`z:delm z<cr>')
 
 -- Center screen after movement commands
 map('n', '<C-d>', '<C-d>zz', opts)
@@ -179,7 +175,7 @@ map(
 map('v', 'p', '"_dP', opts)
 
 -- Delete all marks
-map({ 'n', 'v' }, 'dm', 'delm!<cr>kj', mt(opts, { desc = 'Delete all marks' }))
+map({ 'n', 'v' }, 'dm', 'delm!<cr>', mt(opts, { desc = 'Delete all marks' }))
 
 -- Line navigation (start and end of line)
 map({ 'n', 'v' }, 'H', '^', mt(opts, { desc = 'Start of line' }))
