@@ -114,18 +114,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.diagnostic.open_float,
       mt(opts, { desc = 'Open floating diagnostics' })
     )
-    vim.keymap.set(
-      'n',
-      '<leader>ln',
-      vim.diagnostic.goto_next,
-      mt(opts, { desc = 'Next diagnostic' })
-    )
-    vim.keymap.set(
-      'n',
-      '<leader>lp',
-      vim.diagnostic.goto_prev,
-      mt(opts, { desc = 'Previous diagnostic' })
-    )
   end,
 })
 
@@ -177,3 +165,19 @@ end)
 --   end
 --   vim.fn.chansend(job_id, { 'cls && g++ ' .. p .. ' -o ' .. n .. ' && ' .. n .. '\r\n' })
 -- end)
+
+vim.api.nvim_create_user_command('ListPlugins', function()
+  local home = vim.loop.os_homedir()
+  local filepath = home .. '\\lazy_plugins.txt' -- Windows path
+
+  local f = io.open(filepath, 'w')
+  if f then
+    for _, p in pairs(require('lazy').plugins()) do
+      f:write(p.name .. '\n')
+    end
+    f:close()
+    print('Plugin list written to: ' .. filepath)
+  else
+    print 'Error: could not write file'
+  end
+end, {})
