@@ -61,12 +61,12 @@ end
 ------------------------------------------------------------
 
 -- CodeCompanion
--- map(
---   { 'n', 'v' },
---   '<leader>cp',
---   ':CodeCompanionChat<cr>',
---   mt(opts, { desc = 'CodeCompanionChat' })
--- )
+map(
+  { 'n', 'v' },
+  '<leader>lc',
+  ':CodeCompanionChat<cr>',
+  mt(opts, { desc = 'CodeCompanionChat' })
+)
 
 -- Oil
 map('n', '-', ':Oil<cr>', opts)
@@ -101,7 +101,7 @@ map('n', '<leader>v', ':e $MYVIMRC<cr>', opts)
 map('n', '<leader>q', ':x<cr>', opts)
 map('n', '<leader>Q', ':qa!<cr>', { desc = 'quit neovim' })
 map('n', '<leader>w', ':write<cr>', opts)
-map('n', '<leader>o', ':update<cr> :source<cr>')
+map('n', '<leader>o', ':update<cr>:source<cr>')
 
 -- Uncomment if you want explorer keymap
 -- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
@@ -130,12 +130,8 @@ map({ 'n', 'v' }, '<C-A-j>', function()
 end, { expr = true, desc = 'Yank and paste below' })
 
 -- New line without yanking
-map('n', '<A-o>', 'mzo<Esc>0"_D`z:delm z<cr>', opts)
-map('n', '<A-O>', 'mzO<Esc>0"_D`z:delm z<cr>', opts)
-
--- Select all / Replace all
-map('n', '==', 'ggVG', mt(opts, { desc = 'select all' }))
-map('n', '=p', 'ggVGp', mt(opts, { desc = 'change buffer into clipboard' }))
+-- map('n', '<A-o>', 'mzo<Esc>0"_D`z:delm z<cr>', opts)
+-- map('n', '<A-O>', 'mzO<Esc>0"_D`z:delm z<cr>', opts)
 
 -- Yank entire buffer
 map('n', 'yA', '<cmd>%yank<cr>', { desc = 'yank buffer' })
@@ -175,7 +171,7 @@ map(
 map('v', 'p', '"_dP', opts)
 
 -- Delete all marks
-map({ 'n', 'v' }, 'dm', 'delm!<cr>', mt(opts, { desc = 'Delete all marks' }))
+map({ 'n', 'v' }, 'dm', ':delm!<cr>', mt(opts, { desc = 'Delete all marks' }))
 
 -- Line navigation (start and end of line)
 map({ 'n', 'v' }, 'H', '^', mt(opts, { desc = 'Start of line' }))
