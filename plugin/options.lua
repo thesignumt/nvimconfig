@@ -14,7 +14,8 @@ vim.lsp.enable(lspservers)
 
 vim.g.copilot_enabled = 0
 
-vim.opt.winborder = 'rounded'
+vim.api.nvim_set_hl(0, 'CmpBorder', { fg = '#20f6e2', bg = 'NONE' })
+vim.api.nvim_set_hl(0, 'CmpDocBorder', { fg = '#20f6e2', bg = 'NONE' })
 
 vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
 

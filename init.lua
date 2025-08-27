@@ -90,6 +90,9 @@ P.S. You can delete this when you're done too. It's your config now! :)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+vim.opt.winborder = 'rounded'
+vim.g.cmp_winborder = 'rounded'
+
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -942,6 +945,16 @@ require('lazy').setup({
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
+        window = {
+          completion = {
+            border = vim.g.cmp_winborder,
+            winhighlight = 'FloatBorder:CmpBorder',
+          },
+          documentation = {
+            border = vim.g.cmp_winborder,
+            winhighlight = 'FloatBorder:CmpDocBorder',
+          },
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
