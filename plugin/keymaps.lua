@@ -68,9 +68,6 @@ map(
   mt(opts, { desc = 'CodeCompanionChat' })
 )
 
--- Oil
-map('n', '-', ':Oil<cr>', opts)
-
 -- Barbar Buffer Navigation
 map('n', '<A-,>', '<Cmd>BufferPrevious<cr>', opts)
 map('n', '<A-.>', '<Cmd>BufferNext<cr>', opts)
