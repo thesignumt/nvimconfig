@@ -457,7 +457,8 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
+      -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
+      vim.keymap.set('n', '<leader>fh', ':Pick help<cr>', { desc = '[H]elp' })
       vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
       vim.keymap.set(
         'n',
@@ -1086,6 +1087,8 @@ require('lazy').setup({
       end
 
       require('mini.icons').setup()
+
+      require('mini.pick').setup()
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
