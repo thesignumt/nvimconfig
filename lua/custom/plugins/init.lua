@@ -77,6 +77,7 @@ return {
       local sources = {
         require('none-ls.formatting.ruff').with {
           extra_args = { '--extend-select', 'I' },
+          command = 'C:/Python313/python.exe',
         },
         require 'none-ls.formatting.ruff_format',
         null_ls.builtins.formatting.prettier.with {
