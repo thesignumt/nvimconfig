@@ -157,7 +157,7 @@ local function crtTerm()
   vim.fn.chansend(job_id, { 'cls\r\n' })
 end
 
-vim.keymap.set('n', '<leader>tt', crtTerm, { desc = 'Toggle Terminal' })
+-- vim.keymap.set('n', '<leader>tt', crtTerm, { desc = 'Toggle Terminal' })
 
 vim.keymap.set('n', '<leader><leader>time', function()
   vim.fn.chansend(job_id, { 'time ' .. vim.fn.expand '%:p' })
