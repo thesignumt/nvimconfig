@@ -5,6 +5,7 @@ vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 vim.o.shellpipe = '2>&1 | Tee-Object -FilePath %s; exit $LastExitCode'
 vim.o.shellquote = ''
 vim.o.shellxquote = ''
+
 return {
   'akinsho/toggleterm.nvim',
   version = '*',
@@ -34,35 +35,36 @@ return {
   config = function(_, opts)
     require('toggleterm').setup(opts)
 
-    local Terminal = require('toggleterm.terminal').Terminal
+    -- local Terminal = require('toggleterm.terminal').Terminal
 
     -- Lazygit terminal
-    local lazygit = Terminal:new {
-      cmd = 'lazygit',
-      hidden = true,
-      direction = 'float',
-      float_opts = {
-        border = 'rounded',
-      },
-      on_open = function(term)
-        vim.cmd 'startinsert!'
-        -- optional: map 'q' inside lazygit to close terminal
-        vim.api.nvim_buf_set_keymap(
-          term.bufnr,
-          't',
-          'q',
-          '<cmd>close<CR>',
-          { noremap = true, silent = true }
-        )
-      end,
-    }
+    -- local lazygit = Terminal:new {
+    --   cmd = 'lazygit',
+    --   hidden = true,
+    --   direction = 'float',
+    --   float_opts = {
+    --     border = 'rounded',
+    --   },
+    --   on_open = function(term)
+    --     vim.cmd 'startinsert!'
+    --     -- optional: map 'q' inside lazygit to close terminal
+    --     vim.api.nvim_buf_set_keymap(
+    --       term.bufnr,
+    --       't',
+    --       'q',
+    --       '<cmd>close<CR>',
+    --       { noremap = true, silent = true }
+    --     )
+    --   end,
+    -- }
 
-    function _lazygit_toggle()
-      lazygit:toggle()
-    end
+    -- function _lazygit_toggle()
+    --   lazygit:toggle()
+    -- end
 
     -- Keymaps
     local map = vim.api.nvim_set_keymap
+    ---@diagnostic disable-next-line: redefined-local
     local opts = { noremap = true, silent = true }
 
     -- ToggleTerm basics
@@ -88,6 +90,6 @@ return {
     map('n', '<leader>ta', '<cmd>ToggleTermToggleAll<cr>', opts)
 
     -- Lazygit shortcut
-    map('n', '<leader>gg', '<cmd>lua _lazygit_toggle()<CR>', opts)
+    -- map('n', '<leader>gg', '<cmd>lua _lazygit_toggle()<CR>', opts)
   end,
 }
