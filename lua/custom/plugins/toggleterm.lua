@@ -63,33 +63,22 @@ return {
     -- end
 
     -- Keymaps
-    local map = vim.api.nvim_set_keymap
+    local nmap = require('utils.map').nmap
     ---@diagnostic disable-next-line: redefined-local
-    local opts = { noremap = true, silent = true }
 
     -- ToggleTerm basics
-    map('n', '<leader>tf', '<cmd>ToggleTerm direction=float<cr>', opts)
-    map(
-      'n',
-      '<leader>th',
-      '<cmd>ToggleTerm size=10 direction=horizontal<cr>',
-      opts
-    )
-    map(
-      'n',
-      '<leader>tv',
-      '<cmd>ToggleTerm size=80 direction=vertical<cr>',
-      opts
-    )
-    map('n', '<leader>tt', '<cmd>ToggleTerm<cr>', opts)
+    nmap('<leader>tf', '<cmd>ToggleTerm direction=float<cr>')
+    nmap('<leader>th', '<cmd>ToggleTerm size=10 direction=horizontal<cr>')
+    nmap('<leader>tv', '<cmd>ToggleTerm size=80 direction=vertical<cr>')
+    nmap('<leader>tt', '<cmd>ToggleTerm<cr>')
 
     -- Multiple terminals
-    map('n', '<leader>t1', '<cmd>1ToggleTerm<cr>', opts)
-    map('n', '<leader>t2', '<cmd>2ToggleTerm<cr>', opts)
-    map('n', '<leader>t3', '<cmd>3ToggleTerm<cr>', opts)
-    map('n', '<leader>ta', '<cmd>ToggleTermToggleAll<cr>', opts)
+    nmap('<leader>t1', '<cmd>1ToggleTerm<cr>')
+    nmap('<leader>t2', '<cmd>2ToggleTerm<cr>')
+    nmap('<leader>t3', '<cmd>3ToggleTerm<cr>')
+    nmap('<leader>ta', '<cmd>ToggleTermToggleAll<cr>')
 
     -- Lazygit shortcut
-    -- map('n', '<leader>gg', '<cmd>lua _lazygit_toggle()<CR>', opts)
+    -- nmap('<leader>gg', '<cmd>lua _lazygit_toggle()<CR>')
   end,
 }
