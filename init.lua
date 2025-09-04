@@ -347,7 +347,7 @@ require('lazy').setup({
       -- Document existing key chains
       spec = {
         { '<leader>e', group = 'env' },
-        { '<leader>f', group = 'find' },
+        { '<leader>s', group = 'sondear' },
         { '<leader>t', group = 'toggleterm' },
 
         { '<leader>l', group = 'LSP' },
@@ -434,17 +434,17 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
-      nmap('<leader>fh', ':Pick help<cr>', '[H]elp')
-      nmap('<leader>fk', builtin.keymaps, '[K]eymaps')
-      nmap('<leader>ff', builtin.find_files, '[F]iles')
-      nmap('<leader>fs', builtin.builtin, '[S]elect Telescope')
-      nmap('<leader>fw', builtin.grep_string, 'current [W]ord')
-      nmap('<leader>fg', builtin.live_grep, 'by [G]rep')
-      nmap('<leader>fd', builtin.diagnostics, '[D]iagnostics')
-      nmap('<leader>fr', builtin.resume, '[R]esume')
-      nmap('<leader>f.', builtin.oldfiles, 'Recent Files ("." for repeat)')
-      nmap('<leader>fb', builtin.buffers, 'existing [B]uffers')
+      -- vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[H]elp' })
+      nmap('<leader>sh', ':Pick help<cr>', 'help')
+      nmap('<leader>sk', builtin.keymaps, 'keymaps')
+      nmap('<leader>sf', builtin.find_files, 'files')
+      nmap('<leader>ss', builtin.builtin, 'search telescope')
+      nmap('<leader>sw', builtin.grep_string, 'word')
+      nmap('<leader>sg', builtin.live_grep, 'grep')
+      nmap('<leader>sd', builtin.diagnostics, 'diagnostics')
+      nmap('<leader>sr', builtin.resume, 'resume')
+      nmap('<leader>s.', builtin.oldfiles, 'recent ("." for repeat)')
+      nmap('<leader>sb', builtin.buffers, 'buffers')
 
       -- Slightly advanced example of overriding default behavior and theme
       nmap('<leader>/', function()
@@ -455,21 +455,21 @@ require('lazy').setup({
             previewer = false,
           }
         )
-      end, '[/] Fuzzily search in current buffer')
+      end, 'fzf in buffer')
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      nmap('<leader>f/', function()
+      nmap('<leader>s/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, '[F]ind [/] in Open Files')
+      end, 'grep in open files')
 
       -- Shortcut for searching your Neovim configuration files
-      nmap('<leader>fn', function()
+      nmap('<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, '[F]ind [N]eovim files')
+      end, 'nvim conf files')
     end,
   },
 
