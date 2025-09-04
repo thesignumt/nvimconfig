@@ -7,7 +7,9 @@ return {
     local ui = require 'harpoon.ui'
 
     nmap('<leader>a', mark.add_file, 'Harpoon: Mark File')
+    nmap('<leader>A', mark.rm_file, 'Harpoon: RM File')
     nmap('<leader>h', ui.toggle_quick_menu, 'Toggle Harpoon Menu')
+    nmap('<leader>H', mark.clear_all, 'Harpoon: Clear All Files')
 
     local nav_keys = { h = 1, j = 2, k = 3, l = 4, [';'] = 5 }
     for key, idx in pairs(nav_keys) do
