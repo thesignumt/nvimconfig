@@ -1,0 +1,7 @@
+require 'core.cmds'
+require 'core.genor'
+require 'core.opts'
+require 'core.remaps'
+require 'core.snippets'
+require 'core.typst'
+require 'core.video'
