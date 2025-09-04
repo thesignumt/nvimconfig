@@ -1,11 +1,13 @@
 return {
-    "folke/zen-mode.nvim",
-    opts = {
-        -- your configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
+  'folke/zen-mode.nvim',
+  opts = {
+    window = {
+      options = {
+        winborder = 'none', -- or whatever you prefer instead of "rounded"
+      },
     },
-    setup = function()
-        require("zen-mode").setup()
-    end
+  },
+  config = function(_, opts)
+    require('zen-mode').setup(opts)
+  end,
 }
