@@ -131,14 +131,13 @@ m.modes('nv', '<leader>c', '1z=')
 
 -- Search & replace word under cursor
 nmap(
-
   '<leader>s',
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   'replace word'
 )
 
 -- Paste without overwriting register
-vmap('p', '"_dP')
+m.xmap('p', '"_dP')
 
 -- Delete all marks
 m.modes('nv', 'dm', ':delm!<cr>', 'Delete all marks')
