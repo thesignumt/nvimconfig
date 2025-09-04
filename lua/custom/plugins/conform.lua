@@ -42,16 +42,18 @@ return {
       },
     }
 
-    vim.keymap.set({ 'n', 'v' }, '<leader>lf', function()
+    local m = require 'utils.map'
+
+    m.modes('nv', '<leader>lf', function()
       require('conform').format {
         async = true,
         lsp_fallback = true,
         timeout_ms = 1000,
       }
-    end, { desc = 'Format buffer or selection' })
+    end, 'Format buffer or selection')
 
     -- Keybind: <leader>tf to toggle format-on-save globally
-    vim.keymap.set('n', '<leader>ef', function()
+    m.nmap('<leader>ef', function()
       vim.g.disable_autoformat = not vim.g.disable_autoformat
       vim.notify(
         'Format-on-save ' .. vim.g.disable_autoformat and 'DISABLED'
@@ -59,7 +61,7 @@ return {
         vim.log.levels.INFO,
         { title = 'conform.nvim' }
       )
-    end, { desc = 'Toggle format-on-save globally' })
+    end, 'Toggle format-on-save globally')
 
     -- Optional: buffer-local toggle command
     vim.api.nvim_create_user_command(

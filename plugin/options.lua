@@ -94,7 +94,7 @@ local modes = { 'n', 'x', 'v', 'o', 's', 'i', 't' } -- all relevant modes
 for _, mode in ipairs(modes) do
   for _, map in ipairs(vim.api.nvim_get_keymap(mode)) do
     if map.lhs:match '^gr.' and map.lhs ~= 'gr' then
-      pcall(vim.keymap.del, mode, map.lhs) -- pcall avoids errors if already removed
+      pcall(require('utils.map').unmap, mode, map.lhs) -- pcall avoids errors if already removed
     end
   end
 end
@@ -103,24 +103,10 @@ end
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(e)
     local opts = { buffer = e.buf }
-    vim.keymap.set(
-      'n',
-      '<leader>la',
-      vim.lsp.buf.code_action,
-      mt(opts, { desc = 'Code Actions' })
-    )
-    vim.keymap.set(
-      'n',
-      '<leader>lr',
-      vim.lsp.buf.rename,
-      mt(opts, { desc = 'Rename' })
-    )
-    vim.keymap.set(
-      'n',
-      '<leader>lk',
-      vim.diagnostic.open_float,
-      mt(opts, { desc = 'Open floating diagnostics' })
-    )
+    local nmap = require('utils.map').nmap
+    nmap('<leader>la', vim.lsp.buf.code_action, 'Code Actions')
+    nmap('<leader>ln', vim.lsp.buf.rename, 'Rename')
+    nmap('<leader>lk', vim.diagnostic.open_float, 'Open floating diagnostics')
   end,
 })
 
@@ -159,7 +145,7 @@ end
 
 -- vim.keymap.set('n', '<leader>tt', crtTerm, { desc = 'Toggle Terminal' })
 
-vim.keymap.set('n', '<leader><leader>time', function()
+require('utils.map').nmap('<leader><leader>time', function()
   vim.fn.chansend(job_id, { 'time ' .. vim.fn.expand '%:p' })
 end)
 

@@ -28,8 +28,9 @@ return {
         },
       },
     }
-    vim.keymap.set('n', '<leader>e', ':Oil --float<cr>', { desc = 'oil' })
-    vim.keymap.set('n', '<leader>ep', function()
+    local nmap = require('utils.map').nmap
+    nmap('<leader>e', ':Oil --float<cr>', { desc = 'oil' })
+    nmap('<leader>ep', function()
       local file_dir = vim.fn.expand '%:p:h' -- get the current file's directory
       if file_dir ~= '' then
         vim.cmd('cd ' .. file_dir)

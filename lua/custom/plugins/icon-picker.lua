@@ -7,9 +7,13 @@ return {
       local opts = { noremap = true, silent = true }
       local dblL = '<leader><leader>'
 
-      vim.keymap.set('n', dblL .. 'i', '<cmd>IconPickerNormal<cr>', opts)
-      vim.keymap.set('n', dblL .. 'y', '<cmd>IconPickerYank<cr>', opts) --> Yank the selected
-      vim.keymap.set('i', '<C-i>', '<cmd>IconPickerInsert<cr>', opts)
+      local m = require 'utils.map'
+      local nmap = m.nmap
+      local imap = m.imap
+
+      nmap(dblL .. 'i', '<cmd>IconPickerNormal<cr>')
+      nmap(dblL .. 'y', '<cmd>IconPickerYank<cr>') --> Yank the selected
+      imap('<C-i>', '<cmd>IconPickerInsert<cr>')
     end,
   },
 }
