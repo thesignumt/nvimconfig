@@ -108,14 +108,13 @@ return {
   },
   {
     'folke/flash.nvim',
-    init = function()
-      require('flash').setup()
-    end,
+    event = 'VeryLazy',
+    opts = {}, -- replaces `init = function() require("flash").setup() end`
   },
+
   {
     'danymat/neogen',
-    config = true,
-    -- Uncomment next line if you want to follow only stable versions
-    version = '*',
+    version = '*', -- stable versions only
+    config = true, -- runs `require("neogen").setup({})`
   },
 }
