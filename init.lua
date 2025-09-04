@@ -162,13 +162,18 @@ vim.opt.scrolloff = 10
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- my util
+local m = require 'utils.map'
+local imap = m.imap
+local nmap = m.nmap
+local vmap = m.vmap
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+nmap('<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-vim.keymap.set(
-  'n',
+nmap(
   '<leader>lq',
   vim.diagnostic.setloclist,
   { desc = 'Open diagnostic [Q]uickfix list' }
@@ -180,47 +185,22 @@ vim.keymap.set(
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set(
-  't',
-  '<Esc><Esc>',
-  '<C-\\><C-n>',
-  { desc = 'Exit terminal mode' }
-)
+m.tmap('<Esc><Esc>', '<C-\\><C-n>', 'Exit terminal mode')
 
 -- TIP: Disable arrow keys in normal mode
-vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
-vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
-vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
-vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
+nmap('<left>', '<cmd>echo "Use h to move!!"<CR>')
+nmap('<right>', '<cmd>echo "Use l to move!!"<CR>')
+nmap('<up>', '<cmd>echo "Use k to move!!"<CR>')
+nmap('<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set(
-  'n',
-  '<C-h>',
-  '<C-w><C-h>',
-  { desc = 'Move focus to the left window' }
-)
-vim.keymap.set(
-  'n',
-  '<C-l>',
-  '<C-w><C-l>',
-  { desc = 'Move focus to the right window' }
-)
-vim.keymap.set(
-  'n',
-  '<C-j>',
-  '<C-w><C-j>',
-  { desc = 'Move focus to the lower window' }
-)
-vim.keymap.set(
-  'n',
-  '<C-k>',
-  '<C-w><C-k>',
-  { desc = 'Move focus to the upper window' }
-)
+nmap('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
+nmap('<C-l>', '<C-w><C-l>', 'Move focus to the right window')
+nmap('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
+nmap('<C-k>', '<C-w><C-k>', 'Move focus to the upper window')
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -370,8 +350,7 @@ require('lazy').setup({
       spec = {
         { '<leader>e', group = 'env' },
         { '<leader>f', group = 'find' },
-        { '<leader>t', group = '[T]oggle' },
-        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
+        { '<leader>t', group = 'toggleterm' },
 
         { '<leader>l', group = 'LSP' },
       },
@@ -458,54 +437,19 @@ require('lazy').setup({
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
       -- vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[H]elp' })
-      vim.keymap.set('n', '<leader>fh', ':Pick help<cr>', { desc = '[H]elp' })
-      vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[K]eymaps' })
-      vim.keymap.set(
-        'n',
-        '<leader>ff',
-        builtin.find_files,
-        { desc = '[F]iles' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>fs',
-        builtin.builtin,
-        { desc = '[S]elect Telescope' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>fw',
-        builtin.grep_string,
-        { desc = 'current [W]ord' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>fg',
-        builtin.live_grep,
-        { desc = 'by [G]rep' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>fd',
-        builtin.diagnostics,
-        { desc = '[D]iagnostics' }
-      )
-      vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[R]esume' })
-      vim.keymap.set(
-        'n',
-        '<leader>f.',
-        builtin.oldfiles,
-        { desc = 'Recent Files ("." for repeat)' }
-      )
-      vim.keymap.set(
-        'n',
-        '<leader>fb',
-        builtin.buffers,
-        { desc = 'existing [B]uffers' }
-      )
+      nmap('<leader>fh', ':Pick help<cr>', '[H]elp')
+      nmap('<leader>fk', builtin.keymaps, '[K]eymaps')
+      nmap('<leader>ff', builtin.find_files, '[F]iles')
+      nmap('<leader>fs', builtin.builtin, '[S]elect Telescope')
+      nmap('<leader>fw', builtin.grep_string, 'current [W]ord')
+      nmap('<leader>fg', builtin.live_grep, 'by [G]rep')
+      nmap('<leader>fd', builtin.diagnostics, '[D]iagnostics')
+      nmap('<leader>fr', builtin.resume, '[R]esume')
+      nmap('<leader>f.', builtin.oldfiles, 'Recent Files ("." for repeat)')
+      nmap('<leader>fb', builtin.buffers, 'existing [B]uffers')
 
       -- Slightly advanced example of overriding default behavior and theme
-      vim.keymap.set('n', '<leader>/', function()
+      nmap('<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
         builtin.current_buffer_fuzzy_find(
           require('telescope.themes').get_dropdown {
@@ -513,21 +457,21 @@ require('lazy').setup({
             previewer = false,
           }
         )
-      end, { desc = '[/] Fuzzily search in current buffer' })
+      end, '[/] Fuzzily search in current buffer')
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      vim.keymap.set('n', '<leader>f/', function()
+      nmap('<leader>f/', function()
         builtin.live_grep {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
         }
-      end, { desc = '[F]ind [/] in Open Files' })
+      end, '[F]ind [/] in Open Files')
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>fn', function()
+      nmap('<leader>fn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = '[F]ind [N]eovim files' })
+      end, '[F]ind [N]eovim files')
     end,
   },
 
@@ -605,7 +549,7 @@ require('lazy').setup({
           -- for LSP related items. It sets the mode, buffer and description for us each time.
           local map = function(keys, func, desc, mode)
             mode = mode or 'n'
-            vim.keymap.set(
+            m.map(
               mode,
               keys,
               func,
@@ -690,6 +634,7 @@ require('lazy').setup({
             if vim.fn.has 'nvim-0.11' == 1 then
               return client:supports_method(method, bufnr)
             else
+              ---@diagnostic disable-next-line: param-type-mismatch
               return client.supports_method(method, { bufnr = bufnr })
             end
           end
@@ -1143,12 +1088,12 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
-  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
