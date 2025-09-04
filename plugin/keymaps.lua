@@ -4,32 +4,11 @@
 -- Helpers
 ------------------------------------------------------------
 
-local map = vim.keymap.set
 local kc = vim.keycode
-local opts = { noremap = true, silent = true }
-
--- Delete keymaps utility
-local function unmap(modes, lhs)
-  modes = type(modes) == 'string' and { modes } or modes
-  lhs = type(lhs) == 'string' and { lhs } or lhs
-  for _, mode in pairs(modes) do
-    for _, l in pairs(lhs) do
-      pcall(vim.keymap.del, mode, l)
-    end
-  end
-end
-
--- Merge tables (t2 overwrites t1 on conflict)
-local function mt(t1, t2)
-  local out = {}
-  for k, v in pairs(t1) do
-    out[k] = v
-  end
-  for k, v in pairs(t2) do
-    out[k] = v
-  end
-  return out
-end
+local m = require 'utils.map'
+local imap = m.imap
+local nmap = m.nmap
+local vmap = m.vmap
 
 -- DIY comment toggle
 function _G.toggle_comment()
@@ -46,59 +25,54 @@ function _G.toggle_comment()
 end
 
 -- Filetype-aware increment snippet
-local function plusplus()
-  if vim.bo.filetype == 'python' then
-    return ' += 1'
-  elseif vim.bo.filetype == 'c' then
-    return '++;'
-  else
-    return ' = <Esc>^yt=f=lpa+ 1'
-  end
-end
+-- local function plusplus()
+--   if vim.bo.filetype == 'python' then
+--     return ' += 1'
+--   elseif vim.bo.filetype == 'c' then
+--     return '++;'
+--   else
+--     return ' = <Esc>^yt=f=lpa+ 1'
+--   end
+-- end
 
 ------------------------------------------------------------
 -- Plugin Keymaps
 ------------------------------------------------------------
 
 -- CodeCompanion
-map(
-  { 'n', 'v' },
-  '<leader>lc',
-  ':CodeCompanionChat<cr>',
-  mt(opts, { desc = 'CodeCompanionChat' })
-)
+m.modes('nv', '<leader>lc', ':CodeCompanionChat<cr>', 'CodeCompanionChat')
 
 -- Barbar Buffer Navigation
-map('n', '<A-,>', '<Cmd>BufferPrevious<cr>', opts)
-map('n', '<A-.>', '<Cmd>BufferNext<cr>', opts)
-map('n', '<A-<>', '<Cmd>BufferMovePrevious<cr>', opts)
-map('n', '<A->>', '<Cmd>BufferMoveNext<cr>', opts)
-map('n', '<A-p>', '<Cmd>BufferPin<cr>', opts)
-map('n', '<A-c>', '<Cmd>BufferClose<cr>', opts)
+-- map('n', '<A-,>', '<Cmd>BufferPrevious<cr>', opts)
+-- map('n', '<A-.>', '<Cmd>BufferNext<cr>', opts)
+-- map('n', '<A-<>', '<Cmd>BufferMovePrevious<cr>', opts)
+-- map('n', '<A->>', '<Cmd>BufferMoveNext<cr>', opts)
+-- map('n', '<A-p>', '<Cmd>BufferPin<cr>', opts)
+-- map('n', '<A-c>', '<Cmd>BufferClose<cr>', opts)
 
 -- Flash plugin shortcuts
-map('n', '<leader>ls', function()
+nmap('<leader>ls', function()
   require('flash').jump()
-end, mt(opts, { desc = 'Flash Jump' }))
-map('n', '<leader>lt', function()
+end, 'Flash Jump')
+nmap('<leader>lt', function()
   require('flash').treesitter()
-end, mt(opts, { desc = 'Flash Treesitter' }))
-map('n', '<leader>lr', function()
+end, 'Flash Treesitter')
+nmap('<leader>lr', function()
   require('flash').treesitter_search()
-end, mt(opts, { desc = 'Flash Treesitter Search' }))
+end, 'Flash Treesitter Search')
 
 -- ZenMode
-map('n', '<leader>u', ':ZenMode<cr>', opts)
+nmap('<leader>u', ':ZenMode<cr>')
 
 ------------------------------------------------------------
 -- File and Config Management
 ------------------------------------------------------------
 
-map('n', '<leader>v', ':e $MYVIMRC<cr>', opts)
-map('n', '<leader>q', ':x<cr>', opts)
-map('n', '<leader>Q', ':qa!<cr>', { desc = 'quit neovim' })
-map('n', '<leader>w', ':write<cr>', opts)
-map('n', '<leader>o', ':update<cr>:source<cr>')
+nmap('<leader>v', ':e $MYVIMRC<cr>')
+nmap('<leader>q', ':x<cr>')
+nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
+nmap('<leader>w', ':write<cr>')
+nmap('<leader>o', ':update<cr>:source<cr>')
 
 -- Uncomment if you want explorer keymap
 -- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
@@ -111,72 +85,71 @@ map('n', '<leader>o', ':update<cr>:source<cr>')
 -- map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<cr>', mt(opts, { desc = 'Execute line/selection' }))
 
 -- Toggle tab width 2 <-> 4
-map('n', '<leader>tw', function()
+nmap('<leader>tw', function()
   local new_width = (vim.bo.tabstop == 2) and 4 or 2
   vim.bo.tabstop = new_width
   vim.bo.shiftwidth = new_width
   vim.bo.softtabstop = new_width
-end, mt(opts, { desc = 'tab spaces 2 <-> 4' }))
+end, 'tab spaces 2 <-> 4')
 
 -- Yank & paste above/below lines
-map({ 'n', 'v' }, '<C-A-k>', function()
-  return vim.fn.mode() == 'n' and 'yyP' or 'yP'
-end, { expr = true, desc = 'Yank and paste above' })
-map({ 'n', 'v' }, '<C-A-j>', function()
-  return vim.fn.mode() == 'n' and 'yyp' or 'ygv<Esc>p'
-end, { expr = true, desc = 'Yank and paste below' })
+m.modes('n', '<C-A-k>', 'yyP', 'Yank and paste above')
+m.modes('v', '<C-A-k>', 'yP', 'Yank and paste above')
+
+m.modes('n', '<C-A-j>', 'yyp', 'Yank and paste below')
+m.modes('v', '<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
 
 -- New line without yanking
 -- map('n', '<A-o>', 'mzo<Esc>0"_D`z:delm z<cr>', opts)
 -- map('n', '<A-O>', 'mzO<Esc>0"_D`z:delm z<cr>', opts)
 
 -- Yank entire buffer
-map('n', 'yA', '<cmd>%yank<cr>', { desc = 'yank buffer' })
+nmap('yA', '<cmd>%yank<cr>', { desc = 'yank buffer' })
 
 -- Visual mode move lines up/down
-map('v', 'J', ":m '>+1<cr>gv=gv", opts)
-map('v', 'K', ":m '<-2<cr>gv=gv", opts)
+vmap('J', ":m '>+1<cr>gv=gv")
+vmap('K', ":m '<-2<cr>gv=gv")
 
 -- Join lines without moving cursor
-map('n', 'J', 'mzJ`z:delm z<cr>')
-map('n', 'gJ', 'mzgJ`z:delm z<cr>')
+nmap('J', 'mzJ`z:delm z<cr>')
+nmap('gJ', 'mzgJ`z:delm z<cr>')
 
 -- Center screen after movement commands
-map('n', '<C-d>', '<C-d>zz', opts)
-map('n', '<C-u>', '<C-u>zz', opts)
-map('n', 'G', 'Gzz', opts)
-map('n', 'n', 'nzzzv', opts)
-map('n', 'N', 'Nzzzv', opts)
+nmap('<C-d>', '<C-d>zz')
+nmap('<C-u>', '<C-u>zz')
+nmap('G', 'Gzz')
+nmap('n', 'nzzzv')
+nmap('N', 'Nzzzv')
 
-map('n', '<leader>zig', '<cmd>LspRestart<cr>')
+nmap('<leader>zig', '<cmd>LspRestart<cr>')
 
 -- Clipboard yank
-map('n', '<leader>Y', '"+Y', opts)
-map({ 'n', 'v' }, '<leader>y', '"+y', opts)
-map({ 'n', 'v' }, '<leader>d', '"+d', opts)
-map({ 'n', 'v' }, '<leader>c', '1z=', opts)
+nmap('<leader>Y', '"+Y')
+m.modes('nv', '<leader>y', '"+y')
+m.modes('nv', '<leader>d', '"+d')
+m.modes('nv', '<leader>c', '1z=')
 
 -- Search & replace word under cursor
-map(
-  'n',
+nmap(
+
   '<leader>s',
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  mt(opts, { desc = 'replace word' })
+  'replace word'
 )
 
 -- Paste without overwriting register
-map('v', 'p', '"_dP', opts)
+vmap('p', '"_dP')
 
 -- Delete all marks
-map({ 'n', 'v' }, 'dm', ':delm!<cr>', mt(opts, { desc = 'Delete all marks' }))
+m.modes('nv', 'dm', ':delm!<cr>', 'Delete all marks')
 
 -- Line navigation (start and end of line)
-map({ 'n', 'v' }, 'H', '^', mt(opts, { desc = 'Start of line' }))
-map({ 'n', 'v' }, 'L', 'g_', mt(opts, { desc = 'End of line' }))
+m.modes('nv', 'H', '^', 'Start of line')
+m.modes('nv', 'L', 'g_', 'End of line')
 
 -- Indent and keep selection
-map('v', '<', '<gv', opts)
-map('v', '>', '>gv', opts)
+vmap('<', '<gv')
+vmap('>', '>gv')
 
 -- Divide code chunk with comment toggle
 -- map(
@@ -192,24 +165,24 @@ map('v', '>', '>gv', opts)
 -- end, { silent = true, noremap = true, desc = 'Toggle diagnostics' })
 
 -- Paste line above/below preserving cursor
-map('n', '<leader>p', 'm`o<ESC>p``', { desc = 'Paste line below' })
-map('n', '<leader>P', 'm`O<ESC>p``', { desc = 'Paste line above' })
+nmap('<leader>p', 'm`o<ESC>p``', 'Paste line below')
+nmap('<leader>P', 'm`O<ESC>p``', 'Paste line above')
 
 ------------------------------------------------------------
 -- Insert mode mappings
 ------------------------------------------------------------
 
 -- Delete word backwards and forward
-map('i', '<C-h>', '<C-w>', opts)
-map('i', '<C-l>', '<C-o>dw', opts)
+imap('<C-h>', '<C-w>')
+imap('<C-l>', '<C-o>dw')
 
 -- Undo/redo breakpoints
-map('i', '<C-u>', '<C-g>u', opts)
-map('i', '<C-r>', '<C-g>U', opts)
+imap('<C-u>', '<C-g>u')
+imap('<C-r>', '<C-g>U')
 
 -- Break undo at punctuation
 for _, ch in ipairs { ',', '.', '!', '?', ';', ':' } do
-  map('i', ch, ch .. '<c-g>u', opts)
+  imap(ch, ch .. '<c-g>u')
 end
 
 ------------------------------------------------------------
@@ -217,7 +190,7 @@ end
 ------------------------------------------------------------
 
 -- Toggle hlsearch on Enter keypress
-map('n', '<cr>', function()
+nmap('<cr>', function()
   vim.cmd [[ echon '' ]]
   if vim.v.hlsearch == 1 then
     vim.cmd.nohl()
@@ -228,4 +201,4 @@ map('n', '<cr>', function()
 end, { expr = true })
 
 -- Record Picker
-map('n', '<leader>R', ':RecordPicker<cr>', { silent = false })
+nmap('<leader>R', ':RecordPicker<cr>')
