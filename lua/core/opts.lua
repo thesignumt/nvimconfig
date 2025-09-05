@@ -33,7 +33,10 @@ vim.opt.wrap = true
 vim.opt.title = true
 vim.opt.titlelen = 0
 vim.o.cmdheight = 1
-vim.o.swapfile = false
+vim.opt.swapfile = false
+vim.opt.backup = false
+vim.opt.undodir = vim.fn.stdpath 'data' .. '/undo'
+vim.opt.undofile = true
 
 vim.o.shell = 'pwsh'
 vim.o.shellcmdflag =
