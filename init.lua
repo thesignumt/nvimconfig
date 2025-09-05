@@ -108,6 +108,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
+-- NOTE: disabled mouse mode because i want to be like theprimeagen
 vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
@@ -117,8 +118,9 @@ vim.opt.showmode = false
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
+--  NOTE: disabled sync clipboard because if enabled then the "+y "+d etc remaps would be purposeless
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = ''
 end)
 
 -- Enable break indent
