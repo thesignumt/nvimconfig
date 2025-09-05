@@ -101,7 +101,7 @@ m.modes('v', '<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
 -- map('n', '<A-O>', 'mzO<Esc>0"_D`z:delm z<cr>', opts)
 
 -- Yank entire buffer
-nmap('yA', '<cmd>%yank<cr>', { desc = 'yank buffer' })
+nmap('yA', '<cmd>%yank+<cr>', { desc = 'yank buffer to "+' })
 
 -- Visual mode move lines up/down
 vmap('J', ":m '>+1<cr>gv=gv")
