@@ -61,9 +61,6 @@ nmap('<leader>lr', function()
   require('flash').treesitter_search()
 end, 'Flash Treesitter Search')
 
--- ZenMode
-nmap('<leader>u', ':ZenMode<cr>')
-
 ------------------------------------------------------------
 -- File and Config Management
 ------------------------------------------------------------
