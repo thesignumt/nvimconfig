@@ -23,12 +23,8 @@ return {
     shell = vim.o.shell,
     auto_scroll = true,
     float_opts = {
-      border = 'rounded',
+      border = 'single',
       winblend = 0,
-      highlights = {
-        border = 'FloatBorder:CmpBorder',
-        background = 'Normal',
-      },
     },
   },
 
@@ -62,9 +58,10 @@ return {
     --   lazygit:toggle()
     -- end
 
-    -- Keymaps
+    -- +-----------------------------------+
+    -- [              keymaps              ]
+    -- +-----------------------------------+
     local nmap = require('utils.map').nmap
-    ---@diagnostic disable-next-line: redefined-local
 
     -- ToggleTerm basics
     nmap('<leader>tf', '<cmd>ToggleTerm direction=float<cr>')
