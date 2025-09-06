@@ -18,37 +18,35 @@ function M.unmap(modes, lhs, opts)
   end
 end
 
-function M.map(mode, lhs, rhs, text_or_opts, opts)
-  check_type(mode, 'string_or_table', 'mode')
-  check_type(lhs, 'string', 'lhs')
-  check_type(rhs, 'string_or_fun', 'rhs')
+--- safely map keymaps
+--- @param mode string|string[] Mode(s) to set remaps to.
+--- @param lhs string left-hand side of the mapping.
+--- @param rhs string|function right-hand side of the mapping, can be a Lua function.
+--- @param desc_or_opts? string|vim.keymap.set.Opts
+--- @param opts? vim.keymap.set.Opts
+function M.map(mode, lhs, rhs, desc_or_opts, opts)
+  vim.validate('mode', mode, { 'string', 'table' })
+  vim.validate('lhs', lhs, 'string')
+  vim.validate('rhs', rhs, { 'string', 'function' })
+  vim.validate('desc_or_opts', desc_or_opts, { 'string', 'table' }, true)
+  vim.validate('opts', opts, 'table', true)
 
-  -- Handle flexible arguments
-  local text
-  if type(text_or_opts) == 'string' then
-    text = text_or_opts
-  elseif type(text_or_opts) == 'table' then
-    opts = text_or_opts
-    text = nil
-  elseif text_or_opts ~= nil then
-    error 'Expected text (string) or opts (table) as 4th parameter'
+  ---@cast mode string[]
+  mode = type(mode) == 'string' and { mode } or mode
+
+  local base_opts = vim.tbl_extend(
+    'force',
+    opts or { noremap = true, silent = true },
+    type(desc_or_opts) == 'string' and { desc = desc_or_opts }
+      or desc_or_opts
+      or {}
+  )
+
+  for _, m in ipairs(mode) do
+    pcall(vim.keymap.set, m, lhs, rhs, vim.deepcopy(base_opts, true))
   end
-
-  check_type(text, 'string_or_nil', 'text')
-  check_type(opts, 'table_or_nil', 'opts')
-
-  local options = { noremap = true, silent = true }
-  if text then
-    options.desc = text
-  end
-  if opts then
-    options = vim.tbl_extend('force', options, opts)
-  end
-
-  vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- Convenience functions
 local function create_mapper(mode)
   return function(lhs, rhs, text_or_opts, opts)
     M.map(mode, lhs, rhs, text_or_opts, opts)
@@ -64,18 +62,17 @@ M.cmap = create_mapper 'c'
 M.omap = create_mapper 'o'
 M.tmap = create_mapper 't'
 
--- Map multiple modes from string like "nvx"
 function M.modes(mode_str, lhs, rhs, text_or_opts, opts)
-  check_type(mode_str, 'string', 'mode_str')
-  check_type(lhs, 'string', 'lhs')
-  check_type(rhs, 'string_or_fun', 'rhs')
+  -- check_type(mode_str, 'string', 'mode_str')
+  -- check_type(lhs, 'string', 'lhs')
+  -- check_type(rhs, 'string_or_fun', 'rhs')
 
-  local mode_table = {}
+  local modes = {}
   for c in mode_str:gmatch '.' do
-    table.insert(mode_table, c)
+    table.insert(modes, c)
   end
 
-  M.map(mode_table, lhs, rhs, text_or_opts, opts)
+  M.map(modes, lhs, rhs, text_or_opts, opts)
 end
 
 return M
