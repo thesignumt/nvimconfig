@@ -47,9 +47,12 @@ function M.map(mode, lhs, rhs, desc_or_opts, opts)
   end
 end
 
+---create a simple mapper preset
+---@param mode string
+---@return function
 local function create_mapper(mode)
-  return function(lhs, rhs, text_or_opts, opts)
-    M.map(mode, lhs, rhs, text_or_opts, opts)
+  return function(lhs, rhs, desc_opts, opts)
+    M.map(mode, lhs, rhs, desc_opts, opts)
   end
 end
 
@@ -62,17 +65,23 @@ M.cmap = create_mapper 'c'
 M.omap = create_mapper 'o'
 M.tmap = create_mapper 't'
 
-function M.modes(mode_str, lhs, rhs, text_or_opts, opts)
+--- safely map keymaps in multiple modes
+--- @param modes_str string Modes to set remaps to.
+--- @param lhs string left-hand side of the mapping.
+--- @param rhs string|function right-hand side of the mapping, can be a Lua function.
+--- @param desc_or_opts? string|vim.keymap.set.Opts
+--- @param opts? vim.keymap.set.Opts
+function M.modes(modes_str, lhs, rhs, desc_or_opts, opts)
   -- check_type(mode_str, 'string', 'mode_str')
   -- check_type(lhs, 'string', 'lhs')
   -- check_type(rhs, 'string_or_fun', 'rhs')
 
   local modes = {}
-  for c in mode_str:gmatch '.' do
+  for c in modes_str:gmatch '.' do
     table.insert(modes, c)
   end
 
-  M.map(modes, lhs, rhs, text_or_opts, opts)
+  M.map(modes, lhs, rhs, desc_or_opts, opts)
 end
 
 return M
