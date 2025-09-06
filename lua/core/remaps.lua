@@ -51,15 +51,13 @@ m.modes('nv', '<leader>lc', ':CodeCompanionChat<cr>', 'CodeCompanionChat')
 -- map('n', '<A-c>', '<Cmd>BufferClose<cr>', opts)
 
 -- Flash plugin shortcuts
-nmap('<leader>ls', function()
-  require('flash').jump()
-end, 'Flash Jump')
-nmap('<leader>lt', function()
-  require('flash').treesitter()
-end, 'Flash Treesitter')
-nmap('<leader>lr', function()
-  require('flash').treesitter_search()
-end, 'Flash Treesitter Search')
+nmap('<leader>ls', require('flash').jump, 'Flash Jump')
+nmap('<leader>lt', require('flash').treesitter, 'Flash Treesitter')
+nmap(
+  '<leader>lr',
+  require('flash').treesitter_search,
+  'Flash Treesitter Search'
+)
 
 ------------------------------------------------------------
 -- File and Config Management
@@ -122,8 +120,8 @@ nmap('<leader>zig', '<cmd>LspRestart<cr>')
 
 -- Clipboard yank
 nmap('<leader>Y', '"+Y')
-m.modes('nv', '<leader>y', '"+y')
-m.modes('nv', '<leader>d', '"+d')
+m.modes('nx', '<leader>y', '"+y')
+m.modes('nx', '<leader>d', '"+d')
 m.modes('nv', '<leader>c', '1z=')
 
 -- Search & replace word under cursor
