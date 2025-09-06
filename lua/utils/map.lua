@@ -1,58 +1,20 @@
 local M = {}
 
-local function check_type(value, expected, name)
-  if expected == 'string_or_table' then
-    if type(value) ~= 'string' and type(value) ~= 'table' then
-      error(
-        string.format(
-          'Expected %s to be string or table, got %s',
-          name,
-          type(value)
-        )
-      )
-    end
-  elseif expected == 'string_or_fun' then
-    if type(value) ~= 'string' and type(value) ~= 'function' then
-      error(
-        string.format(
-          'Expected %s to be string or function, got %s',
-          name,
-          type(value)
-        )
-      )
-    end
-  elseif expected == 'table_or_nil' then
-    if value ~= nil and type(value) ~= 'table' then
-      error(
-        string.format(
-          'Expected %s to be table or nil, got %s',
-          name,
-          type(value)
-        )
-      )
-    end
-  elseif expected == 'string_or_nil' then
-    if value ~= nil and type(value) ~= 'string' then
-      error(
-        string.format(
-          'Expected %s to be string or nil, got %s',
-          name,
-          type(value)
-        )
-      )
-    end
-  end
-end
+--- Safely unmap keys
+---@param modes string|string[] Mode(s) to unmap, e.g., 'n' or {'n', 'v'}
+---@param lhs string The key sequence to unmap
+---@param opts? vim.keymap.del.Opts
+function M.unmap(modes, lhs, opts)
+  vim.validate('modes', modes, { 'string', 'table' })
+  vim.validate('lhs', lhs, 'string')
+  vim.validate('opts', opts, 'table', true)
 
-function M.unmap(modes, lhs)
-  check_type(modes, 'string_or_table', 'modes')
-  check_type(lhs, 'string_or_table', 'lhs')
+  opts = opts or {}
   modes = type(modes) == 'string' and { modes } or modes
-  lhs = type(lhs) == 'string' and { lhs } or lhs
-  for _, mode in pairs(modes) do
-    for _, l in pairs(lhs) do
-      pcall(vim.keymap.del, mode, l)
-    end
+  --- @cast modes string[]
+
+  for _, mode in ipairs(modes) do
+    pcall(vim.keymap.del, mode, lhs, opts)
   end
 end
 
