@@ -64,7 +64,7 @@ nmap(
 ------------------------------------------------------------
 
 nmap('<leader>v', ':e $MYVIMRC<cr>')
-nmap('<leader>q', ':x<cr>')
+nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
 nmap('<leader>w', ':write<cr>')
 nmap('<leader>o', ':update<cr>:source<cr>')
@@ -121,6 +121,7 @@ nmap('<leader>zig', '<cmd>LspRestart<cr>')
 -- Clipboard yank
 nmap('<leader>Y', '"+Y')
 m.modes('nx', '<leader>y', '"+y')
+m.modes('nx', '<leader>p', '"+p')
 m.modes('nx', '<leader>d', '"+d')
 m.modes('nv', '<leader>c', '1z=')
 
@@ -159,8 +160,8 @@ vmap('>', '>gv')
 -- end, { silent = true, noremap = true, desc = 'Toggle diagnostics' })
 
 -- Paste line above/below preserving cursor
-nmap('<leader>p', 'm`o<ESC>p``', 'Paste line below')
-nmap('<leader>P', 'm`O<ESC>p``', 'Paste line above')
+-- nmap('<leader>p', 'm`o<ESC>p``', 'Paste line below')
+-- nmap('<leader>P', 'm`O<ESC>p``', 'Paste line above')
 
 ------------------------------------------------------------
 -- Insert mode mappings
