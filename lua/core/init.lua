@@ -1,20 +1,7 @@
-local modules = {
-  'cmds',
-  'genor',
-  'opts',
-  'remaps',
-  'snippets',
-  'typst',
-  'video',
-}
+local m = require 'utils.map'
+local nmap = m.nmap
+local dblL = '<leader><leader>'
+local mkcmt = require 'utils.mkcmt'
 
--- Require each module
-for _, module in ipairs(modules) do
-  local ok, err = pcall(require, 'core.' .. module)
-  if not ok then
-    vim.notify(
-      'Error loading core.' .. module .. '\n\n' .. err,
-      vim.log.levels.ERROR
-    )
-  end
-end
+mkcmt.setup {}
+nmap(dblL .. 'c', mkcmt.comment)
