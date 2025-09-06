@@ -50,18 +50,6 @@ vim.o.shellxquote = ''
 -- Utility Functions
 ------------------------------------------------------------
 
--- Merge tables (t2 overwrites t1)
-local function mt(t1, t2)
-  local out = {}
-  for k, v in pairs(t1) do
-    out[k] = v
-  end
-  for k, v in pairs(t2) do
-    out[k] = v
-  end
-  return out
-end
-
 -- Check if value x is in list (array)
 local function is_in_list(x, list)
   for _, v in ipairs(list) do
