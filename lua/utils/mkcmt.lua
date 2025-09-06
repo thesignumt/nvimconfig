@@ -1,6 +1,7 @@
 local M = {}
 local config = {
   default_title = 'HELLO WORLD',
+  cmd = true,
   min_width = 40, -- minimum width of the block
   padding = 6, -- extra spacing around title
   chs = {
@@ -13,6 +14,10 @@ function M.setup(user_pref)
   user_pref = user_pref or {}
   for k, v in pairs(user_pref) do
     config[k] = v
+  end
+
+  if config.cmd then
+    vim.api.nvim_create_user_command('MkCmt', M.comment, {})
   end
 end
 
