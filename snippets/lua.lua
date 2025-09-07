@@ -12,4 +12,7 @@ return {
     i(0),
     t { '', 'end', '', 'return M' },
   }),
+  s('dblL', {
+    t { '<leader><leader>' },
+  }),
 }
