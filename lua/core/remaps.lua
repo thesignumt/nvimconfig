@@ -167,10 +167,6 @@ vmap('>', '>gv')
 -- Insert mode mappings
 ------------------------------------------------------------
 
--- Delete word backwards and forward
-imap('<C-h>', '<C-w>')
-imap('<C-l>', '<C-o>dw')
-
 -- Undo/redo breakpoints
 imap('<C-u>', '<C-g>u')
 imap('<C-r>', '<C-g>U')
@@ -196,4 +192,4 @@ nmap('<cr>', function()
 end, { expr = true })
 
 -- Record Picker
-nmap('<leader>R', ':RecordPicker<cr>')
+-- nmap('<leader>R', ':RecordPicker<cr>')
