@@ -2,8 +2,8 @@ local M = {}
 local config = {
   default_title = 'HELLO WORLD',
   cmd = true,
-  min_width = 40, -- minimum width of the block
-  padding = 6, -- extra spacing around title
+  min_width = 60, -- minimum width of the block
+  padding = 10, -- extra spacing around title
   chs = {
     m = { l = '[', r = ']' },
     c = { l = '+', r = '+' },
@@ -14,19 +14,19 @@ local config = {
 --- @inlinedoc
 ---
 --- The default title when no title is provided when there is a prompt.
---- @field default_title string
+--- @field default_title? string
 ---
 --- If true will make a user command MkCmt
---- @field cmd boolean
+--- @field cmd? boolean
 ---
 --- Minimum width of the block
---- @field min_width integer
+--- @field min_width? integer
 ---
 --- Extra spacing around title
---- @field padding integer
+--- @field padding? integer
 ---
 --- custom characters
---- @field chs table
+--- @field chs? table
 
 --- Setup MkCmt user preferences
 --- @param opts? utils.mkcmt.setup.Opts
