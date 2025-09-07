@@ -4,6 +4,7 @@ vim.g.maplocalleader = ' '
 
 vim.opt.winborder = 'rounded'
 vim.g.cmp_winborder = 'rounded'
+vim.g.zenmode = false
 vim.g.syncclip = false
 if vim.g.syncclip then
   vim.schedule(function()
