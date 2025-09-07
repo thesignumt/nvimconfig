@@ -6,7 +6,9 @@ return {
   opts = {
     -- your options
   },
-  keys = { -- load the plugin only when using it's keybinding:
-    { '<leader>u', "<cmd>lua require('undotree').toggle()<cr>" },
-  },
+  config = function(_, opts)
+    require('undotree').setup(opts)
+
+    require('utils.map').nmap('<leader>u', require('undotree').toggle)
+  end,
 }
