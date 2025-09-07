@@ -19,6 +19,18 @@ M.fn = {
       opts
     )
   end,
+  toggle_comment = function()
+    local line = vim.api.nvim_get_current_line()
+    local comment_string = vim.bo.commentstring:match '^(.*)%%s' or '//'
+
+    if line:match('^%s*' .. vim.pesc(comment_string)) then
+      line = line:gsub('^%s*' .. vim.pesc(comment_string) .. '%s?', '')
+    else
+      line = comment_string .. ' ' .. line
+    end
+
+    vim.api.nvim_set_current_line(line)
+  end,
 }
 
 return M
