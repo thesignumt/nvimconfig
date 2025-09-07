@@ -7,7 +7,7 @@ vim.g.cmp_winborder = 'rounded'
 vim.g.syncclip = false
 if vim.g.syncclip then
   vim.schedule(function()
-    vim.opt.clipboard = ''
+    vim.opt.clipboard = 'unnamedplus'
   end)
 end
 
