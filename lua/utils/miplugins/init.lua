@@ -4,6 +4,9 @@ return {
     opts = {},
     config = function(_, opts)
       require('mkcmt').setup(opts)
+
+      local nmap = require('utils.map').nmap
+      nmap('<leader><leader>c', require('mkcmt').comment)
     end,
   }),
 }
