@@ -10,9 +10,28 @@ local config = {
   },
 }
 
-function M.setup(user_pref)
-  user_pref = user_pref or {}
-  for k, v in pairs(user_pref) do
+--- @class utils.mkcmt.setup.Opts
+--- @inlinedoc
+---
+--- The default title when no title is provided when there is a prompt.
+--- @field default_title string
+---
+--- If true will make a user command MkCmt
+--- @field cmd boolean
+---
+--- Minimum width of the block
+--- @field min_width integer
+---
+--- Extra spacing around title
+--- @field padding integer
+---
+--- custom characters
+--- @field chs table
+
+--- Setup MkCmt user preferences
+--- @param opts? utils.mkcmt.setup.Opts
+function M.setup(opts)
+  for k, v in pairs(opts or {}) do
     config[k] = v
   end
 
