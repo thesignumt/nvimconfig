@@ -1,3 +1,0 @@
-[submodule "lua/utils/mkcmt.nvim"]
-	path = lua/utils/mkcmt.nvim
-	url = https://github.com/sigmacodeslol/mkcmt.nvim.git
