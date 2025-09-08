@@ -73,11 +73,11 @@ nmap('<leader>tw', function()
 end, 'tab spaces 2 <-> 4')
 
 -- Yank & paste above/below lines
-m.modes('n', '<C-A-k>', 'yyP', 'Yank and paste above')
-m.modes('v', '<C-A-k>', 'yP', 'Yank and paste above')
+nmap('<C-A-k>', 'yyP', 'Yank and paste above')
+vmap('<C-A-k>', 'yP', 'Yank and paste above')
 
-m.modes('n', '<C-A-j>', 'yyp', 'Yank and paste below')
-m.modes('v', '<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
+nmap('<C-A-j>', 'yyp', 'Yank and paste below')
+vmap('<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
 
 -- New line without yanking
 -- map('n', '<A-o>', 'mzo<Esc>0"_D`z:delm z<cr>', opts)
