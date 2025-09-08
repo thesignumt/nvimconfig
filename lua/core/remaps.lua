@@ -53,6 +53,8 @@ nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
 nmap('<leader>w', ':write<cr>')
 nmap('<leader>o', ':update<cr>:source<cr>')
+nmap('<leader>x', ':e #<CR>')
+nmap('<leader>X', ':bot sf #<CR>')
 
 -- Uncomment if you want explorer keymap
 -- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
