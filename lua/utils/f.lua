@@ -8,6 +8,10 @@ M.fun = function(t)
   end
 end
 
+---function creator
+---@param f function
+---@param ... any
+---@return function
 M.fn = function(f, ...)
   local args = { ... }
   return function(...)
