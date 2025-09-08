@@ -9,6 +9,8 @@ return {
   config = function(_, opts)
     require('undotree').setup(opts)
 
-    require('utils.map').nmap('<leader>u', require('undotree').toggle)
+    require('utils.map').nmap('<leader>u', function()
+      require('undotree').toggle()
+    end)
   end,
 }
