@@ -84,4 +84,9 @@ function M.modes(modes_str, lhs, rhs, desc_or_opts, opts)
   M.map(modes, lhs, rhs, desc_or_opts, opts)
 end
 
+---@param key string
+function M.dblL(key)
+  return '<leader><leader>' .. key
+end
+
 return M
