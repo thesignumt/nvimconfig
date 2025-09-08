@@ -1,4 +1,8 @@
 local miplugin = require('utils').miplugin
+local m = require 'utils.map'
+local nmap = m.nmap
+local fn = require('utils.f').fn
+
 return {
   miplugin('mkcmt', {
     opts = {},
@@ -6,12 +10,8 @@ return {
       local mkcmt = require 'mkcmt'
       mkcmt.setup(opts)
 
-      local nmap = require('utils.map').nmap
-      local fn = require('utils.f').fn
-
-      local dblL = '<leader><leader>'
-      nmap(dblL .. 'c', fn(mkcmt.comment, { after = true }))
-      nmap(dblL .. 'C', fn(mkcmt.comment, { after = false }))
+      nmap(m.dblL 'c', fn(mkcmt.comment, { after = true }))
+      nmap(m.dblL 'C', fn(mkcmt.comment, { after = false }))
     end,
   }),
 }
