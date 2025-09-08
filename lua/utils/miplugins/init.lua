@@ -7,16 +7,11 @@ return {
       mkcmt.setup(opts)
 
       local nmap = require('utils.map').nmap
-      local after = function()
-        mkcmt.comment { after = true }
-      end
-      local back = function()
-        mkcmt.comment { after = false }
-      end
+      local fn = require('utils.f').fn
 
       local dblL = '<leader><leader>'
-      nmap(dblL .. 'c', after)
-      nmap(dblL .. 'C', back)
+      nmap(dblL .. 'c', fn(mkcmt.comment, { after = true }))
+      nmap(dblL .. 'C', fn(mkcmt.comment, { after = false }))
     end,
   }),
 }
