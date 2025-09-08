@@ -1,6 +1,6 @@
-local fns = require('utils').fn -- functions
+local miplugin = require('utils').miplugin
 return {
-  fns.miplugin('mkcmt', {
+  miplugin('mkcmt', {
     opts = {},
     config = function(_, opts)
       local mkcmt = require 'mkcmt'
