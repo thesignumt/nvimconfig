@@ -1,44 +1,17 @@
 ---@diagnostic disable: missing-parameter
 
-------------------------------------------------------------
--- Helpers
-------------------------------------------------------------
-
+-- +-------------------------------------------------------+
+-- [                        helpers                        ]
+-- +-------------------------------------------------------+
 local kc = vim.keycode
 local m = require 'utils.map'
 local imap = m.imap
 local nmap = m.nmap
 local vmap = m.vmap
 
--- DIY comment toggle
-function _G.toggle_comment()
-  local line = vim.api.nvim_get_current_line()
-  local comment_string = vim.bo.commentstring:match '^(.*)%%s' or '//'
-
-  if line:match('^%s*' .. vim.pesc(comment_string)) then
-    line = line:gsub('^%s*' .. vim.pesc(comment_string) .. '%s?', '')
-  else
-    line = comment_string .. ' ' .. line
-  end
-
-  vim.api.nvim_set_current_line(line)
-end
-
--- Filetype-aware increment snippet
--- local function plusplus()
---   if vim.bo.filetype == 'python' then
---     return ' += 1'
---   elseif vim.bo.filetype == 'c' then
---     return '++;'
---   else
---     return ' = <Esc>^yt=f=lpa+ 1'
---   end
--- end
-
-------------------------------------------------------------
--- Plugin Keymaps
-------------------------------------------------------------
-
+-- +-------------------------------------------------------+
+-- [                        keymaps                        ]
+-- +-------------------------------------------------------+
 -- TIP: Disable arrow keys in normal mode
 nmap('<left>', '<cmd>echo "Use h to move!!"<CR>')
 nmap('<right>', '<cmd>echo "Use l to move!!"<CR>')
@@ -72,10 +45,9 @@ nmap(
   'Flash Treesitter Search'
 )
 
-------------------------------------------------------------
--- File and Config Management
-------------------------------------------------------------
-
+-- +-------------------------------------------------------+
+-- [                          IO                           ]
+-- +-------------------------------------------------------+
 nmap('<leader>v', ':e $MYVIMRC<cr>')
 nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
@@ -85,10 +57,9 @@ nmap('<leader>o', ':update<cr>:source<cr>')
 -- Uncomment if you want explorer keymap
 -- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
 
-------------------------------------------------------------
--- Editing & Movement
-------------------------------------------------------------
-
+-- +-------------------------------------------------------+
+-- [                       movement                        ]
+-- +-------------------------------------------------------+
 -- Execute code
 -- map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<cr>', mt(opts, { desc = 'Execute line/selection' }))
 
@@ -98,6 +69,7 @@ nmap('<leader>tw', function()
   vim.bo.tabstop = new_width
   vim.bo.shiftwidth = new_width
   vim.bo.softtabstop = new_width
+  print('tab size' .. new_width)
 end, 'tab spaces 2 <-> 4')
 
 -- Yank & paste above/below lines
@@ -176,10 +148,9 @@ vmap('>', '>gv')
 -- nmap('<leader>p', 'm`o<ESC>p``', 'Paste line below')
 -- nmap('<leader>P', 'm`O<ESC>p``', 'Paste line above')
 
-------------------------------------------------------------
--- Insert mode mappings
-------------------------------------------------------------
-
+-- +-------------------------------------------------------+
+-- [                      breakpoints                      ]
+-- +-------------------------------------------------------+
 -- Undo/redo breakpoints
 imap('<C-u>', '<C-g>u')
 imap('<C-r>', '<C-g>U')
@@ -189,10 +160,9 @@ for _, ch in ipairs { ',', '.', '!', '?', ';', ':' } do
   imap(ch, ch .. '<c-g>u')
 end
 
-------------------------------------------------------------
--- Miscellaneous
-------------------------------------------------------------
-
+-- +-------------------------------------------------------+
+-- [                         other                         ]
+-- +-------------------------------------------------------+
 -- Toggle hlsearch on Enter keypress
 nmap('<cr>', function()
   vim.cmd [[ echon '' ]]
