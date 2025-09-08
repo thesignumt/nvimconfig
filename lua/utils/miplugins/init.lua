@@ -10,8 +10,8 @@ return {
       local mkcmt = require 'mkcmt'
       mkcmt.setup(opts)
 
-      ms('nV', m.dblL 'c', fn(mkcmt.comment, { after = true }))
-      ms('nV', m.dblL 'C', fn(mkcmt.comment, { after = false }))
+      ms('nv', m.dblL 'c', fn(mkcmt.comment, { after = true }))
+      ms('nv', m.dblL 'C', fn(mkcmt.comment, { after = false }))
     end,
   }),
 }
