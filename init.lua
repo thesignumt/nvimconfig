@@ -1,6 +1,7 @@
 require 'core.opts'
 
 local nmap = require('utils.map').nmap
+local fn = require('utils.f').fn
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -222,29 +223,36 @@ require('lazy').setup({
       nmap('<leader>sb', builtin.buffers, 'buffers')
 
       -- Slightly advanced example of overriding default behavior and theme
-      nmap('<leader>/', function()
+      nmap(
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
-        builtin.current_buffer_fuzzy_find(
+        '<leader>/',
+        fn(
+          builtin.current_buffer_fuzzy_find,
           require('telescope.themes').get_dropdown {
             winblend = 10,
             previewer = false,
           }
-        )
-      end, 'fzf in buffer')
+        ),
+        'fzf in buffer'
+      )
 
       -- It's also possible to pass additional configuration options.
       --  See `:help telescope.builtin.live_grep()` for information about particular keys
-      nmap('<leader>s/', function()
-        builtin.live_grep {
+      nmap(
+        '<leader>s/',
+        fn(builtin.live_grep, {
           grep_open_files = true,
           prompt_title = 'Live Grep in Open Files',
-        }
-      end, 'grep in open files')
+        }),
+        'grep in open files'
+      )
 
       -- Shortcut for searching your Neovim configuration files
-      nmap('<leader>sn', function()
-        builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, 'nvim conf files')
+      nmap(
+        '<leader>sn',
+        fn(builtin.find_files, { cwd = vim.fn.stdpath 'config' }),
+        'nvim conf files'
+      )
     end,
   },
 
