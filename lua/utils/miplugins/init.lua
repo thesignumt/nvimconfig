@@ -1,6 +1,6 @@
 local miplugin = require('utils').miplugin
 local m = require 'utils.map'
-local nmap = m.nmap
+local ms = m.modes
 local fn = require('utils.f').fn
 
 return {
@@ -10,8 +10,8 @@ return {
       local mkcmt = require 'mkcmt'
       mkcmt.setup(opts)
 
-      nmap(m.dblL 'c', fn(mkcmt.comment, { after = true }))
-      nmap(m.dblL 'C', fn(mkcmt.comment, { after = false }))
+      ms('nV', m.dblL 'c', fn(mkcmt.comment, { after = true }))
+      ms('nV', m.dblL 'C', fn(mkcmt.comment, { after = false }))
     end,
   }),
 }
