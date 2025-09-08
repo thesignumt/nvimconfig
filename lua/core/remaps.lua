@@ -102,6 +102,9 @@ nmap('n', 'nzzzv')
 nmap('N', 'Nzzzv')
 
 nmap('<leader>zig', '<cmd>LspRestart<cr>')
+nmap('<leader>zl', ':Lazy<cr>')
+nmap('<leader>zli', ':Lazy install<cr>')
+nmap('<leader>zlu', ':Lazy update<cr>')
 
 -- Clipboard yank
 nmap('<leader>Y', '"+Y')
