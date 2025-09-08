@@ -28,7 +28,14 @@ return {
       end,
       formatters = {
         stylua = {
-          prepend_args = { '--indent-width', '2', '--column-width', '80' },
+          prepend_args = {
+            '--indent-type',
+            'Spaces',
+            '--indent-width',
+            '2',
+            '--column-width',
+            '80',
+          },
         },
         black = { prepend_args = { '--line-length', '88' } },
         prettier = {
