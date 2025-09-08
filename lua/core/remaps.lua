@@ -69,7 +69,7 @@ nmap('<leader>tw', function()
   vim.bo.tabstop = new_width
   vim.bo.shiftwidth = new_width
   vim.bo.softtabstop = new_width
-  print('tab size' .. new_width)
+  print('tab size ' .. new_width)
 end, 'tab spaces 2 <-> 4')
 
 -- Yank & paste above/below lines
