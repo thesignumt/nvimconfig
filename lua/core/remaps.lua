@@ -8,6 +8,7 @@ local m = require 'utils.map'
 local imap = m.imap
 local nmap = m.nmap
 local vmap = m.vmap
+local fn = require('utils.f').fn
 
 -- +-------------------------------------------------------+
 -- [                        keymaps                        ]
@@ -55,6 +56,9 @@ nmap('<leader>w', ':write<cr>')
 nmap('<leader>o', ':update<cr>:source<cr>')
 nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
+
+local ca = require 'cellular-automaton'
+nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'))
 
 -- Uncomment if you want explorer keymap
 -- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
