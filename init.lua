@@ -210,8 +210,8 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      -- vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[H]elp' })
-      nmap('<leader>sh', ':Pick help<cr>', 'help')
+      -- nmap('<leader>sh', ':Pick help<cr>', 'help')
+      nmap('<leader>sh', builtin.help_tags, 'help')
       nmap('<leader>sk', builtin.keymaps, 'keymaps')
       nmap('<leader>sf', builtin.find_files, 'files')
       nmap('<leader>ss', builtin.builtin, 'search telescope')
