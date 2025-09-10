@@ -33,7 +33,6 @@ vim.opt.title = true
 vim.opt.titlelen = 0
 vim.opt.swapfile = false
 vim.opt.backup = false
-vim.opt.undodir = vim.fn.stdpath 'data' .. '/undo'
 vim.opt.undofile = true
 vim.o.cmdheight = 1
 vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
