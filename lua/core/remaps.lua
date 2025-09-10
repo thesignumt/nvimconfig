@@ -49,11 +49,12 @@ nmap(
 -- +-------------------------------------------------------+
 -- [                          IO                           ]
 -- +-------------------------------------------------------+
-nmap('<leader>v', ':e $MYVIMRC<cr>')
 nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
 nmap('<leader>w', ':write<cr>')
 nmap('<leader>o', ':update<cr>:source<cr>')
+nmap('<leader>v', ':e $MYVIMRC<cr>')
+nmap('<leader>ew', ':e ~/.config/wezterm/wezterm.lua<cr>')
 nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
 
