@@ -1,6 +1,7 @@
 local miplugin = require('utils').miplugin
 local m = require 'utils.map'
 local ms = m.modes
+local nmap = m.nmap
 local fn = require('utils.f').fn
 
 return {
@@ -18,6 +19,15 @@ return {
       ms('nv', m.dblL 'C', fn(mkcmt.comment, C), 'mkcmt before')
       ms('nv', m.dblL 'x', fn(mkcmt.comment, x), 'MKCMT after')
       ms('nv', m.dblL 'X', fn(mkcmt.comment, X), 'MKCMT before')
+    end,
+  }),
+  miplugin('def', {
+    opts = {},
+    config = function(_, opts)
+      local def = require 'def'
+      def.setup(opts)
+      nmap('<leader>iw', fn(def.lookup, 'word'), 'word def')
+      nmap('<leader>is', fn(def.lookup, 'lookup'), 'search word def')
     end,
   }),
 }
