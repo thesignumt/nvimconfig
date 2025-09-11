@@ -36,7 +36,7 @@ function M.map(mode, lhs, rhs, desc_or_opts, opts)
 
   local base_opts = vim.tbl_extend(
     'force',
-    opts or { noremap = true, silent = true },
+    vim.tbl_extend('force', { noremap = true, silent = true }, opts or {}),
     type(desc_or_opts) == 'string' and { desc = desc_or_opts }
       or desc_or_opts
       or {}
