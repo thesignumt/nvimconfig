@@ -3,14 +3,10 @@ return {
 
   -- Module boilerplate
   s('mod', {
-    t { 'local M = {}', '' },
-    t { 'function M.' },
-    i(1, 'name'),
-    t '(',
-    i(2, 'args'),
-    t { ')', '  ' },
-    i(0),
-    t { '', 'end', '', 'return M' },
+    t 'local M = {}',
+    t { '', '', '' }, -- newlines
+    i(0), -- cursor position
+    t { '', '', 'return M' },
   }),
   s('dblL', {
     t { '<leader><leader>' },
