@@ -26,8 +26,10 @@ return {
     config = function(_, opts)
       local def = require 'def'
       def.setup(opts)
+
       nmap('<leader>iw', fn(def.lookup, 'word'), 'word def')
       nmap('<leader>is', fn(def.lookup, 'lookup'), 'search word def')
+      nmap('<leader>if', fn(def.lookup, 'favorites'), 'search fav word def')
     end,
   }),
 }
