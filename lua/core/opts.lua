@@ -107,7 +107,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 -- =============================
 local augroup_term = vim.api.nvim_create_augroup('MyTermOpen', { clear = true })
 local augroup_yank =
-  vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true })
+  vim.api.nvim_create_augroup('thesignumt-highlight-yank', { clear = true })
 
 -- Disable line numbers in terminals
 vim.api.nvim_create_autocmd('TermOpen', {

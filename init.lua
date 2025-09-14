@@ -3,8 +3,6 @@ require 'core.opts'
 local nmap = require('utils.map').nmap
 local fn = require('utils.f').fn
 
--- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
@@ -125,18 +123,10 @@ require('lazy').setup({
         { '<leader>e', group = 'env' },
         { '<leader>s', group = 'sondear' },
         { '<leader>t', group = 'toggleterm' },
-
         { '<leader>l', group = 'LSP' },
       },
     },
   },
-
-  -- NOTE: Plugins can specify dependencies.
-  --
-  -- The dependencies are proper plugin specifications as well - anything
-  -- you do for a plugin at the top level, you can do for a dependency.
-  --
-  -- Use the `dependencies` key to specify the dependencies of a particular plugin
 
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
@@ -210,7 +200,6 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      -- nmap('<leader>sh', ':Pick help<cr>', 'help')
       nmap('<leader>sh', builtin.help_tags, 'help')
       nmap('<leader>sk', builtin.keymaps, 'keymaps')
       nmap('<leader>sf', builtin.find_files, 'files')
@@ -319,7 +308,7 @@ require('lazy').setup({
       --    function will be executed to configure the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup(
-          'kickstart-lsp-attach',
+          'thesignumt-lsp-attach',
           { clear = true }
         ),
         callback = function(event)
@@ -435,7 +424,7 @@ require('lazy').setup({
             )
           then
             local highlight_augroup = vim.api.nvim_create_augroup(
-              'kickstart-lsp-highlight',
+              'thesignumt-lsp-highlight',
               { clear = false }
             )
             vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -452,13 +441,13 @@ require('lazy').setup({
 
             vim.api.nvim_create_autocmd('LspDetach', {
               group = vim.api.nvim_create_augroup(
-                'kickstart-lsp-detach',
+                'thesignumt-lsp-detach',
                 { clear = true }
               ),
               callback = function(event2)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds {
-                  group = 'kickstart-lsp-highlight',
+                  group = 'thesignumt-lsp-highlight',
                   buffer = event2.buf,
                 }
               end,
@@ -608,7 +597,7 @@ require('lazy').setup({
       }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
+        ensure_installed = {}, -- explicitly set to an empty table
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -865,13 +854,6 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-
-  -- require 'kickstart.debug',
-  require 'kickstart.indent_line',
-  require 'kickstart.lint',
-  require 'kickstart.autopairs',
-  -- require 'kickstart.neo-tree',
-  -- require 'kickstart.gitsigns', -- adds gitsigns recommend keymaps
 
   { import = 'plugins' },
   { import = 'utils.miplugins' },
