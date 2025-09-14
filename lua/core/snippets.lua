@@ -8,13 +8,8 @@ require('luasnip.loaders.from_lua').load {
 
 local ls = require 'luasnip'
 local m = require 'utils.map'
+local fn = require('utils.f').fn
 
-m.imap('<C-K>', function()
-  ls.expand()
-end)
-m.modes('is', '<C-L>', function()
-  ls.jump(1)
-end)
-m.modes('is', '<C-H>', function()
-  ls.jump(-1)
-end)
+m.imap('<C-K>', ls.expand)
+m.modes('is', '<C-L>', fn(ls.jump, 1))
+m.modes('is', '<C-H>', fn(ls.jump, -1))
