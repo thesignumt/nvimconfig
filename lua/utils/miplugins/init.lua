@@ -6,7 +6,8 @@ local fn = require('utils.f').fn
 
 return {
   miplugin('mkcmt', {
-    opts = {},
+    ---@type mkcmt.setup.Opts
+    opts = { default_header = 'I USE NEOVIM BTW!!! :3' },
     config = function(_, opts)
       local mkcmt = require 'mkcmt'
       mkcmt.setup(opts)
