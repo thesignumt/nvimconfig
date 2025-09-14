@@ -359,7 +359,13 @@ require('lazy').setup({
     'folke/tokyonight.nvim',
     priority = 1000,
     config = function()
-      require('tokyonight').setup { styles = { comments = { italic = false } } }
+      require('tokyonight').setup {
+        styles = {
+          comments = { italic = false },
+        },
+        on_colors = function(colors) end,
+        on_highlights = function(highlights, colors) end,
+      }
       vim.cmd.colorscheme 'tokyonight-night'
     end,
   },
