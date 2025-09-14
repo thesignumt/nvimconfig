@@ -42,6 +42,13 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+    config = function(_, opts)
+      local gitsigns = require 'gitsigns'
+      gitsigns.setup(opts)
+
+      nmap('<leader>gp', gitsigns.preview_hunk)
+      nmap('<leader>gt', gitsigns.toggle_current_line_blame)
+    end,
   },
 
   { -- Which-key for keybind hints
