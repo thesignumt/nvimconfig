@@ -19,9 +19,7 @@ nmap('<right>', '<cmd>echo "Use l to move!!"<CR>')
 nmap('<up>', '<cmd>echo "Use k to move!!"<CR>')
 nmap('<down>', '<cmd>echo "Use j to move!!"<CR>')
 
--- Keybinds to make split navigation easier.
---  Use CTRL+<hjkl> to switch between windows
---  See `:help wincmd` for a list of all window commands
+-- See `:help wincmd` for a list of all window commands
 nmap('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
 nmap('<C-l>', '<C-w><C-l>', 'Move focus to the right window')
 nmap('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
@@ -140,6 +138,12 @@ m.modes('nv', 'L', 'g_', 'End of line')
 -- Indent and keep selection
 vmap('<', '<gv')
 vmap('>', '>gv')
+
+nmap('q;', 'q:')
+
+m.modes('nx', '-', '"_')
+
+nmap('<C-a>', 'ggVG')
 
 -- Divide code chunk with comment toggle
 -- map(
