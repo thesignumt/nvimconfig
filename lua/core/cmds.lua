@@ -13,3 +13,8 @@ vim.api.nvim_create_user_command('ListPlugins', function()
     print 'Error: could not write file'
   end
 end, {})
+
+-- vim.api.nvim_create_user_command('ClrShada', function()
+--   local job_id =
+--     vim.fn.jobstart 'powershell -c "Get-ChildItem ~\\AppData\\Local\\nvim-data\\shada | Where-Object {$_.Name -like \'*.tmp*\' } | Remove-Item -Recurse -Force"'
+-- end, {})
