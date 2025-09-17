@@ -1,5 +1,6 @@
 return {
   'ThePrimeagen/harpoon',
+  dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local nmap = require('utils.map').nmap
 
