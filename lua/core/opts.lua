@@ -73,12 +73,6 @@ end
 vim.g.copilot_enabled = 0
 
 -- =============================
---      HIGHLIGHTING
--- =============================
-vim.api.nvim_set_hl(0, 'CmpBorder', { fg = '#20f6e2', bg = 'NONE' })
-vim.api.nvim_set_hl(0, 'CmpDocBorder', { fg = '#20f6e2', bg = 'NONE' })
-
--- =============================
 --      REMOVE OLD KEYMAPS
 -- =============================
 for _, mode in ipairs { 'n', 'x', 'v', 'o', 's', 'i', 't' } do
