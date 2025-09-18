@@ -37,6 +37,8 @@ vim.opt.undofile = true
 vim.o.cmdheight = 1
 vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
 -- vim.o.guicursor = ''
+vim.o.sessionoptions =
+  'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
