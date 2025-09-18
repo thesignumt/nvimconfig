@@ -280,7 +280,8 @@ require('lazy').setup({
               capabilities,
               server.capabilities or {}
             )
-            require('lspconfig')[server_name].setup(server)
+            -- require('lspconfig')[server_name].setup(server)
+            vim.lsp.config(server_name, server)
           end,
         },
       }
@@ -367,9 +368,8 @@ require('lazy').setup({
     config = function()
       require('mini.ai').setup { n_lines = 500 }
       require('mini.surround').setup()
-      require('mini.statusline').setup { use_icons = vim.g.have_nerd_font }
       require('mini.icons').setup()
-      require('mini.pick').setup()
+      require('mini.statusline').setup { use_icons = vim.g.have_nerd_font }
     end,
   },
 
