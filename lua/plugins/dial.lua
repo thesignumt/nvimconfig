@@ -15,9 +15,29 @@ return {
       },
     }
 
+    --   '<C-a>',
+    --     function()
+    --     return require('dial.map').inc_normal()
+    -- end,
+    -- expr = true,
+    -- desc = 'Increment',
+    -- ,
+    --   {
+    --     '<C-x>',
+    --     function()
+    --       return require('dial.map').dec_normal()
+    --     end,
+    --     expr = true,
+    --     desc = 'Decrement',
+    --   },
     local dialmap = require 'dial.map'
     local nmap = require('utils.map').nmap
-    nmap('ga', dialmap.inc_normal, 'increment')
-    nmap('gs', dialmap.dec_normal, 'decrement')
+
+    nmap('<C-a>', function()
+      return dialmap.inc_normal()
+    end, 'increment')
+    nmap('<C-x>', function()
+      return dialmap.dec_normal()
+    end, 'decrement')
   end,
 }
