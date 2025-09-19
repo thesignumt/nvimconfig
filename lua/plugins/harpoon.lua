@@ -12,7 +12,7 @@ return {
     nmap('<leader>h', ui.toggle_quick_menu, 'Toggle Harpoon Menu')
     nmap('<leader>H', mark.clear_all, 'Harpoon: Clear All Files')
 
-    local nav_keys = { h = 1, j = 2, k = 3, l = 4, [';'] = 5 }
+    local nav_keys = { h = 1, j = 2, k = 3, l = 4 }
     for key, idx in pairs(nav_keys) do
       nmap('g' .. key, function()
         ui.nav_file(idx)
