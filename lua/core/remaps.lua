@@ -108,6 +108,8 @@ nmap('N', 'Nzzzv')
 
 nmap('<leader>zig', '<cmd>LspRestart<cr>')
 nmap('<leader>zl', ':Lazy<cr>')
+-- ↓ just in case if i took to long to press <leader>zl all at once leading into lazy install/update/... remaps
+nmap('<leader>zll', ':Lazy<cr>')
 nmap('<leader>zli', ':Lazy install<cr>')
 nmap('<leader>zlu', ':Lazy update<cr>')
 
