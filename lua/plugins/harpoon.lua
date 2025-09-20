@@ -1,5 +1,6 @@
 return {
   'ThePrimeagen/harpoon',
+  -- branch = 'harpoon2',
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local nmap = require('utils.map').nmap
@@ -18,5 +19,20 @@ return {
         ui.nav_file(idx)
       end, 'Harpoon File ' .. idx)
     end
+    -- local harpoon = require 'harpoon'
+    -- local nmap = require('utils.map').nmap
+    -- nmap('<leader>a', function()
+    --   harpoon:list():add()
+    -- end)
+    -- nmap('<leader>h', function()
+    --   harpoon.ui:toggle_quick_menu(harpoon:list())
+    -- end)
+    --
+    -- local maps = { h = 1, j = 2, k = 3, l = 4 }
+    -- for key, idx in pairs(maps) do
+    --   nmap('g' .. key, function()
+    --     return harpoon:list():select(idx)
+    --   end)
+    -- end
   end,
 }
