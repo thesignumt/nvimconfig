@@ -39,6 +39,7 @@ vim.o.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
 -- vim.o.guicursor = ''
 vim.o.sessionoptions =
   'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+vim.opt.shada = { "'10", '<0', 's10', 'h' }
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
