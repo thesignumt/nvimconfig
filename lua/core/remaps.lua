@@ -145,8 +145,6 @@ nmap('q;', 'q:')
 
 m.modes('nx', '-', '"_')
 
-nmap('<C-z>', 'ggVG')
-
 -- Divide code chunk with comment toggle
 -- map(
 --   'n',
