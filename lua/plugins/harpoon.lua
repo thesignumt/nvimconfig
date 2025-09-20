@@ -15,7 +15,7 @@ return {
 
     local nav_keys = { h = 1, j = 2, k = 3, l = 4 }
     for key, idx in pairs(nav_keys) do
-      nmap('g' .. key, function()
+      nmap(table.concat { 'g', key }, function()
         ui.nav_file(idx)
       end, 'Harpoon File ' .. idx)
     end
