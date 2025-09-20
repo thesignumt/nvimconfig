@@ -14,3 +14,4 @@ require 'core.typst'
 -- +-------------------------------------------------------+
 
 require('utils.highlight').setup()
+-- require('utils.todo').setup { target_file = '~/notes/todo.md' }
