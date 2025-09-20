@@ -41,7 +41,7 @@ end
 ---@param indent number? Optional. The current indentation level (used internally). Default is 0.
 ---@param visited table? Optional. Internal table to track visited tables for circular reference detection.
 ---@return nil
-function _G.pprint(tbl, indent, visited)
+function Pprint(tbl, indent, visited)
   indent = indent or 0
   visited = visited or {}
 
@@ -91,7 +91,7 @@ end
 ---@param visited table? Optional. Internal table to track visited tables for circular reference detection.
 ---@return nil
 function M.pprint(tbl, indent, visited)
-  _G.pprint(tbl, indent, visited)
+  Pprint(tbl, indent, visited)
 end
 
 return M
