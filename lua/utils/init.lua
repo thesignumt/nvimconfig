@@ -1,5 +1,26 @@
 local M = {}
 
+--- get the operating system name
+--- @return '"windows"'|'"mac"'|'"linux"'
+function M.get_os()
+  local uname = vim.uv.os_uname()
+  local os_name = uname.sysname
+  if os_name == 'Windows_NT' then
+    return 'windows'
+  elseif os_name == 'Darwin' then
+    return 'mac'
+  else
+    return 'linux'
+  end
+end
+
+function M.expand_path(path)
+  if path:sub(1, 1) == '~' then
+    return os.getenv 'HOME' .. path:sub(2)
+  end
+  return path
+end
+
 ---make a lazy plugin spec for my plugins
 ---@param name string name of plugin (without .nvim) e.g. mkcmt.nvim -> mkcmt
 ---@param opts table
