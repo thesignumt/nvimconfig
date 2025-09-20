@@ -1,3 +1,5 @@
+---@diagnostic disable: param-type-mismatch
+
 -- +-------------------------------------------------------+
 -- [                  ENSURE LAZY INSTALL                  ]
 -- +-------------------------------------------------------+
@@ -41,13 +43,53 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      update_debounce = 100,
+      watch_gitdir = {
+        interval = 1000,
+        follow_files = true,
+      },
+      on_attach = function(bufnr)
+        local gitsigns = require 'gitsigns'
+
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gitsigns.nav_hunk 'next'
+          end
+        end, { desc = 'next git change' })
+
+        map('n', '[c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gitsigns.nav_hunk 'prev'
+          end
+        end, { desc = 'prev git change' })
+
+        map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+        map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
+      end,
     },
     config = function(_, opts)
       local gitsigns = require 'gitsigns'
       gitsigns.setup(opts)
-
       nmap('<leader>gp', gitsigns.preview_hunk)
       nmap('<leader>gt', gitsigns.toggle_current_line_blame)
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'LazyGitFilterReady',
+        callback = function()
+          gitsigns.refresh()
+        end,
+      })
     end,
   },
 
