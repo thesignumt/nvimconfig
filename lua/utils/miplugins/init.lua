@@ -11,6 +11,7 @@ return {
     config = function(_, opts)
       local mkcmt = require 'mkcmt'
       mkcmt.setup(opts)
+
       local c = { after = true, upper = false }
       local C = { after = false, upper = false }
       local x = { after = true, upper = true }
