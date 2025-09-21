@@ -188,6 +188,10 @@ nmap('<cr>', function()
   end
 end, { expr = true })
 
-nmap('<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+nmap(
+  '<leader>S',
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  'search & replace'
+)
 -- Record Picker
 -- nmap('<leader>R', ':RecordPicker<cr>')
