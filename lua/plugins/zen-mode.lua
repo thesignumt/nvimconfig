@@ -1,36 +1,16 @@
 return {
-  -- {
-  --   'folke/zen-mode.nvim',
-  --   config = function()
-  --     local nmap = require('utils.map').nmap
-  --     nmap('<leader>zz', function()
-  --       require('zen-mode').setup {
-  --         window = {
-  --           width = 90,
-  --           options = {},
-  --         },
-  --       }
-  --       require('zen-mode').toggle()
-  --       vim.g.zenmode = not vim.g.zenmode
-  --       vim.wo.wrap = false
-  --       vim.wo.number = true
-  --       vim.wo.rnu = true
-  --     end)
-  --
-  --     nmap('<leader>zZ', function()
-  --       require('zen-mode').setup {
-  --         window = {
-  --           width = 80,
-  --           options = {},
-  --         },
-  --       }
-  --       require('zen-mode').toggle()
-  --       vim.g.zenmode = not vim.g.zenmode
-  --       vim.wo.wrap = false
-  --       vim.wo.number = vim.g.zenmode and false or true
-  --       vim.wo.rnu = vim.g.zenmode and false or true
-  --       vim.opt.colorcolumn = '0'
-  --     end)
-  --   end,
-  -- },
+  'folke/zen-mode.nvim',
+  config = function()
+    local Zen = require 'utils.zen'
+    local zen = Zen.new()
+
+    local nmap = require('utils.map').nmap
+
+    nmap('<leader>zz', function()
+      zen:zen()
+    end)
+    nmap('<leader>zZ', function()
+      zen:ZEN()
+    end)
+  end,
 }
