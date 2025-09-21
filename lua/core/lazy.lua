@@ -43,35 +43,35 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      -- on_attach = function(bufnr)
-      --   local gitsigns = require 'gitsigns'
-      --
-      --   local function map(mode, l, r, opts)
-      --     opts = opts or {}
-      --     opts.buffer = bufnr
-      --     vim.keymap.set(mode, l, r, opts)
-      --   end
-      --
-      --   -- Navigation
-      --   map('n', ']c', function()
-      --     if vim.wo.diff then
-      --       vim.cmd.normal { ']c', bang = true }
-      --     else
-      --       gitsigns.nav_hunk 'next'
-      --     end
-      --   end, { desc = 'next git change' })
-      --
-      --   map('n', '[c', function()
-      --     if vim.wo.diff then
-      --       vim.cmd.normal { '[c', bang = true }
-      --     else
-      --       gitsigns.nav_hunk 'prev'
-      --     end
-      --   end, { desc = 'prev git change' })
-      --
-      --   map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
-      --   map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
-      -- end,
+      on_attach = function(bufnr)
+        local gitsigns = require 'gitsigns'
+
+        local function map(mode, l, r, opts)
+          opts = opts or {}
+          opts.buffer = bufnr
+          vim.keymap.set(mode, l, r, opts)
+        end
+
+        -- Navigation
+        map('n', ']c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { ']c', bang = true }
+          else
+            gitsigns.nav_hunk 'next'
+          end
+        end, { desc = 'next git change' })
+
+        map('n', '[c', function()
+          if vim.wo.diff then
+            vim.cmd.normal { '[c', bang = true }
+          else
+            gitsigns.nav_hunk 'prev'
+          end
+        end, { desc = 'prev git change' })
+
+        map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+        map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
+      end,
     },
     config = function(_, opts)
       local gitsigns = require 'gitsigns'
