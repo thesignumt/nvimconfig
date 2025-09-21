@@ -14,6 +14,9 @@ require 'core.typst'
 -- +-------------------------------------------------------+
 local nmap = require('utils.map').nmap
 
+local comfy_lineno = require 'utils.comfy_lineno'
+nmap('<leader>1', comfy_lineno.toggle_line_numbers, 'comfy lineno')
+
 require('utils.highlight').setup()
 
 local pick = require 'utils.pick'
