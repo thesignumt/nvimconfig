@@ -14,10 +14,6 @@ function M.get_os()
   end
 end
 
-function M.center_in(outer, inner)
-  return (outer - inner) / 2
-end
-
 ---make a lazy plugin spec for my plugins
 ---@param name string name of plugin (without .nvim) e.g. mkcmt.nvim -> mkcmt
 ---@param opts table
