@@ -12,6 +12,9 @@ require 'core.typst'
 -- +-------------------------------------------------------+
 -- [                      utils setup                      ]
 -- +-------------------------------------------------------+
+local nmap = require('utils.map').nmap
 
 require('utils.highlight').setup()
--- require('utils.todo').setup { target_file = '~/notes/todo.md' }
+
+local pick = require 'utils.pick'
+nmap('<leader>sc', pick.colorscheme, 'colorscheme')
