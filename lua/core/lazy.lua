@@ -73,12 +73,12 @@ require('lazy').setup({
       --   map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
       -- end,
     },
-    -- config = function(_, opts)
-    --   local gitsigns = require 'gitsigns'
-    --   gitsigns.setup(opts)
-    --   nmap('<leader>gp', gitsigns.preview_hunk, 'preview hunk')
-    --   nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
-    -- end,
+    config = function(_, opts)
+      local gitsigns = require 'gitsigns'
+      gitsigns.setup(opts)
+      nmap('<leader>gp', gitsigns.preview_hunk, 'preview hunk')
+      nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
+    end,
   },
 
   { -- Which-key for keybind hints
