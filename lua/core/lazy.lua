@@ -83,13 +83,6 @@ require('lazy').setup({
       gitsigns.setup(opts)
       nmap('<leader>gp', gitsigns.preview_hunk, 'preview hunk')
       nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'LazyGitFilterReady',
-        callback = function()
-          gitsigns.refresh()
-        end,
-      })
     end,
   },
 
