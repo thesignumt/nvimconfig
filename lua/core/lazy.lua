@@ -43,11 +43,6 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
-      update_debounce = 100,
-      watch_gitdir = {
-        interval = 1000,
-        follow_files = true,
-      },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
