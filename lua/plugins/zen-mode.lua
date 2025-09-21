@@ -8,9 +8,9 @@ return {
 
     nmap('<leader>zz', function()
       zen:zen()
-    end)
+    end, 'zen')
     nmap('<leader>zZ', function()
       zen:ZEN()
-    end)
+    end, 'ZEN')
   end,
 }
