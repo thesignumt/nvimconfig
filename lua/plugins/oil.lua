@@ -1,5 +1,7 @@
 return {
   'stevearc/oil.nvim',
+  ---@module 'oil'
+  ---@type oil.SetupOpts
   opts = {},
   dependencies = {
     'nvim-tree/nvim-web-devicons',
@@ -23,21 +25,19 @@ return {
         max_width = 80,
         max_height = 25,
         border = 'rounded',
-        win_options = {
-          winblend = 0,
-        },
       },
     }
     local nmap = require('utils.map').nmap
     nmap('<leader>e', ':Oil --float<cr>', { desc = 'oil' })
     nmap('<leader>ep', function()
       local file_dir = vim.fn.expand '%:p:h' -- get the current file's directory
-      if file_dir ~= '' then
-        vim.cmd('cd ' .. file_dir)
-        print('Changed cwd to: ' .. file_dir)
-      else
-        print 'No file detected!'
+      if file_dir == '' then
+        vim.notify('No file detected!', vim.log.levels.WARN)
+        return
       end
-    end, { desc = 'Change cwd to current file' })
+
+      vim.cmd('cd ' .. file_dir)
+      vim.notify('cd into: ' .. file_dir, vim.log.levels.INFO)
+    end, { desc = 'cd into current file' })
   end,
 }
