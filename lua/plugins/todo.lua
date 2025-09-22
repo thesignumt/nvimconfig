@@ -6,7 +6,8 @@ return {
     }
     local nmap = require('utils.map').nmap
 
-    nmap('<leader>n', ':Dooing<cr>', 'todo')
-    nmap('<leader>N', ':DooingLocal<cr>', 'todo local')
+    nmap('<leader>k', ':Dooing<cr>', 'todo')
+    -- dooing local doesn't work (it uses 2>/dev/null, in windows it is 2>NUL)
+    -- nmap('<leader>K', ':DooingLocal<cr>', 'todo local')
   end,
 }
