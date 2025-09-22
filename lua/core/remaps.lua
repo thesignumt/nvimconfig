@@ -51,9 +51,6 @@ nmap('<leader>X', ':bot sf #<CR>')
 local ca = require 'cellular-automaton'
 nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'))
 
--- Uncomment if you want explorer keymap
--- map('n', '<leader>we', ':!explorer .<cr><cr>', mt(opts, { desc = 'open file explorer' }))
-
 -- +-------------------------------------------------------+
 -- [                       movement                        ]
 -- +-------------------------------------------------------+
