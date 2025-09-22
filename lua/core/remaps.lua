@@ -113,7 +113,6 @@ nmap('<leader>zll', ':Lazy<cr>')
 nmap('<leader>zli', ':Lazy install<cr>')
 nmap('<leader>zlu', ':Lazy update<cr>')
 
--- Clipboard yank
 nmap('<leader>Y', '"+Y')
 m.modes('nx', '<leader>y', '"+y')
 m.modes('nx', '<leader>p', '"+p')
