@@ -16,12 +16,12 @@ return {
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
   },
-  {
-    'akinsho/bufferline.nvim',
-    version = '*',
-    dependencies = 'nvim-tree/nvim-web-devicons',
-    init = function()
-      require('bufferline').setup {}
-    end,
-  },
+  -- {
+  --   'akinsho/bufferline.nvim',
+  --   version = '*',
+  --   dependencies = 'nvim-tree/nvim-web-devicons',
+  --   init = function()
+  --     require('bufferline').setup {}
+  --   end,
+  -- },
 }
