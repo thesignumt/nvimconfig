@@ -25,15 +25,7 @@ nmap('<C-l>', '<C-w><C-l>', 'Move focus to the right window')
 nmap('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
 nmap('<C-k>', '<C-w><C-k>', 'Move focus to the upper window')
 
-m.modes('nv', '<leader>lc', ':CodeCompanionChat<cr>', 'CodeCompanionChat')
-
--- Barbar Buffer Navigation
--- map('n', '<A-,>', '<Cmd>BufferPrevious<cr>', opts)
--- map('n', '<A-.>', '<Cmd>BufferNext<cr>', opts)
--- map('n', '<A-<>', '<Cmd>BufferMovePrevious<cr>', opts)
--- map('n', '<A->>', '<Cmd>BufferMoveNext<cr>', opts)
--- map('n', '<A-p>', '<Cmd>BufferPin<cr>', opts)
--- map('n', '<A-c>', '<Cmd>BufferClose<cr>', opts)
+-- m.modes('nv', '<leader>lc', ':CodeCompanionChat<cr>', 'CodeCompanionChat')
 
 -- Flash plugin shortcuts
 nmap('<leader>ls', require('flash').jump, 'Flash Jump')
