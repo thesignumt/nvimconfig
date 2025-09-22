@@ -51,7 +51,7 @@ nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
 
 local ca = require 'cellular-automaton'
-nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'))
+nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'), 'make it rain')
 
 -- +-------------------------------------------------------+
 -- [               clipboard/register stuff                ]
