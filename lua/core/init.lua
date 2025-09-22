@@ -18,5 +18,3 @@ require('utils.highlight').setup()
 
 local pick = require 'utils.pick'
 nmap('<leader>sc', pick.colorscheme, 'colorscheme')
-
-require('utils.escape').setup {}
