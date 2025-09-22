@@ -118,6 +118,7 @@ require('lazy').setup({
       spec = {
         { '<leader>e', group = 'env' },
         { '<leader>s', group = 'sondear' },
+        { '<leader>r', group = 'refactor' },
         { '<leader>t', group = 'toggleterm' },
         { '<leader>l', group = 'LSP' },
       },
