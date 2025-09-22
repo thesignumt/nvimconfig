@@ -15,6 +15,17 @@ return {
       -- …etc.
     },
     version = '^1.0.0', -- optional: only update when a new 1.x version is released
+    config = function(_, opts)
+      require('barbar').setup(opts)
+
+      local nmap = require('utils.map').map
+      nmap('<A-,>', '<Cmd>BufferPrevious<cr>', opts)
+      nmap('<A-.>', '<Cmd>BufferNext<cr>', opts)
+      nmap('<A-<>', '<Cmd>BufferMovePrevious<cr>', opts)
+      nmap('<A->>', '<Cmd>BufferMoveNext<cr>', opts)
+      nmap('<A-p>', '<Cmd>BufferPin<cr>', opts)
+      nmap('<A-c>', '<Cmd>BufferClose<cr>', opts)
+    end,
   },
   -- {
   --   'akinsho/bufferline.nvim',
