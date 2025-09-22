@@ -21,17 +21,9 @@ return {
       log_level = 'error', -- Reduce verbosity
     }
 
-    local keymap = vim.keymap
+    local nmap = require('utils.map').nmap
 
-    keymap.set('n', '<leader>er', '<cmd>SessionRestore<CR>', {
-      desc = 'Restore last session for current working directory',
-      noremap = true,
-      silent = true,
-    })
-    keymap.set('n', '<leader>es', '<cmd>SessionSave<CR>', {
-      desc = 'Save session for auto-session root directory',
-      noremap = true,
-      silent = true,
-    })
+    nmap('<leader>er', '<cmd>SessionRestore<CR>', 'restore session for cwd')
+    nmap('<leader>es', '<cmd>SessionSave<CR>', 'save session')
   end,
 }
