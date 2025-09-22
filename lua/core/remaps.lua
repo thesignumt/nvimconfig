@@ -70,6 +70,7 @@ nmap('<leader>Y', '"+Y')
 m.modes('nx', '<leader>y', '"+y')
 m.modes('nx', '<leader>p', '"+p')
 m.modes('nx', '<leader>d', '"+d')
+m.modes('nx', '<leader>n', ':norm ')
 m.modes('nv', '<leader>c', '1z=')
 
 -- Paste without overwriting register
