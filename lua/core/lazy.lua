@@ -355,11 +355,11 @@ require('lazy').setup({
         window = {
           completion = {
             border = vim.g.cmp_winborder,
-            winhighlight = 'FloatBorder:CmpBorder',
+            winhighlight = 'FloatBorder:ThesignumtBd',
           },
           documentation = {
             border = vim.g.cmp_winborder,
-            winhighlight = 'FloatBorder:CmpDocBorder',
+            winhighlight = 'FloatBorder:ThesignumtDocBd',
           },
         },
         mapping = cmp.mapping.preset.insert {
