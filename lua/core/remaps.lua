@@ -43,13 +43,39 @@ nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
 nmap('<leader>w', ':write<cr>')
 nmap('<leader>o', ':update<cr>:source<cr>')
+-- open RC files
 nmap('<leader>v', ':e $MYVIMRC<cr>')
 nmap('<leader>ew', ':e ~/.config/wezterm/wezterm.lua<cr>')
+-- quickly switch files with alternate / switch it
 nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
 
 local ca = require 'cellular-automaton'
 nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'))
+
+-- +-------------------------------------------------------+
+-- [               clipboard/register stuff                ]
+-- +-------------------------------------------------------+
+-- Yank & paste above/below lines
+nmap('<C-A-k>', 'yyP', 'Yank and paste above')
+vmap('<C-A-k>', 'yP', 'Yank and paste above')
+
+nmap('<C-A-j>', 'yyp', 'Yank and paste below')
+vmap('<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
+
+-- Yank entire buffer
+nmap('yA', '<cmd>%yank+<cr>', { desc = 'yank buffer to "+' })
+
+nmap('<leader>Y', '"+Y')
+m.modes('nx', '<leader>y', '"+y')
+m.modes('nx', '<leader>p', '"+p')
+m.modes('nx', '<leader>d', '"+d')
+m.modes('nv', '<leader>c', '1z=')
+
+-- Paste without overwriting register
+m.xmap('p', '"_dP')
+
+m.modes('nx', '-', '"_', 'void register') -- void register
 
 -- +-------------------------------------------------------+
 -- [                       movement                        ]
@@ -65,20 +91,6 @@ nmap('<leader>tw', function()
   vim.bo.softtabstop = new_width
   print('tab size ' .. new_width)
 end, 'tab spaces 2 <-> 4')
-
--- Yank & paste above/below lines
-nmap('<C-A-k>', 'yyP', 'Yank and paste above')
-vmap('<C-A-k>', 'yP', 'Yank and paste above')
-
-nmap('<C-A-j>', 'yyp', 'Yank and paste below')
-vmap('<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
-
--- New line without yanking
--- map('n', '<A-o>', 'mzo<Esc>0"_D`z:delm z<cr>', opts)
--- map('n', '<A-O>', 'mzO<Esc>0"_D`z:delm z<cr>', opts)
-
--- Yank entire buffer
-nmap('yA', '<cmd>%yank+<cr>', { desc = 'yank buffer to "+' })
 
 -- Visual mode move lines up/down
 vmap('J', ":m '>+1<cr>gv=gv")
@@ -102,22 +114,6 @@ nmap('<leader>zll', ':Lazy<cr>')
 nmap('<leader>zli', ':Lazy install<cr>')
 nmap('<leader>zlu', ':Lazy update<cr>')
 
-nmap('<leader>Y', '"+Y')
-m.modes('nx', '<leader>y', '"+y')
-m.modes('nx', '<leader>p', '"+p')
-m.modes('nx', '<leader>d', '"+d')
-m.modes('nv', '<leader>c', '1z=')
-
--- Search & replace word under cursor
--- nmap(
---   '<leader>s',
---   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
---   'replace word'
--- )
-
--- Paste without overwriting register
-m.xmap('p', '"_dP')
-
 -- Delete all marks
 m.modes('nv', 'dm', ':delm!<cr>', 'Delete all marks')
 
@@ -130,21 +126,6 @@ vmap('<', '<gv')
 vmap('>', '>gv')
 
 nmap('q;', 'q:')
-
-m.modes('nx', '-', '"_')
-
--- Divide code chunk with comment toggle
--- map(
---   'n',
---   ';;',
---   'O<Esc>33i- <Esc>:lua toggle_comment()<cr>',
---   mt(opts, { desc = 'Divide code chunk' })
--- )
-
--- Toggle diagnostics on/off
--- map('n', '<leader>td', function()
---   vim.diagnostic.enable(not vim.diagnostic.is_enabled())
--- end, { silent = true, noremap = true, desc = 'Toggle diagnostics' })
 
 -- Paste line above/below preserving cursor
 -- nmap('<leader>p', 'm`o<ESC>p``', 'Paste line below')
