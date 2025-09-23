@@ -2,9 +2,9 @@ local M = {}
 
 M.fun = function(t)
   local f = t[1]
-  local args = { unpack(t, 2) }
+  local args = { table.unpack(t, 2) }
   return function()
-    return f(unpack(args))
+    return f(table.unpack(args))
   end
 end
 
@@ -15,7 +15,7 @@ end
 M.fn = function(f, ...)
   local args = { ... }
   return function(...)
-    return f(unpack(args), ...)
+    return f(table.unpack(args), ...)
   end
 end
 
@@ -30,7 +30,7 @@ M.fns = function(...)
   for _, tbl in ipairs(tables) do
     local creator = tbl[1] -- first element is the function creator
     local args = { table.unpack(tbl, 2) } -- rest are arguments
-    table.insert(funcs, creator(unpack(args)))
+    table.insert(funcs, creator(table.unpack(args)))
   end
 
   -- Return a function that calls them all
@@ -39,7 +39,7 @@ M.fns = function(...)
     for i, f in ipairs(funcs) do
       results[i] = f(...)
     end
-    return unpack(results)
+    return table.unpack(results)
   end
 end
 
