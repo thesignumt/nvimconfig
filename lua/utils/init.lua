@@ -22,11 +22,11 @@ function M.miplugin(name, opts)
   return vim.tbl_extend(
     'force',
     vim.deepcopy {
-      dir = ('%s%s%s'):format(
+      dir = table.concat {
         'C:\\justcode\\alpha\\plugins\\',
         name,
-        '.nvim\\'
-      ),
+        '.nvim\\',
+      },
       name = name,
     },
     opts
