@@ -1,6 +1,6 @@
 return {
-    "masamerc/procrastinate.nvim",
-    config = function()
-        require('procrastinate').setup()
-    end
+  'masamerc/procrastinate.nvim',
+  config = function()
+    require('procrastinate').setup()
+  end,
 }
