@@ -1,8 +1,8 @@
-local M = {}
+local Pick = {}
 
 ---Set the colorscheme by parameter or pick using Telescope
 ---@param theme string?
-function M.colorscheme(theme)
+function Pick.colorscheme(theme)
   local themes = {
     'tokyonight-night',
     'rose-pine-moon',
@@ -52,4 +52,4 @@ function M.colorscheme(theme)
     :find()
 end
 
-return M
+return Pick
