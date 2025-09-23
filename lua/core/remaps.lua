@@ -57,6 +57,8 @@ nmap('<leader>ew', ':e ~/.config/wezterm/wezterm.lua<cr>')
 nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
 
+nmap('<leader>R', ':e<cr>', 'refresh')
+
 local ca = require 'cellular-automaton'
 nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'), 'make it rain')
 
