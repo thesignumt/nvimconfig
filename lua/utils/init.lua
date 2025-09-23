@@ -1,8 +1,8 @@
-local M = {}
+local Utils = {}
 
 --- get the operating system name
 --- @return '"windows"'|'"mac"'|'"linux"'
-function M.get_os()
+function Utils.get_os()
   local uname = vim.uv.os_uname()
   local os_name = uname.sysname
   if os_name == 'Windows_NT' then
@@ -18,7 +18,7 @@ end
 ---@param name string name of plugin (without .nvim) e.g. mkcmt.nvim -> mkcmt
 ---@param opts table
 ---@return table
-function M.miplugin(name, opts)
+function Utils.miplugin(name, opts)
   return vim.tbl_extend(
     'force',
     vim.deepcopy {
@@ -33,7 +33,8 @@ function M.miplugin(name, opts)
   )
 end
 
-function M.toggle_comment()
+-- TODO: ask claude or chatgpt to rewrite this so it is very optimized
+function Utils.toggle_comment()
   local line = vim.api.nvim_get_current_line()
   local comment_string = vim.bo.commentstring:match '^(.*)%%s' or '//'
 
@@ -46,4 +47,4 @@ function M.toggle_comment()
   vim.api.nvim_set_current_line(line)
 end
 
-return M
+return Utils
