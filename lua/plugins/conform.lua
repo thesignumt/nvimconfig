@@ -64,8 +64,8 @@ return {
     )
 
     m.nmap('<leader>ef', function()
+      print(('autoformat: %s'):format(tostring(not vim.g.disable_autoformat)))
       vim.g.disable_autoformat = not vim.g.disable_autoformat
-      print(('autoformat: %s'):format(tostring(vim.g.disable_autoformat)))
     end, 'Toggle format-on-save globally')
   end,
 }
