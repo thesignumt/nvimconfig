@@ -37,8 +37,9 @@ function Cursor:set(index, opts)
 
   opts = opts or {}
   local show = opts.show ~= nil and opts.show or true
+  local is_default = index == self.default_index and ' -- DEFAULT --' or ''
   if show then
-    print(("%d -> '%s'"):format(self.index, current))
+    print(("%d -> '%s' %s"):format(self.index, current, is_default))
   end
 
   -- Set as default if requested
