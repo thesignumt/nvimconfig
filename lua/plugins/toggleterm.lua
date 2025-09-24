@@ -63,17 +63,24 @@ return {
     -- +-----------------------------------+
     local nmap = require('utils.map').nmap
 
+    local rhs = {
+      float = ':ToggleTerm direction=float<cr>',
+      hor = ':ToggleTerm size=10 direction=horizontal<cr>',
+      ver = ':ToggleTerm size=80 direction=vertical<cr>',
+      tt = ':ToggleTerm<cr>',
+    }
+
     -- ToggleTerm basics
-    nmap('<leader>tf', '<cmd>ToggleTerm direction=float<cr>')
-    nmap('<leader>th', '<cmd>ToggleTerm size=10 direction=horizontal<cr>')
-    nmap('<leader>tv', '<cmd>ToggleTerm size=80 direction=vertical<cr>')
-    nmap('<leader>tt', '<cmd>ToggleTerm<cr>')
+    nmap('<leader>tf', rhs.float, 'float term')
+    nmap('<leader>th', rhs.hor, 'hor term')
+    nmap('<leader>tv', rhs.ver, 'ver term')
+    nmap('<leader>tt', rhs.tt, 'toggleterm')
 
     -- Multiple terminals
-    nmap('<leader>t1', '<cmd>1ToggleTerm<cr>')
-    nmap('<leader>t2', '<cmd>2ToggleTerm<cr>')
-    nmap('<leader>t3', '<cmd>3ToggleTerm<cr>')
-    nmap('<leader>ta', '<cmd>ToggleTermToggleAll<cr>')
+    nmap('<leader>t1', ':1ToggleTerm<cr>', 'term 1')
+    nmap('<leader>t2', ':2ToggleTerm<cr>', 'term 2')
+    nmap('<leader>t3', ':3ToggleTerm<cr>', 'term 3')
+    nmap('<leader>ta', ':ToggleTermToggleAll<cr>', 'all terms')
 
     -- Lazygit shortcut
     -- nmap('<leader>gg', '<cmd>lua _lazygit_toggle()<CR>')
