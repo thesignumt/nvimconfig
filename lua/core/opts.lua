@@ -39,8 +39,6 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undofile = true
 vim.opt.cmdheight = 1
-vim.opt.guicursor = 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20'
--- vim.opt.guicursor = ''
 vim.opt.sessionoptions =
   'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.shada = { "'10", '<0', 's10', 'h' }
