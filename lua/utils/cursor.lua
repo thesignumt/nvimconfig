@@ -1,8 +1,9 @@
 ---@class Cursor
----@field cursors string[]
----@field index integer
----@field default_index integer
----@field default_file string
+---@field cursors string[] List of cursor styles
+---@field index integer Current active index
+---@field default_index integer Index used as default when starting
+---@field default_file string File path for storing default index
+---@field count integer Number of available cursors
 local Cursor = {}
 Cursor.__index = Cursor
 
