@@ -123,6 +123,8 @@ require('lazy').setup({
       },
       spec = {
         { '<leader>e', group = 'env' },
+        { '<leader>g', group = 'git' },
+        { '<leader>i', group = 'info' },
         { '<leader>s', group = 'sondear' },
         { '<leader>r', group = 'refactor' },
         { '<leader>t', group = 'toggleterm' },
