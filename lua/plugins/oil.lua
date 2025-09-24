@@ -30,7 +30,7 @@ return {
     local nmap = require('utils.map').nmap
     nmap('<leader>e', ':Oil --float<cr>', { desc = 'oil' })
     nmap('<leader>ee', ':Oil --float<cr>', { desc = 'oil' })
-    nmap('<leader>ep', function()
+    nmap('<leader>zp', function()
       local file_dir = vim.fn.expand '%:p:h' -- get the current file's directory
       if file_dir == '' then
         vim.notify('No file detected!', vim.log.levels.WARN)
