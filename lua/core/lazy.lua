@@ -251,11 +251,11 @@ require('lazy').setup({
             require('telescope.builtin').lsp_type_definitions,
             'Type [D]efinition'
           )
-          map(
-            '<leader>ed',
-            require('telescope.builtin').lsp_document_symbols,
-            'document symbols'
-          )
+          -- map(
+          --   '<leader>ed',
+          --   require('telescope.builtin').lsp_document_symbols,
+          --   'document symbols'
+          -- )
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
           -- <leader>wd = builtin.lsp_dynamic_workspace_symbols
