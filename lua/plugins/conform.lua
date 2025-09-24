@@ -65,12 +65,7 @@ return {
 
     m.nmap('<leader>ef', function()
       vim.g.disable_autoformat = not vim.g.disable_autoformat
-      vim.notify(
-        'Format-on-save ' .. vim.g.disable_autoformat and 'DISABLED'
-          or 'ENABLED' .. ' globally',
-        vim.log.levels.INFO,
-        { title = 'conform.nvim' }
-      )
+      vim.inspect(vim.g.disable_autoformat)
     end, 'Toggle format-on-save globally')
 
     vim.api.nvim_create_user_command(
