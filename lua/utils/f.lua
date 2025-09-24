@@ -19,6 +19,28 @@ M.fn = function(f, ...)
   end
 end
 
+---Usage:
+---inst_fn(obj)({fn='hello', is_fn=false}, ...)
+M.inst_fn = function(inst)
+  ---@param data {fn:string, is_fn: boolean?}
+  ---@param ... any
+  return function(data, ...)
+    local args = { ... }
+    return function(...)
+      local f = inst[data.fn]
+      if f == nil then
+        error('function not found: ' .. tostring(data.fn))
+      end
+
+      if data.is_fn == true then
+        return f(unpack(args), ...)
+      else
+        return f(inst, unpack(args), ...)
+      end
+    end
+  end
+end
+
 -- Multiple function creators
 ---@param ... table
 ---@return function
