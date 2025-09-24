@@ -17,12 +17,13 @@ end
 ---make a lazy plugin spec for my plugins
 ---@param name string name of plugin (without .nvim) e.g. mkcmt.nvim -> mkcmt
 ---@param opts table
+---@param use_custom_name boolean?
 ---@return table
-function Utils.miplugin(name, opts)
+function Utils.miplugin(name, opts, use_custom_name)
   return vim.tbl_extend(
     'force',
     vim.deepcopy {
-      dir = table.concat {
+      dir = use_custom_name == true and name or table.concat {
         'C:\\justcode\\alpha\\plugins\\',
         name,
         '.nvim\\',
