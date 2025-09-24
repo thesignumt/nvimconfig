@@ -8,6 +8,7 @@ local m = require 'utils.map'
 local imap = m.imap
 local nmap = m.nmap
 local vmap = m.vmap
+local unmap = m.unmap
 local fn = require('utils.f').fn
 
 -- +-------------------------------------------------------+
@@ -174,3 +175,6 @@ nmap(
 )
 -- Record Picker
 -- nmap('<leader>R', ':RecordPicker<cr>')
+
+unmap('n', '<leader>td')
+unmap('n', '<leader>tD')
