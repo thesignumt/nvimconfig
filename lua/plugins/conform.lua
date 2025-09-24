@@ -65,31 +65,7 @@ return {
 
     m.nmap('<leader>ef', function()
       vim.g.disable_autoformat = not vim.g.disable_autoformat
-      vim.inspect(vim.g.disable_autoformat)
+      print(('autoformat: %s'):format(tostring(vim.g.disable_autoformat)))
     end, 'Toggle format-on-save globally')
-
-    vim.api.nvim_create_user_command(
-      'FormatToggle',
-      function(args)
-        if args.bang then
-          vim.b.disable_autoformat = not vim.b.disable_autoformat
-          vim.notify(
-            'Format-on-save ' .. vim.b.disable_autoformat and 'DISABLED'
-              or 'ENABLED' .. ' for this buffer',
-            vim.log.levels.INFO,
-            { title = 'conform.nvim' }
-          )
-        else
-          vim.g.disable_autoformat = not vim.g.disable_autoformat
-          vim.notify(
-            'Format-on-save ' .. vim.g.disable_autoformat and 'DISABLED'
-              or 'ENABLED' .. ' globally',
-            vim.log.levels.INFO,
-            { title = 'conform.nvim' }
-          )
-        end
-      end,
-      { desc = 'Toggle format-on-save (add ! for buffer-local)', bang = true }
-    )
   end,
 }
