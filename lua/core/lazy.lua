@@ -169,6 +169,8 @@ require('lazy').setup({
       nmap('<leader>sr', builtin.resume, 'resume')
       nmap('<leader>s.', builtin.oldfiles, 'recent')
       nmap('<leader>sb', builtin.buffers, 'buffers')
+      nmap('<leader>sy', builtin.lsp_document_symbols, 'doc symbols')
+      nmap('<leader>sY', builtin.lsp_workspace_symbols, 'workspace symbols')
 
       nmap(
         '<leader>/',
