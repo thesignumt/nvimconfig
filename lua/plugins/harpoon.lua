@@ -23,8 +23,7 @@ return {
       })
     end, 'Toggle Harpoon Menu')
 
-    local nav_keys = { h = 1, j = 2, k = 3, l = 4 }
-    for key, idx in pairs(nav_keys) do
+    for key, idx in pairs { h = 1, j = 2, k = 3, l = 4 } do
       nmap('g' .. key, function()
         harpoon:list():select(idx)
       end, 'Harpoon File ' .. idx)
