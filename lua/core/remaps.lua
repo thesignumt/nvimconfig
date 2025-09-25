@@ -14,11 +14,10 @@ local fn = require('utils.f').fn
 -- +-------------------------------------------------------+
 -- [                        keymaps                        ]
 -- +-------------------------------------------------------+
--- TIP: Disable arrow keys in normal mode
-nmap('<left>', '<cmd>echo "Use h to move!!"<CR>')
-nmap('<right>', '<cmd>echo "Use l to move!!"<CR>')
-nmap('<up>', '<cmd>echo "Use k to move!!"<CR>')
-nmap('<down>', '<cmd>echo "Use j to move!!"<CR>')
+nmap('<left>', ':vertical resize +2<cr>')
+nmap('<right>', ':vertical resize -2<cr>')
+nmap('<up>', ':resize +2<cr>')
+nmap('<down>', ':resize -2<cr>')
 
 -- See `:help wincmd` for a list of all window commands
 nmap('<C-h>', '<C-w><C-h>', 'Move focus to the left window')
