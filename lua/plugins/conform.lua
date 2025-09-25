@@ -3,7 +3,7 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
     -- Global toggle variable for format-on-save
-    vim.g.disable_autoformat = false
+    vim.g.autoformat = true
 
     -- Setup conform with formatters and conditional format_on_save
     require('conform').setup {
@@ -21,7 +21,7 @@ return {
       },
       -- Only format on save if not disabled globally or per buffer
       format_on_save = function(bufnr)
-        if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+        if not vim.g.autoformat or not vim.b[bufnr].autoformat then
           return
         end
         return { timeout_ms = 1000, lsp_fallback = true }
@@ -64,8 +64,8 @@ return {
     )
 
     m.nmap('<leader>ef', function()
-      vim.g.disable_autoformat = not vim.g.disable_autoformat
-      print(('autoformat: %s'):format(tostring(not vim.g.disable_autoformat)))
+      vim.g.autoformat = not vim.g.autoformat
+      print(('autoformat: %s'):format(tostring(vim.g.autoformat)))
     end, 'Toggle format-on-save globally')
   end,
 }
