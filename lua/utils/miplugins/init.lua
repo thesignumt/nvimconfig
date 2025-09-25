@@ -44,5 +44,5 @@ return {
       nmap('<leader>k', ':Dooing<cr>', 'todo')
       nmap('<leader>K', ':DooingLocal<cr>', 'todo local')
     end,
-  }, true),
+  }, true, 'dooing'),
 }
