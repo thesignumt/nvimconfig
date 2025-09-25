@@ -18,8 +18,9 @@ end
 ---@param name string name of plugin (without .nvim) e.g. mkcmt.nvim -> mkcmt
 ---@param opts table
 ---@param use_custom_name boolean?
+---@param cname string?
 ---@return table
-function Utils.miplugin(name, opts, use_custom_name)
+function Utils.miplugin(name, opts, use_custom_name, cname)
   return vim.tbl_extend(
     'force',
     vim.deepcopy {
@@ -28,7 +29,7 @@ function Utils.miplugin(name, opts, use_custom_name)
         name,
         '.nvim\\',
       },
-      name = name,
+      name = use_custom_name == true and cname or name,
     },
     opts
   )
