@@ -86,6 +86,8 @@ m.modes('nv', '<leader>c', '1z=')
 -- Paste without overwriting register
 m.xmap('p', '"_dP')
 
+nmap('x', '"_x')
+
 m.modes('nx', '-', '"_', 'void register') -- void register
 
 -- +-------------------------------------------------------+
