@@ -2,10 +2,10 @@ return {
   'stevearc/conform.nvim',
   event = { 'BufReadPre', 'BufNewFile' },
   config = function()
-    -- Global toggle variable for format-on-save
+    -- Global toggle for format-on-save
     vim.g.autoformat = true
 
-    -- Setup conform with formatters and conditional format_on_save
+    -- Setup conform
     require('conform').setup {
       formatters_by_ft = {
         lua = { 'stylua' },
@@ -19,9 +19,9 @@ return {
         rust = { 'rustfmt' },
         c = { 'clang_format' },
       },
-      -- Only format on save if not disabled globally or per buffer
-      format_on_save = function(bufnr)
-        if not vim.g.autoformat or not vim.b[bufnr].autoformat then
+      -- Format on save using only the global toggle
+      format_on_save = function()
+        if not vim.g.autoformat then
           return
         end
         return { timeout_ms = 1000, lsp_fallback = true }
@@ -42,27 +42,25 @@ return {
           args = { '--single-quote', '--print-width', '80', '--tab-width', '2' },
         },
         shfmt = { prepend_args = { '-i', '2', '-ci' } },
-        clang_format = {
-          -- Optional: customize the style (see clang-format docs for more)
-          args = { '--style=Google' },
-        },
+        clang_format = { args = { '--style=Google' } },
       },
     }
 
     local m = require 'utils.map'
     local fn = require('utils.f').fn
 
+    -- Format manually with <leader>f
     m.modes(
       'nv',
       '<leader>f',
-      fn(require('conform').format, {
-        async = true,
-        lsp_fallback = true,
-        timeout_ms = 1000,
-      }),
+      fn(
+        require('conform').format,
+        { bufnr = 0, async = true, lsp_fallback = true, timeout_ms = 1000 }
+      ),
       'Format buffer or selection'
     )
 
+    -- Toggle global format-on-save with <leader>ef
     m.nmap('<leader>ef', function()
       vim.g.autoformat = not vim.g.autoformat
       print(('autoformat: %s'):format(tostring(vim.g.autoformat)))
