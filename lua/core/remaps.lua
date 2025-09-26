@@ -82,8 +82,7 @@ m.modes('nx', '<leader>d', '"+d')
 m.modes('nx', '<leader>n', ':norm ')
 m.modes('nv', '<leader>c', '1z=')
 
--- Paste without overwriting register
-m.xmap('p', '"_dP')
+m.xmap('p', '"_dP') -- paste w/o overriding reg
 
 nmap('x', '"_x')
 
