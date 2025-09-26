@@ -25,4 +25,6 @@ vim.loader.enable()
 
 require 'core'
 
+vim.lsp.set_log_level 'off'
+
 -- vim: ts=2 sts=2 sw=2 et
