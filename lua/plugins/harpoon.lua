@@ -4,15 +4,12 @@ return {
   dependencies = { 'nvim-lua/plenary.nvim' },
   config = function()
     local nmap = require('utils.map').nmap
+    local obj = require('utils.f').inst_fn
     local harpoon = require 'harpoon'
     harpoon:setup()
 
-    nmap('<leader>a', function()
-      harpoon:list():add()
-    end, 'Harpoon: Mark File')
-    nmap('<leader>A', function()
-      harpoon:list():remove()
-    end, 'Harpoon: RM File')
+    nmap('<leader>a', obj(harpoon:list(), 'add')(), 'Harpoon: Mark File')
+    nmap('<leader>A', obj(harpoon:list(), 'remove')(), 'Harpoon: RM File')
 
     nmap('<leader>h', function()
       harpoon.ui:toggle_quick_menu(harpoon:list(), {

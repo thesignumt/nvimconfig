@@ -20,19 +20,24 @@ M.fn = function(f, ...)
 end
 
 ---Usage:
----inst_fn(obj)({fn='hello', is_fn=false}, ...)
-M.inst_fn = function(inst)
-  ---@param data {fn:string, is_fn: boolean?}
-  ---@param ... any
-  return function(data, ...)
-    local args = { ... }
+---inst_fn(obj, 'hello')({args}, false)(...)
+---@param inst table
+---@param method string
+---@return fun(_args?:table, is_fn?:boolean): fun(...:any): any
+M.inst_fn = function(inst, method)
+  ---@param _args table?
+  ---@param is_fn boolean?
+  ---@return fun(...:any): any
+  return function(_args, is_fn)
+    local args = (type(_args) == 'table' and _args)
+      or (_args and { _args } or {})
     return function(...)
-      local f = inst[data.fn]
+      local f = inst[method]
       if f == nil then
-        error('function not found: ' .. tostring(data.fn))
+        error('function not found: ' .. tostring(method))
       end
 
-      if data.is_fn == true then
+      if is_fn == true then
         return f(unpack(args), ...)
       else
         return f(inst, unpack(args), ...)

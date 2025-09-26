@@ -21,4 +21,4 @@ local pick = require 'utils.pick'
 nmap('<leader>sc', pick.colorscheme, 'colorscheme')
 
 local c = require('utils.cursor').new()
-nmap('<F2>', inst(c) { fn = 'toggle' })
+nmap('<F2>', inst(c, 'toggle')())
