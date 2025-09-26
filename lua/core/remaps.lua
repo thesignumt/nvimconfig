@@ -73,7 +73,7 @@ nmap('<C-A-j>', 'yyp', 'Yank and paste below')
 vmap('<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
 
 -- Yank buffer
-nmap('yA', '<cmd>%yank+<cr>', { desc = 'yank buffer to "+' })
+nmap('yA', '<cmd>%yank+<cr>', 'yank buffer to "+')
 
 nmap('<leader>Y', '"+Y')
 m.modes('nx', '<leader>y', '"+y')
