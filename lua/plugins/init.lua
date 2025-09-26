@@ -55,6 +55,7 @@ return {
   {
     'ThePrimeagen/vim-be-good',
   },
+  'tpope/vim-fugitive',
   { 'eandrju/cellular-automaton.nvim' },
   {
     'nvimtools/none-ls.nvim',
