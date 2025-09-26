@@ -35,18 +35,4 @@ function Utils.miplugin(name, opts, use_custom_name, cname)
   )
 end
 
--- TODO: ask claude or chatgpt to rewrite this so it is very optimized
-function Utils.toggle_comment()
-  local line = vim.api.nvim_get_current_line()
-  local comment_string = vim.bo.commentstring:match '^(.*)%%s' or '//'
-
-  if line:match('^%s*' .. vim.pesc(comment_string)) then
-    line = line:gsub('^%s*' .. vim.pesc(comment_string) .. '%s?', '')
-  else
-    line = comment_string .. ' ' .. line
-  end
-
-  vim.api.nvim_set_current_line(line)
-end
-
 return Utils
