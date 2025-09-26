@@ -42,6 +42,7 @@ vim.opt.cmdheight = 1
 vim.opt.sessionoptions =
   'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 vim.opt.shada = { "'10", '<0', 's10', 'h' }
+vim.opt.spell = true
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
