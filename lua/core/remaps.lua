@@ -48,8 +48,8 @@ nmap(
 -- +-------------------------------------------------------+
 nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
-nmap('<leader>w', ':write<cr>')
-nmap('<leader>o', ':update<cr>:source<cr>')
+nmap('<leader>w', ':w<cr>')
+nmap('<leader>o', ':up<cr>:so<cr>')
 -- open RC files
 nmap('<leader>v', ':e $MYVIMRC<cr>')
 nmap('<leader>ew', ':e ~/.config/wezterm/wezterm.lua<cr>')
