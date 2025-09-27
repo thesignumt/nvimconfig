@@ -49,10 +49,9 @@ return {
     local m = require 'utils.map'
     local fn = require('utils.f').fn
 
-    -- Format manually with <leader>f
     m.modes(
       'nv',
-      '<leader>f',
+      '<leader>lf',
       fn(
         require('conform').format,
         { bufnr = 0, async = true, lsp_fallback = true, timeout_ms = 1000 }
