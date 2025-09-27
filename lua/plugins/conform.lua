@@ -24,7 +24,7 @@ return {
         if not vim.g.autoformat then
           return
         end
-        return { timeout_ms = 1000, lsp_fallback = true }
+        return { timeout_ms = 1500, lsp_fallback = true }
       end,
       formatters = {
         stylua = {
