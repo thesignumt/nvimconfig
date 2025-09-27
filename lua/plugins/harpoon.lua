@@ -20,10 +20,17 @@ return {
       })
     end, 'Toggle Harpoon Menu')
 
-    for key, idx in pairs { h = 1, j = 2, k = 3, l = 4 } do
+    local keys = { h = 1, j = 2, k = 3, l = 4 }
+    for key, idx in pairs(keys) do
       nmap('g' .. key, function()
         harpoon:list():select(idx)
       end, 'Harpoon File ' .. idx)
+    end
+
+    for key, idx in pairs(keys) do
+      nmap('g<C-' .. key .. '>', function()
+        harpoon:list():replace_at(idx)
+      end, 'Harpoon Replace ' .. idx)
     end
 
     --[[-------LEGACY-----------------------------------------------------]]
