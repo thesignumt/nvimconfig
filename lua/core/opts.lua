@@ -1,82 +1,85 @@
+local g = vim.g
+local o = vim.opt
+
 -- +-------------------------------------------------------+
 -- [                        leader                         ]
 -- +-------------------------------------------------------+
-vim.g.mapleader = ' '
-vim.g.maplocalleader = ' '
+g.mapleader = ' '
+g.maplocalleader = ' '
 
 -- +-------------------------------------------------------+
 -- [                     general opts                      ]
 -- +-------------------------------------------------------+
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.showmode = false
-vim.opt.mouse = 'nvch'
-vim.opt.clipboard = ''
-vim.opt.breakindent = true
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
-vim.opt.signcolumn = 'yes'
-vim.opt.foldcolumn = '0'
-vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.opt.foldlevel = 99 -- keep folds open by default
-vim.opt.foldlevelstart = 99
-vim.opt.foldenable = true
-vim.opt.updatetime = 250
-vim.opt.timeoutlen = 250
-vim.opt.splitright = true
-vim.opt.splitbelow = true
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
-vim.opt.inccommand = 'split'
-vim.opt.cursorline = true
-vim.opt.scrolloff = 10
-vim.opt.colorcolumn = '90'
-vim.opt.termguicolors = true
-vim.opt.wrap = true
-vim.opt.title = true
-vim.opt.titlestring = 'nvim'
-vim.opt.swapfile = false
-vim.opt.backup = false
-vim.opt.undofile = true
-vim.opt.cmdheight = 1
-vim.opt.sessionoptions =
+o.number = true
+o.relativenumber = true
+o.showmode = false
+o.mouse = 'nvch'
+o.clipboard = ''
+o.breakindent = true
+o.ignorecase = true
+o.smartcase = true
+o.signcolumn = 'yes'
+o.foldcolumn = '0'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldlevel = 99 -- keep folds open by default
+o.foldlevelstart = 99
+o.foldenable = true
+o.updatetime = 250
+o.timeoutlen = 250
+o.splitright = true
+o.splitbelow = true
+o.list = true
+o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+o.inccommand = 'split'
+o.cursorline = true
+o.scrolloff = 10
+o.colorcolumn = '90'
+o.termguicolors = true
+o.wrap = true
+o.title = true
+o.titlestring = 'nvim'
+o.swapfile = false
+o.backup = false
+o.undofile = true
+o.cmdheight = 1
+o.sessionoptions =
   'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
-vim.opt.shada = { "'10", '<0', 's10', 'h' }
-vim.opt.spell = true
+o.shada = { "'10", '<0', 's10', 'h' }
+o.spell = true
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
 -- +-------------------------------------------------------+
-vim.opt.expandtab = true
+o.expandtab = true
 local tab_size = 2
 local function setTab(t)
-  vim.opt.tabstop = t
-  vim.opt.softtabstop = t
-  vim.opt.shiftwidth = t
+  o.tabstop = t
+  o.softtabstop = t
+  o.shiftwidth = t
 end
 setTab(tab_size)
 
 -- +-------------------------------------------------------+
 -- [                      win borders                      ]
 -- +-------------------------------------------------------+
-vim.opt.winborder = 'rounded'
-vim.g.cmp_winborder = 'rounded'
-vim.g.have_nerd_font = true
+o.winborder = 'rounded'
+g.cmp_winborder = 'rounded'
+g.have_nerd_font = true
 
 -- +-------------------------------------------------------+
 -- [                       clipboard                       ]
 -- +-------------------------------------------------------+
-vim.g.syncclip = false
-if vim.g.syncclip then
+g.syncclip = false
+if g.syncclip then
   vim.schedule(function()
-    vim.opt.clipboard = 'unnamedplus'
+    o.clipboard = 'unnamedplus'
   end)
 end
 
 -- =============================
 --      COPILOT
 -- =============================
-vim.g.copilot_enabled = 0
+g.copilot_enabled = 0
 
 -- =============================
 --      REMOVE OLD KEYMAPS
@@ -113,8 +116,8 @@ local augroup_yank =
 vim.api.nvim_create_autocmd('TermOpen', {
   group = augroup_term,
   callback = function()
-    vim.opt.number = false
-    vim.opt.relativenumber = false
+    o.number = false
+    o.relativenumber = false
   end,
 })
 
