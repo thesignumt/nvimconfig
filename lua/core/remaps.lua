@@ -67,11 +67,11 @@ nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'), 'make it rain')
 -- [               clipboard/register stuff                ]
 -- +-------------------------------------------------------+
 -- Yank & paste above/below lines
-nmap('<C-A-k>', 'yyP', 'Yank and paste above')
-vmap('<C-A-k>', 'yP', 'Yank and paste above')
+nmap('<leader>jk', 'yyP', 'dupe above')
+vmap('<leader>jk', 'yP', 'dupe above')
 
-nmap('<C-A-j>', 'yyp', 'Yank and paste below')
-vmap('<C-A-j>', 'ygv<Esc>p', 'Yank and paste below')
+nmap('<leader>jj', 'yyp', 'dupe below')
+vmap('<leader>jj', 'ygv<Esc>p', 'dupe below')
 
 -- Yank buffer
 nmap('yA', '<cmd>%yank+<cr>', 'yank buffer to "+')
