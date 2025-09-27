@@ -49,6 +49,7 @@ nmap(
 nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
 nmap('<leader>w', ':w<cr>')
+nmap('<leader>W', ':wa<cr>')
 nmap('<leader>o', ':up<cr>:so<cr>')
 -- open RC files
 nmap('<leader>v', ':e $MYVIMRC<cr>')
