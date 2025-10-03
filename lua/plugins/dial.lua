@@ -1,4 +1,4 @@
--- Better increase/descrease
+-- Better increase/decrease
 return {
   'monaqa/dial.nvim',
   keys = {},
