@@ -48,7 +48,6 @@ function SenGen:get()
   return table.concat(sentence, ' ') .. '.'
 end
 
--- Create a Neovim user command
 vim.api.nvim_create_user_command('SenGen', function()
   local sentence = SenGen:get()
   vim.fn.setreg('+', sentence)
