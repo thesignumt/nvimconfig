@@ -57,7 +57,7 @@ nmap('<leader>ew', ':e ~/.config/wezterm/wezterm.lua<cr>')
 -- quickly switch files with alternate / switch it
 nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
-nmap('<leader>f', "''")
+nmap('<leader>;', '``')
 
 nmap('<leader>R', ':e<cr>', 'refresh')
 
