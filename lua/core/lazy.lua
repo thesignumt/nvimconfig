@@ -161,7 +161,7 @@ require('lazy').setup({
       local builtin = require 'telescope.builtin'
       nmap('<leader>sh', builtin.help_tags, 'help')
       nmap('<leader>sk', builtin.keymaps, 'keymaps')
-      nmap('<leader>f', builtin.find_files, 'files')
+      nmap('<leader>sf', builtin.find_files, 'files')
       nmap('<leader>ss', builtin.builtin, 'search telescope')
       nmap('<leader>sw', builtin.grep_string, 'word')
       nmap('<leader>sg', builtin.live_grep, 'grep')
