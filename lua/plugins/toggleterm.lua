@@ -1,6 +1,6 @@
 vim.o.shell = 'pwsh'
 vim.o.shellcmdflag =
-  '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+  '-NoLogo -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
 vim.o.shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
 vim.o.shellpipe = '2>&1 | Tee-Object -FilePath %s; exit $LastExitCode'
 vim.o.shellquote = ''
@@ -25,11 +25,17 @@ return {
     float_opts = {
       border = 'single',
       winblend = 0,
+      -- highlights = { border = "Normal", background = "Normal" },  -- optional in newer versions
     },
+    -- new hooks (if supported)
+    on_open = nil,
+    on_close = nil,
+    on_create = nil,
+    on_stdout = nil,
   },
-
   config = function(_, opts)
-    require('toggleterm').setup(opts)
+    local toggleterm = require 'toggleterm'
+    toggleterm.setup(opts)
 
     -- local Terminal = require('toggleterm.terminal').Terminal
 
@@ -43,7 +49,6 @@ return {
     --   },
     --   on_open = function(term)
     --     vim.cmd 'startinsert!'
-    --     -- optional: map 'q' inside lazygit to close terminal
     --     vim.api.nvim_buf_set_keymap(
     --       term.bufnr,
     --       't',
@@ -58,11 +63,7 @@ return {
     --   lazygit:toggle()
     -- end
 
-    -- +-----------------------------------+
-    -- [              keymaps              ]
-    -- +-----------------------------------+
     local nmap = require('utils.map').nmap
-
     local rhs = {
       float = ':ToggleTerm direction=float<cr>',
       hor = ':ToggleTerm size=10 direction=horizontal<cr>',
@@ -82,7 +83,7 @@ return {
     nmap('<leader>t3', ':3ToggleTerm<cr>', 'term 3')
     nmap('<leader>ta', ':ToggleTermToggleAll<cr>', 'all terms')
 
-    -- Lazygit shortcut
+    -- Lazygit shortcut (uncomment if using)
     -- nmap('<leader>gg', '<cmd>lua _lazygit_toggle()<CR>')
   end,
 }
