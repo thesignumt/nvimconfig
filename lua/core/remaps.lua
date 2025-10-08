@@ -110,7 +110,7 @@ vmap('J', ":m '>+1<cr>gv=gv")
 vmap('K', ":m '<-2<cr>gv=gv")
 
 -- join lines
-nmap('gJ', 'mzJ`z:delm z<cr>', 'join lines')
+nmap('gJ', 'mzJ`z', 'join lines')
 nmap('gK', "@='ddkPJ'<cr>|", 'join line reversed')
 
 -- Center screen after movement commands
