@@ -423,6 +423,7 @@ require('lazy').setup({
         'python',
         'bash',
         'c',
+        'cpp',
         'diff',
         'html',
         'lua',
