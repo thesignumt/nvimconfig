@@ -118,4 +118,13 @@ return {
     version = '*', -- stable versions only
     config = true, -- runs `require("neogen").setup({})`
   },
+  {
+    'sylvanfranklin/pear',
+    config = function()
+      local pear = require 'pear'
+      vim.keymap.set('n', '<leader>b', function()
+        pear.jump_pairs()
+      end, { silent = true })
+    end,
+  },
 }
