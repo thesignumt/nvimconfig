@@ -4,7 +4,9 @@ require('luasnip.loaders.from_lua').load {
   paths = snippets_dir,
 }
 
---  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+-- +-------------------------------------------------------+
+-- [                        keymaps                        ]
+-- +-------------------------------------------------------+
 
 local ls = require 'luasnip'
 local m = require 'utils.map'
