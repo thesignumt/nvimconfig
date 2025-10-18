@@ -7,7 +7,7 @@ return {
       local m = require 'utils.map'
       local nmap = m.nmap
 
-      nmap(m.dblL 'i', 'l:IconPickerNormal<cr>')
+      nmap(m.dblL 'i', ':IconPickerNormal<cr>')
       nmap(m.dblL 'y', ':IconPickerYank<cr>') --> Yank the selected
     end,
   },
