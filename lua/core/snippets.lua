@@ -20,8 +20,23 @@ require('luasnip.loaders.from_lua').load {
 
 local ls = require 'luasnip'
 local m = require 'utils.map'
-local fn = require('utils.f').fn
 
-m.imap('<C-K>', ls.expand)
-m.modes('is', '<C-L>', fn(ls.jump, 1))
-m.modes('is', '<C-H>', fn(ls.jump, -1))
+-- expand snippet
+m.imap('<C-k>', function()
+  if ls.expandable() then
+    ls.expand()
+  end
+end)
+
+-- jump forward
+m.modes('is', '<C-l>', function()
+  if ls.jumpable(1) then
+    ls.jump(1)
+  end
+end)
+
+m.modes('is', '<C-j>', function()
+  if ls.jumpable(-1) then
+    ls.jump(-1)
+  end
+end)
