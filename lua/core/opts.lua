@@ -46,6 +46,7 @@ o.sessionoptions =
   'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 o.shada = { "'10", '<0', 's10', 'h' }
 o.spell = true
+o.completeopt = 'menu,menuone,noselect'
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
