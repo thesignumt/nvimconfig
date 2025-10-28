@@ -32,7 +32,7 @@ return {
             luasnip.lsp_expand(args.body)
           end,
         },
-        completion = { completeopt = 'menu,menuone,noinsert' },
+        completion = { completeopt = 'menu,menuone,noinsert,noselect' },
         window = {
           completion = {
             border = vim.g.cmp_winborder,
