@@ -9,6 +9,7 @@ local imap = m.imap
 local nmap = m.nmap
 local vmap = m.vmap
 local unmap = m.unmap
+local dblL = m.dblL
 local fn = require('utils.f').fn
 
 -- +-------------------------------------------------------+
@@ -63,6 +64,8 @@ nmap('<leader>R', ':e<cr>', 'refresh')
 
 local ca = require 'cellular-automaton'
 nmap('<leader>m', fn(ca.start_animation, 'make_it_rain'), 'make it rain')
+
+nmap(dblL 'n', require('no-neck-pain').toggle, 'no neck pain XD')
 
 -- +-------------------------------------------------------+
 -- [               clipboard/register stuff                ]
