@@ -26,7 +26,7 @@ function Cursor.new(opts)
   self.count = #self.cursors
 
   self:_load_default()
-  self:set(self.default_index, { silent = false })
+  self:set(self.default_index, { silent = true })
 
   return self
 end
