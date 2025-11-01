@@ -76,6 +76,4 @@ return {
       nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
     end,
   },
-
-  'tpope/vim-fugitive',
 }
