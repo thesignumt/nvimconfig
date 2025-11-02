@@ -36,13 +36,15 @@ nmap(
 )
 
 -- Flash plugin shortcuts
-nmap('<leader>ls', require('flash').jump, 'Flash Jump')
-nmap('<leader>lt', require('flash').treesitter, 'Flash Treesitter')
-nmap(
-  '<leader>lr',
-  require('flash').treesitter_search,
-  'Flash Treesitter Search'
-)
+nmap('<leader>ls', function()
+  require('flash').jump()
+end, 'Flash Jump')
+nmap('<leader>lt', function()
+  require('flash').treesitter()
+end, 'Flash Treesitter')
+nmap('<leader>lr', function()
+  require('flash').treesitter_search()
+end, 'Flash Treesitter Search')
 
 -- +-------------------------------------------------------+
 -- [                          IO                           ]
