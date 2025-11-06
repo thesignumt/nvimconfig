@@ -35,17 +35,6 @@ nmap(
   'copilot'
 )
 
--- Flash plugin shortcuts
-nmap('<leader>ls', function()
-  require('flash').jump()
-end, 'Flash Jump')
-nmap('<leader>lt', function()
-  require('flash').treesitter()
-end, 'Flash Treesitter')
-nmap('<leader>lr', function()
-  require('flash').treesitter_search()
-end, 'Flash Treesitter Search')
-
 -- +-------------------------------------------------------+
 -- [                          IO                           ]
 -- +-------------------------------------------------------+
