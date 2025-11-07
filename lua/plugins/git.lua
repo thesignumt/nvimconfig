@@ -72,7 +72,7 @@ return {
     config = function(_, opts)
       local gitsigns = require 'gitsigns'
       gitsigns.setup(opts)
-      nmap('<leader>gp', gitsigns.preview_hunk, 'preview hunk')
+      nmap('<leader>gh', gitsigns.preview_hunk, 'preview hunk')
       nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
     end,
   },
