@@ -2,19 +2,18 @@ return {
   'folke/snacks.nvim',
   priority = 1000,
   lazy = false,
-  opts = vim.tbl_map(function()
-    return { enabled = true }
-  end, {
-    'bigfile',
-    'bufdelete',
-    'gh',
-    'input',
-    'notifier',
-    'quickfile',
+  opts = {
+    bigfile = { enabled = true },
+    bufdelete = { enabled = true },
+    gh = { enabled = true },
+    input = { enabled = true },
+    notifier = { enabled = true },
+    quickfile = { enabled = true },
+    scope = { enabled = true },
+    statuscolumn = { enabled = true },
     'scope',
-    'statuscolumn',
-    'words',
-  }),
+    words = { enabled = true },
+  },
   config = function(_, opts)
     opts.picker = { sources = { gh_issue = {}, gh_pr = {} } }
     require('snacks').setup(opts)
