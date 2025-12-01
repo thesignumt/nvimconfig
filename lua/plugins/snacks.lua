@@ -11,7 +11,7 @@ return {
     quickfile = { enabled = true },
     scope = { enabled = true },
     statuscolumn = { enabled = true },
-    'scope',
+    win = { enabled = true },
     words = { enabled = true },
   },
   config = function(_, opts)
@@ -46,6 +46,25 @@ return {
         require('snacks').picker.gh_pr { state = 'all' }
       end,
       desc = 'GitHub Pull Requests (all)',
+    },
+    {
+      '<leader>N',
+      desc = 'Neovim News',
+      function()
+        Snacks.win {
+          file = vim.api.nvim_get_runtime_file('doc/news.txt', false)[1],
+          width = 0.6,
+          height = 0.6,
+          wo = {
+            spell = false,
+            wrap = false,
+            signcolumn = 'yes',
+            statuscolumn = ' ',
+            conceallevel = 3,
+          },
+          border = 'rounded',
+        }
+      end,
     },
   },
 }
