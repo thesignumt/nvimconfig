@@ -2,6 +2,7 @@ return {
   { 'github/copilot.vim' },
   {
     'olimorris/codecompanion.nvim',
+    tag = 'v17.33.0',
     opts = {
       log_level = 'DEBUG',
       strategies = {
