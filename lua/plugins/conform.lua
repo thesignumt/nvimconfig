@@ -51,7 +51,7 @@ return {
 
     m.modes(
       'nv',
-      '<leader>lf',
+      '<leader>f',
       fn(
         require('conform').format,
         { bufnr = 0, async = true, lsp_fallback = true, timeout_ms = 1000 }
