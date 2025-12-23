@@ -35,14 +35,14 @@ return {
     end,
   }),
   ---this is for PR for dooing
-  miplugin('C:/justcode/alpha/plugins/dooing/', {
-    config = function()
-      require('dooing').setup {
-        quick_keys = false,
-      }
-
-      nmap('<leader>k', ':Dooing<cr>', 'todo')
-      nmap('<leader>K', ':DooingLocal<cr>', 'todo local')
-    end,
-  }, true, 'dooing'),
+  -- miplugin('C:/justcode/alpha/plugins/dooing/', {
+  --   config = function()
+  --     require('dooing').setup {
+  --       quick_keys = false,
+  --     }
+  --
+  --     nmap('<leader>k', ':Dooing<cr>', 'todo')
+  --     nmap('<leader>K', ':DooingLocal<cr>', 'todo local')
+  --   end,
+  -- }, true, 'dooing'),
 }
