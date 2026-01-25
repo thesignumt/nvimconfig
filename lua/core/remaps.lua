@@ -27,13 +27,6 @@ nmap('<C-j>', '<C-w><C-j>', 'Move focus to the lower window')
 nmap('<C-k>', '<C-w><C-k>', 'Move focus to the upper window')
 
 -- m.modes('nv', '<leader>lc', ':CodeCompanionChat<cr>', 'CodeCompanionChat')
-nmap(
-  '<leader>tc',
-  ':Copilot '
-    .. (vim.g.copilot_enabled == 1 and 'disable' or 'enable')
-    .. '<cr>',
-  'copilot'
-)
 
 -- +-------------------------------------------------------+
 -- [                          IO                           ]

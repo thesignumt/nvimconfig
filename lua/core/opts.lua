@@ -78,11 +78,6 @@ if g.syncclip then
 end
 
 -- =============================
---      COPILOT
--- =============================
-g.copilot_enabled = 0
-
--- =============================
 --      REMOVE OLD KEYMAPS
 -- =============================
 for _, mode in ipairs { 'n', 'x', 'v', 'o', 's', 'i', 't' } do
