@@ -127,7 +127,7 @@ local function aesthetic_record_hq()
 end
 
 local function stop_record()
-  if recording_job then
+  if recording_job and recording_job:is_running() then
     -- graceful stop: send 'q' and wait for ffmpeg to finish
     recording_job:send 'q\n'
     recording_job:shutdown 'wait'
