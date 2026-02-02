@@ -3,6 +3,9 @@ local fn = require('utils.f').fn
 local Job = require 'plenary.job'
 local recording_job = nil
 
+-- +-------------------------------------------------------+
+-- [                      helper fns                       ]
+-- +-------------------------------------------------------+
 local function ensure_dir(path)
   vim.fn.mkdir(vim.fn.expand(path), 'p')
 end
@@ -20,6 +23,10 @@ local function unique_filename(base, ext)
   end
   return name
 end
+
+-- +-------------------------------------------------------+
+-- [                       main fns                        ]
+-- +-------------------------------------------------------+
 
 ---start recording
 ---@param hq boolean high quality
@@ -130,6 +137,9 @@ vim.api.nvim_create_user_command('RecordStop', stop_record, {})
 vim.api.nvim_create_user_command('Record', aesthetic_record, {})
 vim.api.nvim_create_user_command('RecordHQ', aesthetic_record_hq, {})
 
+-- +-------------------------------------------------------+
+-- [                       telescope                       ]
+-- +-------------------------------------------------------+
 local pickers = require 'telescope.pickers'
 local finders = require 'telescope.finders'
 local conf = require('telescope.config').values
@@ -170,6 +180,9 @@ end
 
 vim.api.nvim_create_user_command('RecordPicker', record_picker, {})
 
+-- +-------------------------------------------------------+
+-- [                        keymaps                        ]
+-- +-------------------------------------------------------+
 local nmap = require('utils.map').nmap
 nmap('<leader><leader>r', aesthetic_record, 'record')
 nmap('<leader><leader>t', aesthetic_record_hq, 'record: hq')
