@@ -1,5 +1,6 @@
-local Job = require 'plenary.job'
+local fn = require('utils.f').fn
 
+local Job = require 'plenary.job'
 local recording_job = nil
 
 local function ensure_dir(path)
@@ -10,40 +11,53 @@ local function fpath(dir, filename)
   return vim.fn.fnamemodify(vim.fn.expand(dir .. '/' .. filename), ':p')
 end
 
-local function aesthetic_record()
+---start recording
+---@param hq boolean high quality
+local function start_record(hq)
   ensure_dir '~/Videos/nvim'
-
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
-  local output_filename = string.format('%s(%s).mp4', current_file, time)
+  local suffix = hq and '_hq' or ''
+  local output_filename =
+    string.format('%s(%s)%s.mp4', current_file, time, suffix)
   local full_path = fpath('~/Videos/nvim', output_filename)
 
-  recording_job = Job:new {
-    command = 'ffmpeg',
-    args = {
-      '-y',
-      '-f',
-      'dshow',
-      '-i',
-      'video=screen-capture-recorder',
-      '-framerate',
-      '60',
-      '-filter:v',
-      'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=5:5:1.0:5:5:0.0',
-      '-c:v',
-      'libx264',
-      '-pix_fmt',
-      'yuv420p',
-      '-preset',
-      'ultrafast',
-      full_path,
-    },
-    hide = true,
+  local args = {
+    '-y',
+    '-f',
+    'dshow',
+    '-i',
+    'video=screen-capture-recorder',
+    '-framerate',
+    '60',
+    '-filter:v',
+    hq and 'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=7:7:1.0:7:7:0.0'
+      or 'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=5:5:1.0:5:5:0.0',
+    '-c:v',
+    'libx264',
+    '-pix_fmt',
+    'yuv420p',
   }
 
+  if hq then
+    table.insert(args, '-crf')
+    table.insert(args, '18')
+    table.insert(args, '-preset')
+    table.insert(args, 'fast')
+  else
+    table.insert(args, '-preset')
+    table.insert(args, 'ultrafast')
+  end
+
+  table.insert(args, full_path)
+
+  recording_job = Job:new { command = 'ffmpeg', args = args, hide = true }
   recording_job:start()
-  print('Recording to: ' .. full_path)
+  print((hq and 'High quality ' or '') .. 'Recording to: ' .. full_path)
 end
+
+local aesthetic_record = fn(start_record, false)
+local aesthetic_record_hq = fn(start_record, true)
 
 local function aesthetic_screenshot()
   ensure_dir '~/Videos/nvimPhotos'
@@ -86,43 +100,6 @@ local function aesthetic_screenshot()
   }
 
   job:start()
-end
-
-local function aesthetic_record_hq()
-  ensure_dir '~/Videos/nvim'
-
-  local current_file = vim.fn.expand '%:t'
-  local time = os.date '%H-%M'
-  local output_filename = string.format('%s(%s)_hq.mp4', current_file, time)
-  local full_path = fpath('~/Videos/nvim', output_filename)
-
-  recording_job = Job:new {
-    command = 'ffmpeg',
-    args = {
-      '-y',
-      '-f',
-      'dshow',
-      '-i',
-      'video=screen-capture-recorder',
-      '-framerate',
-      '60',
-      '-filter:v',
-      'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=7:7:1.0:7:7:0.0',
-      '-c:v',
-      'libx264',
-      '-crf',
-      '18',
-      '-preset',
-      'fast',
-      '-pix_fmt',
-      'yuv420p',
-      full_path,
-    },
-    hide = true,
-  }
-
-  recording_job:start()
-  print('High quality recording to: ' .. full_path)
 end
 
 local function stop_record()
