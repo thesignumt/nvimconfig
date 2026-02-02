@@ -70,7 +70,12 @@ local function start_record(hq)
 
   recording_job = Job:new { command = 'ffmpeg', args = args, hide = true }
   recording_job:start()
-  print((hq and 'High quality ' or '') .. 'Recording to: ' .. full_path)
+  vim.schedule(function()
+    vim.notify(
+      (hq and 'high quality ' or '') .. 'recording to: ' .. full_path,
+      vim.log.levels.INFO
+    )
+  end)
 end
 
 local aesthetic_record = fn(start_record, false)
