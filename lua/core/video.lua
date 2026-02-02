@@ -5,6 +5,10 @@ local recording_job = nil
 local function ensure_dir(path)
   vim.fn.mkdir(vim.fn.expand(path), 'p')
 end
+---full path
+local function fpath(dir, filename)
+  return vim.fn.fnamemodify(vim.fn.expand(dir .. '/' .. filename), ':p')
+end
 
 local function aesthetic_record()
   ensure_dir '~/Videos/nvim'
@@ -12,8 +16,7 @@ local function aesthetic_record()
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local output_filename = string.format('%s(%s).mp4', current_file, time)
-  local full_path =
-    vim.fn.fnamemodify(vim.fn.expand('~/Videos/nvim/' .. output_filename), ':p')
+  local full_path = fpath('~/Videos/nvim', output_filename)
 
   recording_job = Job:new {
     command = 'ffmpeg',
@@ -48,10 +51,7 @@ local function aesthetic_screenshot()
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local output_filename = string.format('%s(%s).png', current_file, time)
-  local full_path = vim.fn.fnamemodify(
-    vim.fn.expand('~/Videos/nvimPhotos/' .. output_filename),
-    ':p'
-  )
+  local full_path = fpath('~/Videos/nvimPhotos/', output_filename)
 
   local job = Job:new {
     command = 'ffmpeg',
@@ -94,8 +94,7 @@ local function aesthetic_record_hq()
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local output_filename = string.format('%s(%s)_hq.mp4', current_file, time)
-  local full_path =
-    vim.fn.fnamemodify(vim.fn.expand('~/Videos/nvim/' .. output_filename), ':p')
+  local full_path = fpath('~/Videos/nvim', output_filename)
 
   recording_job = Job:new {
     command = 'ffmpeg',
