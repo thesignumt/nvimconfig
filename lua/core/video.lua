@@ -10,6 +10,16 @@ end
 local function fpath(dir, filename)
   return vim.fn.fnamemodify(vim.fn.expand(dir .. '/' .. filename), ':p')
 end
+local function unique_filename(base, ext)
+  local counter = 1
+  local name = base .. ext
+  -- Check if the file exists; if yes, add a numeric suffix
+  while vim.fn.filereadable(name) == 1 do
+    name = ('%s(%d)%s'):format(base, counter, ext)
+    counter = counter + 1
+  end
+  return name
+end
 
 ---start recording
 ---@param hq boolean high quality
@@ -18,9 +28,9 @@ local function start_record(hq)
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local suffix = hq and '_hq' or ''
-  local output_filename =
-    string.format('%s(%s)%s.mp4', current_file, time, suffix)
-  local full_path = fpath('~/Videos/nvim', output_filename)
+  local base =
+    fpath('~/Videos/nvim', ('%s(%s)%s'):format(current_file, time, suffix))
+  local full_path = unique_filename(base, '.mp4')
 
   local args = {
     '-y',
@@ -64,8 +74,9 @@ local function aesthetic_screenshot()
 
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
-  local output_filename = string.format('%s(%s).png', current_file, time)
-  local full_path = fpath('~/Videos/nvimPhotos/', output_filename)
+  local base =
+    fpath('~/Videos/nvimPhotos', ('%s(%s)'):format(current_file, time))
+  local full_path = unique_filename(base, '.png')
 
   local job = Job:new {
     command = 'ffmpeg',
