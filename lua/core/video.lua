@@ -55,7 +55,7 @@ end
 
 local function stop_record()
   if vim.g.recording_job_id then
-    vim.fn.jobstop(vim.g.recording_job_id)
+    vim.fn.chansend(vim.g.recording_job_id, 'q\n')
     print 'Recording stopped.'
     vim.g.recording_job_id = nil
   else
