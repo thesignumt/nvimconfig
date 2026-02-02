@@ -169,3 +169,9 @@ local function record_picker()
 end
 
 vim.api.nvim_create_user_command('RecordPicker', record_picker, {})
+
+local nmap = require('utils.map').nmap
+nmap('<leader><leader>r', aesthetic_record, 'record')
+nmap('<leader><leader>t', aesthetic_record_hq, 'record: hq')
+nmap('<leader><leader>R', stop_record, 'stop recording')
+nmap('<leader><leader>s', aesthetic_screenshot, 'screenshot')
