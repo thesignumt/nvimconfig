@@ -1,63 +1,138 @@
+local Job = require 'plenary.job'
+
+local recording_job = nil
+
+local function ensure_dir(path)
+  vim.fn.mkdir(vim.fn.expand(path), 'p')
+end
+
 local function aesthetic_record()
+  ensure_dir '~/Videos/nvim'
+
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local output_filename = string.format('%s(%s).mp4', current_file, time)
-  local full_path = vim.fn.expand '~/Videos/nvim/' .. output_filename
+  local full_path =
+    vim.fn.fnamemodify(vim.fn.expand('~/Videos/nvim/' .. output_filename), ':p')
 
-  local cmd = string.format(
-    [[ffmpeg -y -f dshow -r 30 -i video="screen-capture-recorder" -filter:v "crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=5:5:1.0:5:5:0.0" -c:v libx264 -pix_fmt yuv420p -preset ultrafast "%s"]],
-    full_path
-  )
+  recording_job = Job:new {
+    command = 'ffmpeg',
+    args = {
+      '-y',
+      '-f',
+      'dshow',
+      '-i',
+      'video=screen-capture-recorder',
+      '-framerate',
+      '60',
+      '-filter:v',
+      'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=5:5:1.0:5:5:0.0',
+      '-c:v',
+      'libx264',
+      '-pix_fmt',
+      'yuv420p',
+      '-preset',
+      'ultrafast',
+      full_path,
+    },
+    hide = true,
+  }
 
+  recording_job:start()
   print('Recording to: ' .. full_path)
-
-  local job_id = vim.fn.jobstart(cmd, { detach = true })
-  vim.g.recording_job_id = job_id
 end
 
 local function aesthetic_screenshot()
+  ensure_dir '~/Videos/nvimPhotos'
+
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local output_filename = string.format('%s(%s).png', current_file, time)
-  local full_path = vim.fn.expand '~/Videos/nvimPhotos/' .. output_filename
-
-  local cmd = string.format(
-    [[ffmpeg -y -f avfoundation -frames:v 1 -i "3" -filter:v "crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=5:5:1.0:5:5:0.0" "%s"]],
-    full_path
+  local full_path = vim.fn.fnamemodify(
+    vim.fn.expand('~/Videos/nvimPhotos/' .. output_filename),
+    ':p'
   )
 
-  local result = vim.fn.system(cmd)
-  local exit_code = vim.v.shell_error
+  local job = Job:new {
+    command = 'ffmpeg',
+    args = {
+      '-y',
+      '-f',
+      'gdigrab',
+      '-i',
+      'desktop',
+      '-frames:v',
+      '1',
+      '-filter:v',
+      'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=5:5:1.0:5:5:0.0',
+      full_path,
+    },
+    hide = true, -- hides the console window
+    on_exit = function(j, return_val)
+      if return_val == 0 then
+        vim.schedule(function()
+          vim.notify('Screenshot saved to: ' .. full_path, vim.log.levels.INFO)
+        end)
+      else
+        local result = table.concat(j:result(), '\n')
+        vim.schedule(function()
+          vim.notify(
+            'Failed to take screenshot:\n' .. result,
+            vim.log.levels.ERROR
+          )
+        end)
+      end
+    end,
+  }
 
-  if exit_code ~= 0 then
-    vim.notify('Failed to take screenshot:\n' .. result, vim.log.levels.ERROR)
-  else
-    vim.notify('Screenshot saved to: ' .. full_path, vim.log.levels.INFO)
-  end
+  job:start()
 end
 
 local function aesthetic_record_hq()
+  ensure_dir '~/Videos/nvim'
+
   local current_file = vim.fn.expand '%:t'
   local time = os.date '%H-%M'
   local output_filename = string.format('%s(%s)_hq.mp4', current_file, time)
-  local full_path = vim.fn.expand '~/Videos/nvim/' .. output_filename
+  local full_path =
+    vim.fn.fnamemodify(vim.fn.expand('~/Videos/nvim/' .. output_filename), ':p')
 
-  local cmd = string.format(
-    [[ffmpeg -y -f avfoundation -r 60 -i "3:none" -filter:v "crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=7:7:1.0:7:7:0.0" -crf 18 -preset veryslow "%s"]],
-    full_path
-  )
+  recording_job = Job:new {
+    command = 'ffmpeg',
+    args = {
+      '-y',
+      '-f',
+      'dshow',
+      '-i',
+      'video=screen-capture-recorder',
+      '-framerate',
+      '60',
+      '-filter:v',
+      'crop=1920:1080:(in_w-1920)/2:(in_h-1080)/2,unsharp=7:7:1.0:7:7:0.0',
+      '-c:v',
+      'libx264',
+      '-crf',
+      '18',
+      '-preset',
+      'fast',
+      '-pix_fmt',
+      'yuv420p',
+      full_path,
+    },
+    hide = true,
+  }
 
+  recording_job:start()
   print('High quality recording to: ' .. full_path)
-
-  local job_id = vim.fn.jobstart(cmd, { detach = true })
-  vim.g.recording_job_id = job_id
 end
 
 local function stop_record()
-  if vim.g.recording_job_id then
-    vim.fn.chansend(vim.g.recording_job_id, 'q\n')
+  if recording_job then
+    -- graceful stop: send 'q' and wait for ffmpeg to finish
+    recording_job:send 'q\n'
+    recording_job:shutdown 'wait'
+    recording_job = nil
     print 'Recording stopped.'
-    vim.g.recording_job_id = nil
   else
     print 'No active recording!'
   end
