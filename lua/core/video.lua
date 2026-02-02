@@ -146,18 +146,18 @@ local recording_actions = {
 local function record_picker()
   pickers
     .new({}, {
-      prompt_title = 'Select Recording Action',
+      prompt_title = 'Recording Actions',
       finder = finders.new_table {
         results = recording_actions,
       },
       sorter = conf.generic_sorter {},
+      ---@diagnostic disable-next-line: unused-local
       attach_mappings = function(prompt_bufnr, map)
         actions.select_default:replace(function()
-          actions.close(prompt_bufnr)
           local selection = action_state.get_selected_entry()
-          local cmd = selection[1]
-          if cmd then
-            vim.cmd(cmd)
+          actions.close(prompt_bufnr)
+          if selection and selection.value then
+            vim.cmd(selection.value)
           else
             vim.notify('No selection made!', vim.log.levels.WARN)
           end
