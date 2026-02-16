@@ -82,26 +82,26 @@ return {
         -- rust_analyzer = {},
         -- ts_ls = {},
         -- pylsp = { settings = { pylsp = { plugins = { pyflakes = { enabled = false }, ... } } } },
-        lua_ls = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                disable = { 'param-type-mismatch', 'missing-fields' },
-              },
-              completion = { callSnippet = 'Replace' },
-            },
-          },
-        },
+        -- lua_ls = {
+        --   settings = {
+        --     Lua = {
+        --       diagnostics = {
+        --         disable = { 'param-type-mismatch', 'missing-fields' },
+        --       },
+        --       completion = { callSnippet = 'Replace' },
+        --     },
+        --   },
+        -- },
       }
 
       local ensure_installed = vim.tbl_keys(servers)
-      vim.list_extend(ensure_installed, { 'stylua', 'clangd' })
+      vim.list_extend(ensure_installed, { 'stylua', 'lua_ls', 'clangd' })
       require('mason-tool-installer').setup {
         ensure_installed = ensure_installed,
       }
 
       require('mason-lspconfig').setup {
-        ensure_installed = {},
+        ensure_installed = { 'lua_ls' },
         automatic_installation = false,
         handlers = {
           function(server_name)
@@ -112,8 +112,8 @@ return {
               capabilities,
               server.capabilities or {}
             )
-            -- require('lspconfig')[server_name].setup(server)
-            vim.lsp.config(server_name, server)
+            require('lspconfig')[server_name].setup(server)
+            -- vim.lsp.config(server_name, server)
           end,
         },
       }
