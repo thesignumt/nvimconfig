@@ -3,6 +3,7 @@
 -- +-------------------------------------------------------+
 -- [                        helpers                        ]
 -- +-------------------------------------------------------+
+
 local kc = vim.keycode
 local m = require 'utils.map'
 local imap = m.imap
@@ -15,6 +16,7 @@ local fn = require('utils.f').fn
 -- +-------------------------------------------------------+
 -- [                        keymaps                        ]
 -- +-------------------------------------------------------+
+
 nmap('<left>', '<cmd>echo "Use h to move!!"<CR>')
 nmap('<right>', '<cmd>echo "Use l to move!!"<CR>')
 nmap('<up>', '<cmd>echo "Use k to move!!"<CR>')
@@ -31,6 +33,7 @@ m.modes('nx', '<leader>j', ':CodeCompanionChat<cr>', 'CodeCompanionChat')
 -- +-------------------------------------------------------+
 -- [                          IO                           ]
 -- +-------------------------------------------------------+
+
 nmap('<leader>q', ':q<cr>')
 nmap('<leader>Q', ':qa!<cr>', 'quit neovim')
 nmap('<leader>w', ':w<cr>')
@@ -54,6 +57,7 @@ nmap(dblL 'n', require('no-neck-pain').toggle, 'no neck pain XD')
 -- +-------------------------------------------------------+
 -- [               clipboard/register stuff                ]
 -- +-------------------------------------------------------+
+
 -- Yank & paste above/below lines
 nmap('<leader>,', 'yyP', 'dupe above')
 vmap('<leader>,', 'yP', 'dupe above')
@@ -80,6 +84,7 @@ m.modes('nx', '-', '"_', 'void register') -- void register
 -- +-------------------------------------------------------+
 -- [                       movement                        ]
 -- +-------------------------------------------------------+
+
 -- Execute code
 -- map({ 'n', 'v' }, '<leader>x', '<cmd>.lua<cr>', mt(opts, { desc = 'Execute line/selection' }))
 
@@ -134,6 +139,7 @@ nmap('q;', 'q:')
 -- +-------------------------------------------------------+
 -- [                      breakpoints                      ]
 -- +-------------------------------------------------------+
+
 -- Undo/redo breakpoints
 imap('<C-u>', '<C-g>u')
 imap('<C-r>', '<C-g>U')
@@ -146,6 +152,7 @@ end
 -- +-------------------------------------------------------+
 -- [                         other                         ]
 -- +-------------------------------------------------------+
+
 -- Toggle hlsearch on Enter keypress
 nmap('<cr>', function()
   vim.cmd [[ echon '' ]]
