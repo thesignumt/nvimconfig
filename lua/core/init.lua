@@ -45,3 +45,17 @@ vim.lsp.config('lua_ls', {
     },
   },
 })
+
+vim.lsp.config('rust_analyzer', {
+  flags = {
+    debounce_text_changes = 150,
+  },
+  settings = {
+    ['rust-analyzer'] = {
+      cargo = { allFeatures = true },
+      checkOnSave = true,
+      diagnostics = { enable = true },
+      completion = { postfix = { enable = true } },
+    },
+  },
+})
