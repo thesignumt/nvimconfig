@@ -18,7 +18,7 @@ end
 ---@param name string name of plugin (without .nvim) e.g. mkcmt.nvim -> mkcmt
 ---@param opts table
 ---@param use_custom_name boolean?
----@param cname string?
+---@param cname string? custom name
 ---@return table
 function Utils.miplugin(name, opts, use_custom_name, cname)
   return vim.tbl_extend(
