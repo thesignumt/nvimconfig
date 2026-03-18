@@ -18,13 +18,13 @@ return {
     config = function(_, opts)
       require('barbar').setup(opts)
 
-      local nmap = require('utils.map').map
-      nmap('<A-,>', '<Cmd>BufferPrevious<cr>', opts)
-      nmap('<A-.>', '<Cmd>BufferNext<cr>', opts)
-      nmap('<A-<>', '<Cmd>BufferMovePrevious<cr>', opts)
-      nmap('<A->>', '<Cmd>BufferMoveNext<cr>', opts)
-      nmap('<A-p>', '<Cmd>BufferPin<cr>', opts)
-      nmap('<A-c>', '<Cmd>BufferClose<cr>', opts)
+      local nmap = require('utils.map').nmap
+      nmap('<A-,>', '<Cmd>BufferPrevious<cr>')
+      nmap('<A-.>', '<Cmd>BufferNext<cr>')
+      nmap('<A-<>', '<Cmd>BufferMovePrevious<cr>')
+      nmap('<A->>', '<Cmd>BufferMoveNext<cr>')
+      nmap('<A-p>', '<Cmd>BufferPin<cr>')
+      nmap('<A-c>', '<Cmd>BufferClose<cr>')
     end,
   },
   -- {
