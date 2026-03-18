@@ -153,6 +153,16 @@ end
 -- [                         other                         ]
 -- +-------------------------------------------------------+
 
+-- manpage
+nmap('<leader>im', function()
+  local input = vim.fn.input 'Man topic (<cword>): '
+  if input ~= nil and #input > 0 then
+    vim.cmd('Man ' .. input)
+  else
+    vim.cmd('Man ' .. vim.fn.expand '<cword>')
+  end
+end, 'open manpage sec 3')
+
 -- Toggle hlsearch on Enter keypress
 nmap('<cr>', function()
   vim.cmd [[ echon '' ]]
