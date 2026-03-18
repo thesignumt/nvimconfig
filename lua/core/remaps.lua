@@ -153,6 +153,11 @@ end
 -- [                         other                         ]
 -- +-------------------------------------------------------+
 
+local situtils = require 'core.situtils'
+nmap(dblL 'q', situtils.pick, 'handy utils')
+nmap(dblL 'w', situtils.fetch_raw_url, 'wget')
+nmap('<leader>4', situtils.open_git_origin, 'open git origin')
+
 -- manpage
 nmap('<leader>im', function()
   local input = vim.fn.input 'Man topic (<cword>): '
