@@ -160,9 +160,10 @@ nmap('<leader>4', situtils.open_git_origin, 'open git origin')
 
 -- manpage
 nmap('<leader>im', function()
-  local input = vim.fn.input 'Man topic (<cword>): '
-  if input ~= nil and #input > 0 then
-    vim.cmd('Man ' .. input)
+  local topic = vim.fn.input 'Man topic (<cword>): '
+  topic = topic ~= '' and topic or vim.fn.expand '<cword>'
+  vim.cmd.Man(vim.fn.escape(topic, ' '))
+end, 'open manpage sec 3')
   else
     vim.cmd('Man ' .. vim.fn.expand '<cword>')
   end
