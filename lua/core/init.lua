@@ -10,6 +10,11 @@ require 'core.snippets'
 require 'core.typst'
 require 'core.video'
 
+vim.cmd.colorscheme 'gruber-darker'
+vim.api.nvim_set_hl(0, 'IblIndent', { fg = '#4d4d4d' })
+vim.api.nvim_set_hl(0, 'IblScope', { fg = '#565f73' }) -- niagara-ish
+-- vim.cmd.colorscheme 'tokyonight-night'
+
 -- +-------------------------------------------------------+
 -- [                      utils setup                      ]
 -- +-------------------------------------------------------+
@@ -18,15 +23,15 @@ local inst = require('utils.f').inst_fn
 
 require('utils.highlight').setup()
 
-local pick = require 'utils.pick'
-nmap('<leader>sc', pick.colorscheme, 'colorscheme')
-
 local c = require('utils.cursor').new()
-nmap('<F2>', inst(c, 'toggle')())
+nmap('<leader>1', inst(c, 'toggle')(), 'change cursor')
 
 -- +-------------------------------------------------------+
 -- [                          lsp                          ]
 -- +-------------------------------------------------------+
+
+vim.filetype.add { extension = { h = 'c' } }
+
 vim.lsp.config('lua_ls', {
   settings = {
     Lua = {
@@ -36,6 +41,12 @@ vim.lsp.config('lua_ls', {
         globals = { 'vim' },
       },
       workspace = {
+        ignoreDir = {
+          '.git',
+          'dist',
+          'build',
+          '.cache',
+        },
         library = {
           vim.env.VIMRUNTIME,
         },

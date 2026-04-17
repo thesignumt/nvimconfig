@@ -34,6 +34,14 @@ return {
       nmap('<leader>if', fn(def.lookup, 'favorites'), 'search fav word def')
     end,
   }),
+  -- ---this is for PR for ouroboros
+  -- miplugin('ouroboros', {
+  --   config = function()
+  --     require('dooing').setup {
+  --       quick_keys = false,
+  --     }
+  --   end,
+  -- }, true),
   ---this is for PR for dooing
   -- miplugin('C:/justcode/alpha/plugins/dooing/', {
   --   config = function()

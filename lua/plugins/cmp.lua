@@ -33,6 +33,7 @@ return {
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert,noselect' },
+        -- completion = { autocomplete = false },
         window = {
           completion = {
             border = vim.g.cmp_winborder,

@@ -1,7 +1,35 @@
 local nmap = require('utils.map').nmap
 return {
   {
+    'tpope/vim-fugitive',
+    config = function()
+      nmap('<leader>d', vim.cmd.Git)
+
+      local Thesignumt_Fugitive =
+        vim.api.nvim_create_augroup('Thesignumt_Fugitive', {})
+
+      vim.api.nvim_create_autocmd('BufWinEnter', {
+        group = Thesignumt_Fugitive,
+        pattern = 'fugitive',
+        callback = function(args)
+          local opts = { buffer = args.buf, remap = false }
+
+          nmap('<leader>p', function()
+            vim.cmd.Git 'push'
+          end, opts)
+
+          -- rebase always
+          nmap('<leader>P', function()
+            vim.cmd.Git { 'pull', '--rebase' }
+          end, opts)
+        end,
+      })
+    end,
+  },
+
+  {
     'kdheepak/lazygit.nvim',
+    enabled = false,
     cmd = {
       'LazyGit',
       'LazyGitConfig',
@@ -10,7 +38,7 @@ return {
       'LazyGitFilterCurrentFile',
     },
     keys = {
-      { '<leader><leader>g', '<cmd>LazyGit<cr>', desc = 'Open LazyGit' },
+      { '<leader>d', '<cmd>LazyGit<cr>', desc = 'Open LazyGit' },
     },
     dependencies = {
       'nvim-lua/plenary.nvim', -- required

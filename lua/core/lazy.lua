@@ -16,7 +16,10 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     error('Error cloning lazy.nvim:\n' .. out)
   end
 end
-vim.opt.rtp:prepend(lazypath)
+
+---@type vim.Option
+local rtp = vim.opt.rtp
+rtp:prepend(lazypath)
 
 -- +-------------------------------------------------------+
 -- [                     LAZY PLUGINS                      ]
@@ -26,7 +29,7 @@ require('lazy').setup({
   { import = 'utils.miplugins' },
 }, {
   ui = {
-    icons = vim.g.have_nerd_font and {} or {
+    icons = {
       cmd = '⌘',
       config = '🛠',
       event = '📅',

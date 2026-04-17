@@ -15,7 +15,7 @@ return {
         end,
       },
       'nvim-telescope/telescope-ui-select.nvim',
-      { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
+      'nvim-tree/nvim-web-devicons',
     },
     config = function()
       require('telescope').setup {
@@ -26,27 +26,34 @@ return {
       require('telescope').load_extension 'fzf'
       require('telescope').load_extension 'ui-select'
 
-      local builtin = require 'telescope.builtin'
-      nmap('<leader>sh', builtin.help_tags, 'help')
-      nmap('<leader>sk', builtin.keymaps, 'keymaps')
-      nmap('<leader>sf', builtin.find_files, 'files')
-      nmap('<leader>ss', builtin.builtin, 'search telescope')
-      nmap('<leader>sw', builtin.grep_string, 'word')
-      nmap('<leader>sg', builtin.live_grep, 'grep')
-      nmap('<leader>sd', builtin.diagnostics, 'diagnostics')
-      nmap('<leader>sr', builtin.resume, 'resume')
-      nmap('<leader>s.', builtin.oldfiles, 'recent')
-      nmap('<leader>sb', builtin.buffers, 'buffers')
-      nmap('<leader>sy', builtin.lsp_document_symbols, 'doc symbols')
-      nmap('<leader>sY', builtin.lsp_workspace_symbols, 'workspace symbols')
+      local tb = require 'telescope.builtin'
+      local maps = {
+        { '<leader>sh', tb.help_tags, 'help' },
+        { '<leader>sk', tb.keymaps, 'keymaps' },
+        { '<leader>sf', tb.find_files, 'files' },
+        { '<leader>ss', tb.builtin, 'search telescope' },
+        { '<leader>sw', tb.grep_string, 'word' },
+        { '<leader>sg', tb.live_grep, 'grep' },
+        { '<leader>sd', tb.diagnostics, 'diagnostics' },
+        { '<leader>sr', tb.resume, 'resume' },
+        { '<leader>s.', tb.oldfiles, 'recent' },
+        { '<leader>sb', tb.buffers, 'buffers' },
+        { '<leader>sy', tb.lsp_document_symbols, 'doc symbols' },
+        { '<leader>sY', tb.lsp_workspace_symbols, 'workspace symbols' },
+      }
+      for _, m in ipairs(maps) do
+        nmap(m[1], m[2], m[3])
+      end
 
       nmap(
         '<leader>/',
         fn(
-          builtin.current_buffer_fuzzy_find,
+          tb.current_buffer_fuzzy_find,
           require('telescope.themes').get_dropdown {
             winblend = 10,
             previewer = false,
+            sorting_strategy = 'ascending',
+            layout_config = { prompt_position = 'top' },
           }
         ),
         'fzf in buffer'
@@ -54,15 +61,16 @@ return {
 
       nmap(
         '<leader>s/',
-        fn(
-          builtin.live_grep,
-          { grep_open_files = true, prompt_title = 'Live Grep in Open Files' }
-        ),
+        fn(tb.live_grep, {
+          grep_open_files = true,
+          prompt_title = 'Live Grep in Open Files',
+          cwd = vim.fn.getcwd(),
+        }),
         'grep in open files'
       )
       nmap(
         '<leader>sn',
-        fn(builtin.find_files, { cwd = vim.fn.stdpath 'config' }),
+        fn(tb.find_files, { cwd = vim.fn.stdpath 'config' }),
         'nvim conf files'
       )
     end,

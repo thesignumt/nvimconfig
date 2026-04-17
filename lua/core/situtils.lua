@@ -92,6 +92,25 @@ function M.wezterm_config()
   vim.cmd 'e ~/.config/wezterm/wezterm.lua'
 end
 
+function M.toggle_cmp()
+  notify_warn 'notice: it is janky'
+  local cmp = require 'cmp'
+
+  if _G.cmp_enabled == nil then
+    _G.cmp_enabled = true
+  end
+
+  _G.cmp_enabled = not _G.cmp_enabled
+
+  cmp.setup {
+    enabled = function()
+      return _G.cmp_enabled
+    end,
+  }
+
+  print('cmp ' .. (_G.cmp_enabled and 'enabled' or 'disabled'))
+end
+
 function M.pick()
   local ok, telescope = pcall(require, 'telescope')
   if not ok then

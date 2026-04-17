@@ -19,7 +19,8 @@ return {
   },
   config = function()
     local nmap = require('utils.map').nmap
-    nmap('<leader><leader>e', '<cmd>Compile<cr>', 'compile mode')
-    nmap('<leader><leader>3', '<cmd>Recompile<cr>', 'recompile')
+    nmap('<leader>e', '<cmd>Compile<cr>', 'compile mode')
+    nmap('<leader>r', '<cmd>Recompile<cr>', 'recompile')
+    nmap('<leader>3', '<cmd>bd! *compilation*<cr>', 'del compile buf')
   end,
 }

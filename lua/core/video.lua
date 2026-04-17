@@ -1,3 +1,4 @@
+-- NOTE: it only works in my primary monitor
 local fn = require('utils.f').fn
 
 local Job = require 'plenary.job'
@@ -126,7 +127,8 @@ local function aesthetic_screenshot()
 end
 
 local function stop_record()
-  if recording_job and recording_job:is_running() then
+  -- plenary.job doesn't expose is_running; use is_shutdown flag instead
+  if recording_job and not recording_job.is_shutdown then
     -- graceful stop: send 'q' and wait for ffmpeg to finish
     recording_job:send 'q\n'
     recording_job:shutdown 'wait'

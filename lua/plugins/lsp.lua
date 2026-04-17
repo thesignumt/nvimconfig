@@ -2,7 +2,12 @@ return {
   { -- LSP config
     'neovim/nvim-lspconfig',
     dependencies = {
-      { 'williamboman/mason.nvim', opts = {} },
+      {
+        'williamboman/mason.nvim',
+        ---@module 'mason.settings'
+        ---@type MasonSettings
+        opts = {},
+      },
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
       { 'j-hui/fidget.nvim', opts = {} },
@@ -57,16 +62,23 @@ return {
       vim.diagnostic.config {
         severity_sort = true,
         float = { border = 'rounded', source = 'if_many' },
-        underline = { severity = vim.diagnostic.severity.ERROR },
-        signs = vim.g.have_nerd_font and {
-          text = {
-            [vim.diagnostic.severity.ERROR] = '󰅚 ',
-            [vim.diagnostic.severity.WARN] = '󰀪 ',
-            [vim.diagnostic.severity.INFO] = '󰋽 ',
-            [vim.diagnostic.severity.HINT] = '󰌶 ',
+        underline = false,
+        virtual_text = {
+          severity = {
+            min = vim.diagnostic.severity.ERROR,
           },
-        } or {},
-        virtual_text = { source = 'if_many', spacing = 2 },
+          spacing = 2,
+          source = 'if_many',
+        },
+        -- underline = { severity = vim.diagnostic.severity.ERROR },
+        -- signs = {
+        --   text = {
+        --     [vim.diagnostic.severity.ERROR] = '󰅚 ',
+        --     [vim.diagnostic.severity.WARN] = '󰀪 ',
+        --     [vim.diagnostic.severity.INFO] = '󰋽 ',
+        --     [vim.diagnostic.severity.HINT] = '󰌶 ',
+        --   },
+        -- },
       }
 
       local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -76,32 +88,44 @@ return {
         require('cmp_nvim_lsp').default_capabilities()
       )
 
+      -- some are in core.init
       local servers = {
-        clangd = {},
-        -- gopls = {},
-        -- rust_analyzer = {},
-        -- ts_ls = {},
-        -- pylsp = { settings = { pylsp = { plugins = { pyflakes = { enabled = false }, ... } } } },
-        -- lua_ls = {
-        --   settings = {
-        --     Lua = {
-        --       diagnostics = {
-        --         disable = { 'param-type-mismatch', 'missing-fields' },
-        --       },
-        --       completion = { callSnippet = 'Replace' },
-        --     },
-        --   },
-        -- },
+        clangd = {
+          cmd = {
+            'clangd',
+            '--background-index', -- indexing for code navigation
+            '--clang-tidy', -- linting
+            '--cross-file-rename', -- rename across files
+            '--compile-commands-dir=.', -- where compile_commands.json lives
+            '--all-scopes-completion', -- better completion suggestions
+            '--completion-style=detailed', -- include types in completion
+            '--pch-storage=memory', -- faster precompiled headers
+            '--header-insertion=never', -- optional: avoid auto-inserting headers
+          },
+          filetypes = { 'c', 'objc' },
+          root_dir = require('lspconfig').util.root_pattern(
+            'compile_commands.json',
+            'Makefile',
+            '.git'
+          ),
+          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+          settings = {
+            clangd = {
+              fallbackFlags = { '-std=c17' }, -- ensures standard if compile_commands.json missing
+              diagnostics = { suppress = { 'unused-parameter' } },
+            },
+          },
+        },
       }
 
       local ensure_installed = vim.tbl_keys(servers)
-      vim.list_extend(ensure_installed, { 'stylua', 'lua_ls', 'clangd' })
+      vim.list_extend(ensure_installed, { 'stylua', 'lua_ls', 'rust_analyzer' })
       require('mason-tool-installer').setup {
         ensure_installed = ensure_installed,
       }
 
       require('mason-lspconfig').setup {
-        ensure_installed = { 'lua_ls' },
+        -- ensure_installed = { 'clangd', 'lua_ls', 'rust_analyzer' },
         automatic_installation = false,
         handlers = {
           function(server_name)

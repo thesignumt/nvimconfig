@@ -17,7 +17,10 @@ function Cursor.new(opts)
   vim.validate('opts.default_index', opts.default_index, 'integer', true)
   local self = setmetatable({
     cursors = opts.cursors
-      or { 'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20', '' },
+      or {
+        'n-v-c-sm:block-blinkon0,i-ci-ve:block-blinkon0,r-cr-o:block-blinkon0',
+        'n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20',
+      },
     index = 1,
     default_file = vim.fn.stdpath 'data' .. '/cursor_default', -- persistent file
     default_index = opts.default_index or 1,

@@ -33,7 +33,7 @@ o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 o.inccommand = 'split'
 o.cursorline = true
 o.scrolloff = 10
-o.colorcolumn = '90'
+o.linespace = 0
 o.termguicolors = true
 o.wrap = false
 o.title = true
@@ -45,8 +45,9 @@ o.cmdheight = 1
 o.sessionoptions =
   'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 o.shada = { "'10", '<0', 's10', 'h' }
-o.spell = true
+o.spell = false
 o.completeopt = 'menu,menuone,noselect'
+o.shortmess:append 'I'
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]

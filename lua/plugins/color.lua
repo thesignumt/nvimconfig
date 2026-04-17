@@ -1,37 +1,28 @@
 return {
   {
     'folke/tokyonight.nvim',
-    priority = 1000,
-    config = function()
-      require('tokyonight').setup {
-        styles = {
-          comments = { italic = false },
-        },
-        on_colors = function(colors) end,
-        on_highlights = function(highlights, colors) end,
-      }
-      vim.cmd.colorscheme 'tokyonight-night'
+    opts = {
+      styles = {
+        comments = { italic = false },
+      },
+      on_colors = function(colors) end,
+      on_highlights = function(highlights, colors) end,
+    },
+    config = function(_, opts)
+      require('tokyonight').setup(opts)
     end,
   },
-  {
-    'rose-pine/neovim',
-    name = 'rose-pine',
-    config = function()
-      require('rose-pine').setup {
-        disable_background = true,
-        styles = {
-          italic = false,
-        },
-      }
-    end,
-  },
-  {
-    'vague2k/vague.nvim',
-    lazy = false,
-    config = function()
-      require('vague').setup {
-        transparent = true,
-      }
-    end,
-  },
+
+  -- {
+  --   'silentium-theme/silentium.nvim',
+  --   lazy = false, -- ensure theme loads on startup
+  --   priority = 1000, -- high priority so it loads before other colorschemes
+  --   config = function()
+  --     -- optional: set up custom colors
+  --     require('silentium').setup {
+  --       -- example: override accent color
+  --       -- accent = require("silentium").accents.peach,
+  --     }
+  --   end,
+  -- },
 }
