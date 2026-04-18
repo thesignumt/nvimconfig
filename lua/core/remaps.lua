@@ -47,7 +47,7 @@ nmap('<leader>Q', ':q!<cr>', 'force quit')
 nmap('<leader>w', ':w<cr>')
 nmap('<C-w><C-w>', ':noautocmd w<cr>', 'write w/o fmt')
 nmap('<leader>W', ':wa<cr>')
-nmap('<leader>o', ':up<cr>:so<cr>')
+nmap('<leader>oi', ':tabedit .gitignore<cr>', 'edit .gitignore as tab')
 -- quickly switch files with alternate / switch it
 nmap('<leader>x', ':e #<CR>')
 nmap('<leader>X', ':bot sf #<CR>')
