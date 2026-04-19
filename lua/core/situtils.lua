@@ -1,6 +1,5 @@
 local M = {}
 local Job = require 'plenary.job'
-local Terminal = require('toggleterm.terminal').Terminal
 local fmt = string.format
 local uv = vim.uv or vim.loop
 
