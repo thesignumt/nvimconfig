@@ -1,7 +1,7 @@
 return {
-  'mbbill/undotree',
+    'mbbill/undotree',
 
-  config = function()
-    require('utils.map').nmap('<leader>u', vim.cmd.UndotreeToggle, 'undotree')
-  end,
+    config = function()
+        require('utils.map').nmap('<leader>u', vim.cmd.UndotreeToggle, 'undotree')
+    end,
 }

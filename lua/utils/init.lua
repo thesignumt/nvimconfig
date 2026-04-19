@@ -3,15 +3,15 @@ local Utils = {}
 --- get the operating system name
 --- @return '"windows"'|'"mac"'|'"linux"'
 function Utils.get_os()
-  local uname = vim.uv.os_uname()
-  local os_name = uname.sysname
-  if os_name == 'Windows_NT' then
-    return 'windows'
-  elseif os_name == 'Darwin' then
-    return 'mac'
-  else
-    return 'linux'
-  end
+    local uname = vim.uv.os_uname()
+    local os_name = uname.sysname
+    if os_name == 'Windows_NT' then
+        return 'windows'
+    elseif os_name == 'Darwin' then
+        return 'mac'
+    else
+        return 'linux'
+    end
 end
 
 ---make a lazy plugin spec for my plugins
@@ -21,18 +21,18 @@ end
 ---@param cname string? custom name
 ---@return table
 function Utils.miplugin(name, opts, use_custom_name, cname)
-  return vim.tbl_extend(
-    'force',
-    vim.deepcopy {
-      dir = use_custom_name == true and name or table.concat {
-        'C:\\justcode\\alpha\\plugins\\',
-        name,
-        '.nvim\\',
-      },
-      name = use_custom_name == true and cname or name,
-    },
-    opts
-  )
+    return vim.tbl_extend(
+        'force',
+        vim.deepcopy {
+            dir = use_custom_name == true and name or table.concat {
+                'C:\\justcode\\alpha\\plugins\\',
+                name,
+                '.nvim\\',
+            },
+            name = use_custom_name == true and cname or name,
+        },
+        opts
+    )
 end
 
 return Utils

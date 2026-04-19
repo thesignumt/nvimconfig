@@ -10,7 +10,7 @@ require 'core.snippets'
 require 'core.typst'
 require 'core.video'
 
-vim.cmd.colorscheme 'gruber-darker'
+-- vim.cmd.colorscheme 'gruber-darker'
 vim.api.nvim_set_hl(0, 'IblIndent', { fg = '#4d4d4d' })
 vim.api.nvim_set_hl(0, 'IblScope', { fg = '#565f73' }) -- niagara-ish
 -- vim.cmd.colorscheme 'tokyonight-night'
@@ -33,40 +33,40 @@ nmap('<leader>1', inst(c, 'toggle')(), 'change cursor')
 vim.filetype.add { extension = { h = 'c' } }
 
 vim.lsp.config('lua_ls', {
-  settings = {
-    Lua = {
-      runtime = { version = 'LuaJIT' },
-      completion = { callSnippet = 'Replace' },
-      diagnostics = {
-        globals = { 'vim' },
-      },
-      workspace = {
-        ignoreDir = {
-          '.git',
-          'dist',
-          'build',
-          '.cache',
+    settings = {
+        Lua = {
+            runtime = { version = 'LuaJIT' },
+            completion = { callSnippet = 'Replace' },
+            diagnostics = {
+                globals = { 'vim' },
+            },
+            workspace = {
+                ignoreDir = {
+                    '.git',
+                    'dist',
+                    'build',
+                    '.cache',
+                },
+                library = {
+                    vim.env.VIMRUNTIME,
+                },
+                checkThirdParty = false,
+            },
+            telemetry = { enable = false },
         },
-        library = {
-          vim.env.VIMRUNTIME,
-        },
-        checkThirdParty = false,
-      },
-      telemetry = { enable = false },
     },
-  },
 })
 
 vim.lsp.config('rust_analyzer', {
-  flags = {
-    debounce_text_changes = 150,
-  },
-  settings = {
-    ['rust-analyzer'] = {
-      cargo = { allFeatures = true },
-      checkOnSave = true,
-      diagnostics = { enable = true },
-      completion = { postfix = { enable = true } },
+    flags = {
+        debounce_text_changes = 150,
     },
-  },
+    settings = {
+        ['rust-analyzer'] = {
+            cargo = { allFeatures = true },
+            checkOnSave = true,
+            diagnostics = { enable = true },
+            completion = { postfix = { enable = true } },
+        },
+    },
 })

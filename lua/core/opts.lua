@@ -32,7 +32,7 @@ o.list = true
 o.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 o.inccommand = 'split'
 o.cursorline = true
-o.scrolloff = 10
+o.scrolloff = 6
 o.linespace = 0
 o.termguicolors = true
 o.wrap = false
@@ -42,24 +42,23 @@ o.swapfile = false
 o.backup = false
 o.undofile = true
 o.cmdheight = 1
-o.sessionoptions =
-  'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 o.shada = { "'10", '<0', 's10', 'h' }
 o.spell = false
 o.completeopt = 'menu,menuone,noselect'
-o.shortmess:append 'I'
+o.shortmess:append 'Is'
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
 -- +-------------------------------------------------------+
 o.expandtab = true
-local tab_size = 2
-local function setTab(t)
-  o.tabstop = t
-  o.softtabstop = t
-  o.shiftwidth = t
-end
-setTab(tab_size)
+-- o.cindent = false
+-- o.cinkeys = ''
+-- o.indentexpr = ''
+local tab_size = 4
+o.tabstop = tab_size
+o.softtabstop = tab_size
+o.shiftwidth = tab_size
 
 -- +-------------------------------------------------------+
 -- [                      win borders                      ]
@@ -73,56 +72,55 @@ g.have_nerd_font = true
 -- +-------------------------------------------------------+
 g.syncclip = false
 if g.syncclip then
-  vim.schedule(function()
-    o.clipboard = 'unnamedplus'
-  end)
+    vim.schedule(function()
+        o.clipboard = 'unnamedplus'
+    end)
 end
 
 -- =============================
 --      REMOVE OLD KEYMAPS
 -- =============================
 for _, mode in ipairs { 'n', 'x', 'v', 'o', 's', 'i', 't' } do
-  for _, map in ipairs(vim.api.nvim_get_keymap(mode)) do
-    if map.lhs:match '^gr.' and map.lhs ~= 'gr' then
-      pcall(require('utils.map').unmap, mode, map.lhs)
+    for _, map in ipairs(vim.api.nvim_get_keymap(mode)) do
+        if map.lhs:match '^gr.' and map.lhs ~= 'gr' then
+            pcall(require('utils.map').unmap, mode, map.lhs)
+        end
     end
-  end
 end
 
 -- =============================
 --      LSP ATTACH KEYMAPS
 -- =============================
 vim.api.nvim_create_autocmd('LspAttach', {
-  callback = function(e)
-    local opts = { buffer = e.buf }
-    local nmap = require('utils.map').nmap
-    nmap('<leader>la', vim.lsp.buf.code_action, 'Code Actions', opts)
-    nmap('<leader>ln', vim.lsp.buf.rename, 'Rename', opts)
-    nmap('<leader>lk', vim.diagnostic.open_float, 'Floating diagnostics', opts)
-  end,
+    callback = function(e)
+        local opts = { buffer = e.buf }
+        local nmap = require('utils.map').nmap
+        nmap('<leader>la', vim.lsp.buf.code_action, 'Code Actions', opts)
+        nmap('<C-n>', vim.lsp.buf.rename, 'Rename', opts)
+        nmap('<leader>lk', vim.diagnostic.open_float, 'Floating diagnostics', opts)
+    end,
 })
 
 -- =============================
 --      AUTOCMDS
 -- =============================
 local augroup_term = vim.api.nvim_create_augroup('MyTermOpen', { clear = true })
-local augroup_yank =
-  vim.api.nvim_create_augroup('thesignumt-highlight-yank', { clear = true })
+local augroup_yank = vim.api.nvim_create_augroup('thesignumt-highlight-yank', { clear = true })
 
 -- Disable line numbers in terminals
 vim.api.nvim_create_autocmd('TermOpen', {
-  group = augroup_term,
-  callback = function()
-    o.number = false
-    o.relativenumber = false
-  end,
+    group = augroup_term,
+    callback = function()
+        o.number = false
+        o.relativenumber = false
+    end,
 })
 
 -- Highlight when yanking (copying) text
 vim.api.nvim_create_autocmd('TextYankPost', {
-  group = augroup_yank,
-  desc = 'Highlight when yanking (copying) text',
-  callback = function()
-    vim.hl.on_yank()
-  end,
+    group = augroup_yank,
+    desc = 'Highlight when yanking (copying) text',
+    callback = function()
+        vim.hl.on_yank()
+    end,
 })

@@ -69,7 +69,7 @@ m.modes('nx', '<leader>y', '"+y')
 m.modes('nx', '<leader>p', '"+p')
 -- m.modes('nx', '<leader>d', '"+d')
 m.modes('nx', '<leader>n', ':norm ')
-m.modes('nv', '<leader>c', '1z=')
+-- m.modes('nv', '<leader>c', '1z=')
 
 m.xmap('p', '"_dP') -- paste w/o overriding reg
 
@@ -86,11 +86,11 @@ nmap('x', '"_x')
 
 -- Toggle tab width 2 <-> 4
 nmap('<leader>ts', function()
-  local new_width = (vim.bo.tabstop == 2) and 4 or 2
-  vim.bo.tabstop = new_width
-  vim.bo.shiftwidth = new_width
-  vim.bo.softtabstop = new_width
-  print('tab size ' .. new_width)
+    local new_width = (vim.bo.tabstop == 2) and 4 or 2
+    vim.bo.tabstop = new_width
+    vim.bo.shiftwidth = new_width
+    vim.bo.softtabstop = new_width
+    print('tab size ' .. new_width)
 end, 'tab spaces 2 <-> 4')
 
 -- Visual mode move lines up/down
@@ -136,7 +136,7 @@ imap('<C-r>', '<C-g>U')
 
 -- Break undo at punctuation
 for _, ch in ipairs { ',', '.', '!', '?', ';', ':' } do
-  imap(ch, ch .. '<c-g>u')
+    imap(ch, ch .. '<c-g>u')
 end
 
 -- +-------------------------------------------------------+
@@ -150,84 +150,82 @@ nmap(dblL 'g', situtils.open_git_origin, 'open git origin')
 
 -- manpage
 nmap('<leader>im', function()
-  local topic = vim.fn.input 'Man topic (<cword>): '
-  topic = topic ~= '' and topic or vim.fn.expand '<cword>'
-  vim.cmd.Man(vim.fn.escape(topic, ' '))
+    local topic = vim.fn.input 'Man topic (<cword>): '
+    topic = topic ~= '' and topic or vim.fn.expand '<cword>'
+    vim.cmd.Man(vim.fn.escape(topic, ' '))
 end, 'open manpage sec 3')
 
 m.modes('ni', '<C-z>', function()
-  local api = vim.api
-  local fn = vim.fn
+    local api = vim.api
+    local fn = vim.fn
 
-  local cs = vim.bo.commentstring
-  if not cs or cs == '' or not cs:find '%%s' then
-    return
-  end
+    local cs = vim.bo.commentstring
+    if not cs or cs == '' or not cs:find '%%s' then
+        return
+    end
 
-  local next_key = fn.getcharstr()
+    local next_key = fn.getcharstr()
 
-  -- extract comment prefix (trimmed)
-  local prefix = cs:gsub('%%s', ''):match '^%s*(.-)%s*$'
-  if not prefix or prefix == '' then
-    return
-  end
+    -- extract comment prefix (trimmed)
+    local prefix = cs:gsub('%%s', ''):match '^%s*(.-)%s*$'
+    if not prefix or prefix == '' then
+        return
+    end
 
-  local row, col = unpack(api.nvim_win_get_cursor(0))
-  row = row - 1
+    local row, col = unpack(api.nvim_win_get_cursor(0))
+    row = row - 1
 
-  local min_len, max_len = 30, 40
-  local fixed_len = 30 -- fixed length for <C-z>/<C-x>
-  local repeat_len = 30 -- fixed repeat for printable ASCII
+    local min_len, max_len = 30, 40
+    local fixed_len = 30 -- fixed length for <C-z>/<C-x>
+    local repeat_len = 30 -- fixed repeat for printable ASCII
 
-  local fill_char
-  local fill_len
+    local fill_char
+    local fill_len
 
-  if next_key == kc '<Esc>' then
-    return
+    if next_key == kc '<Esc>' then
+        return
 
-  -- ctrl-z / ctrl-x fixed length
-  elseif next_key == kc '<C-z>' or next_key == kc '<C-x>' then
-    fill_char = prefix:sub(1, 1)
-    cs = cs:gsub(' ', '', 1)
-    fill_len = fixed_len - 2
+    -- ctrl-z / ctrl-x fixed length
+    elseif next_key == kc '<C-z>' or next_key == kc '<C-x>' then
+        fill_char = prefix:sub(1, 1)
+        cs = cs:gsub(' ', '', 1)
+        fill_len = fixed_len - 2
 
-  -- printable ASCII: fixed repeat_len
-  elseif next_key:match '^[ -~]$' then
-    fill_char = next_key
-    fill_len = repeat_len
-  else
-    return
-  end
+    -- printable ASCII: fixed repeat_len
+    elseif next_key:match '^[ -~]$' then
+        fill_char = next_key
+        fill_len = repeat_len
+    else
+        return
+    end
 
-  local text = string.rep(fill_char, fill_len)
-  local formatted = cs:format(text)
+    local text = string.rep(fill_char, fill_len)
+    local formatted = cs:format(text)
 
-  -- clamp to max_len just in case
-  if #formatted > max_len then
-    formatted = formatted:sub(1, max_len)
-  end
+    -- clamp to max_len just in case
+    if #formatted > max_len then
+        formatted = formatted:sub(1, max_len)
+    end
 
-  api.nvim_buf_set_text(0, row, col, row, col, { formatted })
+    api.nvim_buf_set_text(0, row, col, row, col, { formatted })
 end, 'cmt line')
 
 -- Toggle hlsearch on Enter keypress
 nmap('<cr>', function()
-  vim.cmd [[ echon '' ]]
-  if vim.v.hlsearch == 1 then
-    vim.cmd.nohl()
-    return ''
-  else
-    return kc '<cr>'
-  end
+    vim.cmd [[ echon '' ]]
+    if vim.v.hlsearch == 1 then
+        vim.cmd.nohl()
+        return ''
+    else
+        return kc '<cr>'
+    end
 end, { expr = true })
 
-nmap(
-  '<leader>S',
-  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-  'search & replace'
-)
+nmap('<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'search & replace')
 -- Record Picker
 -- nmap('<leader>R', ':RecordPicker<cr>')
+
+nmap('<leader>in', ':Inspect<cr>', 'inspect hl')
 
 unmap('n', '<leader>td')
 unmap('n', '<leader>tD')
