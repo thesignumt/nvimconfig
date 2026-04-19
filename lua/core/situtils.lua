@@ -111,26 +111,26 @@ function M.toggle_cmp()
   print('cmp ' .. (_G.cmp_enabled and 'enabled' or 'disabled'))
 end
 
+local ok, telescope = pcall(require, 'telescope')
+if not ok then
+  vim.notify('Telescope not installed', vim.log.levels.ERROR)
+  return
+end
+
+local pickers = require 'telescope.pickers'
+local finders = require 'telescope.finders'
+local conf = require('telescope.config').values
+local actions = require 'telescope.actions'
+local action_state = require 'telescope.actions.state'
+
+local func_names = {}
+for name, fn in pairs(M) do
+  if type(fn) == 'function' and name:sub(1, 1) ~= '_' and name ~= 'pick' then
+    func_names[#func_names + 1] = name
+  end
+end
+
 function M.pick()
-  local ok, telescope = pcall(require, 'telescope')
-  if not ok then
-    vim.notify('Telescope not installed', vim.log.levels.ERROR)
-    return
-  end
-
-  local pickers = require 'telescope.pickers'
-  local finders = require 'telescope.finders'
-  local conf = require('telescope.config').values
-  local actions = require 'telescope.actions'
-  local action_state = require 'telescope.actions.state'
-
-  local func_names = {}
-  for name, fn in pairs(M) do
-    if type(fn) == 'function' and name:sub(1, 1) ~= '_' and name ~= 'pick' then
-      func_names[#func_names + 1] = name
-    end
-  end
-
   local layout_config = {
     width = math.floor(vim.o.columns * 0.5),
     height = math.floor(vim.o.lines * 0.5),
