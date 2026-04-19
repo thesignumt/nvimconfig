@@ -19,11 +19,6 @@ o.breakindent = true
 o.ignorecase = true
 o.smartcase = true
 o.signcolumn = 'yes'
-o.foldcolumn = '0'
-o.foldexpr = 'nvim_treesitter#foldexpr()'
-o.foldlevel = 99 -- keep folds open by default
-o.foldlevelstart = 99
-o.foldenable = true
 o.updatetime = 250
 o.timeoutlen = 250
 o.splitright = true
@@ -42,11 +37,13 @@ o.swapfile = false
 o.backup = false
 o.undofile = true
 o.cmdheight = 1
-o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+o.sessionoptions =
+    'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
 o.shada = { "'10", '<0', 's10', 'h' }
 o.spell = false
 o.completeopt = 'menu,menuone,noselect'
 o.shortmess:append 'Is'
+vim.cmd.syntax 'off'
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]
@@ -97,7 +94,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
         local nmap = require('utils.map').nmap
         nmap('<leader>la', vim.lsp.buf.code_action, 'Code Actions', opts)
         nmap('<C-n>', vim.lsp.buf.rename, 'Rename', opts)
-        nmap('<leader>lk', vim.diagnostic.open_float, 'Floating diagnostics', opts)
+        nmap(
+            '<leader>lk',
+            vim.diagnostic.open_float,
+            'Floating diagnostics',
+            opts
+        )
     end,
 })
 
@@ -105,7 +107,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 --      AUTOCMDS
 -- =============================
 local augroup_term = vim.api.nvim_create_augroup('MyTermOpen', { clear = true })
-local augroup_yank = vim.api.nvim_create_augroup('thesignumt-highlight-yank', { clear = true })
+local augroup_yank =
+    vim.api.nvim_create_augroup('thesignumt-highlight-yank', { clear = true })
 
 -- Disable line numbers in terminals
 vim.api.nvim_create_autocmd('TermOpen', {
