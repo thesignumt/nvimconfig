@@ -165,6 +165,14 @@ m.modes('ni', '<C-z>', function()
     end
 
     local next_key = fn.getcharstr()
+    if next_key == kc '<Esc>' then
+        return
+    end
+    local is = {
+        x = next_key == kc '<C-x>',
+        match_ascii = next_key:match '^[ -~]$',
+        colorscheme = next_key == kc '<C-k>',
+    }
 
     -- extract comment prefix (trimmed)
     local prefix = cs:gsub('%%s', ''):match '^%s*(.-)%s*$'
@@ -182,19 +190,29 @@ m.modes('ni', '<C-z>', function()
     local fill_char
     local fill_len
 
-    if next_key == kc '<Esc>' then
-        return
-
-    -- ctrl-z / ctrl-x fixed length
-    elseif next_key == kc '<C-z>' or next_key == kc '<C-x>' then
+    -- ctrl-x fixed length
+    if is.x then
         fill_char = prefix:sub(1, 1)
         cs = cs:gsub(' ', '', 1)
         fill_len = fixed_len - 2
 
     -- printable ASCII: fixed repeat_len
-    elseif next_key:match '^[ -~]$' then
+    elseif is.match_ascii then
         fill_char = next_key
         fill_len = repeat_len
+
+    -- colorscheme
+    elseif next_key == kc '<C-k>' then
+        local cur_color = vim.g.colors_name
+        local gd = 'gruber-darker'
+        local tnn = 'tokyonight-night'
+        local to_set = (cur_color == gd and tnn)
+            or (cur_color == tnn and gd)
+            or gd
+
+        vim.cmd.colorscheme(to_set)
+
+        return
     else
         return
     end
@@ -208,7 +226,7 @@ m.modes('ni', '<C-z>', function()
     end
 
     api.nvim_buf_set_text(0, row, col, row, col, { formatted })
-end, 'cmt line')
+end)
 
 -- Toggle hlsearch on Enter keypress
 nmap('<cr>', function()
