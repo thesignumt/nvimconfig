@@ -28,11 +28,16 @@ local colors = {
     red = '#f43841',
 }
 
----set highlight
----@param name string
+---@param name string|string[]
 ---@param val vim.api.keyset.highlight
 local function hl(name, val)
-    vim.api.nvim_set_hl(0, name, val)
+    if type(name) == 'table' then
+        for _, n in ipairs(name) do
+            vim.api.nvim_set_hl(0, n, val)
+        end
+    else
+        vim.api.nvim_set_hl(0, name, val)
+    end
 end
 
 ---opts for hl
@@ -60,20 +65,16 @@ hl('Normal', hl_opts(colors.fg, colors.bg))
 hl('@comment', hl_opts(colors.gray))
 
 hl('@keyword', hl_opts(colors.yellow, nil, { bold = true }))
-hl('@keyword.import', hl_opts(colors.quartz))
-hl('@keyword.directive', hl_opts(colors.quartz))
+hl({ '@keyword.import', '@keyword.directive' }, hl_opts(colors.quartz))
 
-hl('@string', hl_opts(colors.green))
-hl('@string.escape', hl_opts(colors.green))
+hl({ '@string', '@string.escape', '@character' }, hl_opts(colors.green))
 
-hl('@function', hl_opts(colors.fg))
-hl('@function.call', hl_opts(colors.fg))
+hl({ '@function', '@function.call' }, hl_opts(colors.fg))
 
 hl('@type', hl_opts(colors.fg))
 hl('@type.builtin', hl_opts(colors.quartz))
 
-hl('@variable', hl_opts(colors.fg_light))
-hl('@property', hl_opts(colors.fg_light))
+hl({ '@variable', '@property' }, hl_opts(colors.fg_light))
 
 hl('Pmenu', hl_opts(colors.fg, colors.bg_alt))
 hl('PmenuSel', hl_opts(colors.bg, accents.blue))
