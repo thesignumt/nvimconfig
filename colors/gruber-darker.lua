@@ -1,6 +1,4 @@
-local M = {}
-
-M.accents = {
+local accents = {
     red = '#E85A4F',
     coral = '#FF6B6B',
     rose = '#FF758F',
@@ -17,11 +15,12 @@ M.accents = {
     orange = '#FF8E29',
 }
 
-M.colors = {
+local colors = {
     fg = '#e4e4ef',
     fg_light = '#f4f4ff',
     bg = '#101010',
     bg_alt = '#282828',
+    white = '#ffffff',
     gray = '#cc8c3c',
     quartz = '#95a99f',
     yellow = '#ffdd33',
@@ -36,60 +35,68 @@ local function hl(name, val)
     vim.api.nvim_set_hl(0, name, val)
 end
 
-function M.apply()
-    vim.o.background = 'dark'
-    vim.g.colors_name = 'gruber-darker'
-    vim.cmd.highlight 'clear'
-    if vim.fn.has 'syntax_on' then
-        vim.cmd.syntax 'reset'
-    end
-
-    hl('Normal', { bg = M.colors.bg, fg = M.colors.fg })
-
-    hl('StatusLine', {
-        fg = '#ffffff',
-        bg = '#282828',
-    })
-    hl('StatusLineNC', {
-        fg = '#95a99f',
-        bg = '#282828',
-    })
-
-    hl('Comment', { fg = '#cc8c3c' })
-    hl('Keyword', { fg = '#ffdd33', bold = true })
-    hl('Statement', { fg = '#ffdd33', bold = true })
-
-    hl('@string', { fg = '#73c936' })
-    hl('cString', { link = '@string' })
-    hl('Function', { fg = M.colors.fg })
-    hl('Type', { fg = '#95a99f' })
-    hl('Identifier', { fg = '#f4f4ff' })
-
-    -- hl('PreProc', { fg = '#95a99f' })
-    hl('@preproc', { fg = '#95a99f' })
-    hl('@include', { fg = '#95a99f' })
-
-    hl('DiagnosticError', { fg = M.accents.red })
-    hl('DiagnosticWarn', { fg = M.accents.yellow })
-    hl('DiagnosticInfo', { fg = M.accents.cyan })
-    hl('DiagnosticHint', { fg = M.accents.blue })
-
-    hl('GitSignsAdd', { fg = '#3f5a3f' })
-    hl('GitSignsChange', { fg = '#5a5a3f' })
-    hl('GitSignsDelete', { fg = '#5a3f3f' })
-    hl('GitSignsTopDelete', { fg = '#5a3f3f' })
-    hl('GitSignsChangeDelete', { fg = '#6a4a3a' })
-
-    vim.g.terminal_color_0 = M.colors.dark_gray
-    vim.g.terminal_color_1 = M.accents.red
-    vim.g.terminal_color_2 = M.accents.green
-    vim.g.terminal_color_3 = M.accents.yellow
-    vim.g.terminal_color_4 = M.accents.blue
-    vim.g.terminal_color_5 = M.accents.pink
-    vim.g.terminal_color_6 = M.accents.cyan
-    vim.g.terminal_color_7 = M.colors.white
+---opts for hl
+---@param fg_color string?
+---@param bg_color string?
+---@param opts table?
+---@return table
+local function hl_opts(fg_color, bg_color, opts)
+    opts = opts or {}
+    opts.fg = fg_color and fg_color
+    opts.bg = bg_color and bg_color
+    return opts
 end
 
-M.apply()
+vim.o.background = 'dark'
+vim.o.termguicolors = true
+vim.cmd 'highlight clear'
+if vim.fn.exists 'syntax_on' == 1 then
+    vim.cmd 'syntax reset'
+end
+vim.g.colors_name = 'gruber-darker'
 
-return M
+hl('Normal', hl_opts(colors.fg, colors.bg))
+
+hl('@comment', hl_opts(colors.gray))
+
+hl('@keyword', hl_opts(colors.yellow, nil, { bold = true }))
+hl('@keyword.import', hl_opts(colors.quartz))
+hl('@keyword.directive', hl_opts(colors.quartz))
+
+hl('@string', hl_opts(colors.green))
+hl('@string.escape', hl_opts(colors.green))
+
+hl('@function', hl_opts(colors.fg))
+hl('@function.call', hl_opts(colors.fg))
+
+hl('@type', hl_opts(colors.fg))
+hl('@type.builtin', hl_opts(colors.quartz))
+
+hl('@variable', hl_opts(colors.fg_light))
+hl('@property', hl_opts(colors.fg_light))
+
+hl('Pmenu', hl_opts(colors.fg, colors.bg_alt))
+hl('PmenuSel', hl_opts(colors.bg, accents.blue))
+hl('PmenuSbar', hl_opts(nil, colors.bg_alt))
+hl('PmenuThumb', hl_opts(nil, colors.quartz))
+
+hl('CmpItemKindDefault', hl_opts(colors.fg))
+
+hl('FloatBorder', hl_opts(colors.bg_alt))
+hl('NormalFloat', hl_opts(nil, colors.bg_alt))
+
+hl('StatusLine', hl_opts(colors.white, colors.bg_alt))
+hl('StatusLineNC', hl_opts(colors.quartz, colors.bg_alt))
+
+hl('DiagnosticError', hl_opts(accents.red))
+hl('DiagnosticWarn', hl_opts(accents.yellow))
+hl('DiagnosticInfo', hl_opts(accents.cyan))
+hl('DiagnosticHint', hl_opts(accents.blue))
+
+hl('Title', hl_opts(colors.yellow, nil, { bold = true }))
+
+hl('GitSignsAdd', { fg = '#3f5a3f' })
+hl('GitSignsChange', { fg = '#5a5a3f' })
+hl('GitSignsDelete', { fg = '#5a3f3f' })
+hl('GitSignsTopDelete', { fg = '#5a3f3f' })
+hl('GitSignsChangeDelete', { fg = '#6a4a3a' })
