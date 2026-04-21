@@ -73,6 +73,7 @@ hl({ '@function', '@function.call' }, hl_opts(colors.fg))
 
 hl('@type', hl_opts(colors.fg))
 hl('@type.builtin', hl_opts(colors.quartz))
+hl('@lsp.type.type', hl_opts(colors.quartz))
 
 hl({ '@variable', '@property' }, hl_opts(colors.fg_light))
 
