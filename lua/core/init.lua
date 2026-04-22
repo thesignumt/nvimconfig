@@ -11,8 +11,6 @@ require 'core.typst'
 require 'core.video'
 
 -- vim.cmd.colorscheme 'gruber-darker'
-vim.api.nvim_set_hl(0, 'IblIndent', { fg = '#4d4d4d' })
-vim.api.nvim_set_hl(0, 'IblScope', { fg = '#565f73' }) -- niagara-ish
 -- vim.cmd.colorscheme 'tokyonight-night'
 
 -- +-------------------------------------------------------+

@@ -43,7 +43,6 @@ o.shada = { "'10", '<0', 's10', 'h' }
 o.spell = false
 o.completeopt = 'menu,menuone,noselect'
 o.shortmess:append 'Is'
-vim.cmd.syntax 'off'
 
 -- +-------------------------------------------------------+
 -- [                     tab settings                      ]

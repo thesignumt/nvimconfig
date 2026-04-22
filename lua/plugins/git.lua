@@ -5,8 +5,7 @@ return {
         config = function()
             nmap('<leader>d', vim.cmd.Git)
 
-            local Thesignumt_Fugitive =
-                vim.api.nvim_create_augroup('Thesignumt_Fugitive', {})
+            local Thesignumt_Fugitive = vim.api.nvim_create_augroup('Thesignumt_Fugitive', {})
 
             vim.api.nvim_create_autocmd('FileType', {
                 group = Thesignumt_Fugitive,
@@ -93,29 +92,15 @@ return {
                 map('v', '<leader>gr', function()
                     gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
                 end, { desc = 'git reset hunk' })
-                map(
-                    'n',
-                    '<leader>gs',
-                    gitsigns.stage_hunk,
-                    { desc = 'git stage hunk' }
-                )
-                map(
-                    'n',
-                    '<leader>gr',
-                    gitsigns.reset_hunk,
-                    { desc = 'git reset hunk' }
-                )
+                map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
+                map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
             end,
         },
         config = function(_, opts)
             local gitsigns = require 'gitsigns'
             gitsigns.setup(opts)
             nmap('<leader>gh', gitsigns.preview_hunk, 'preview hunk')
-            nmap(
-                '<leader>gt',
-                gitsigns.toggle_current_line_blame,
-                'toggle blame'
-            )
+            nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
         end,
     },
 }

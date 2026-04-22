@@ -4,7 +4,10 @@
 -- [                        helpers                        ]
 -- +-------------------------------------------------------+
 
+local api = vim.api
+local fn = vim.fn
 local kc = vim.keycode
+local tc = api.nvim_replace_termcodes
 local m = require 'utils.map'
 local imap = m.imap
 local nmap = m.nmap
@@ -156,9 +159,6 @@ nmap('<leader>im', function()
 end, 'open manpage sec 3')
 
 m.modes('ni', '<C-z>', function()
-    local api = vim.api
-    local fn = vim.fn
-
     local cs = vim.bo.commentstring
     if not cs or cs == '' or not cs:find '%%s' then
         return
@@ -226,6 +226,8 @@ m.modes('ni', '<C-z>', function()
     end
 
     api.nvim_buf_set_text(0, row, col, row, col, { formatted })
+
+    api.nvim_feedkeys(tc('<C-g>u', true, false, true), 'n', false)
 end)
 
 -- Toggle hlsearch on Enter keypress
@@ -239,7 +241,13 @@ nmap('<cr>', function()
     end
 end, { expr = true })
 
-nmap('<leader>S', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], 'search & replace')
+nmap(
+    '<leader>S',
+    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+    'search & replace'
+)
+m.modes('nv', '<C-s>', [[:s/\V]])
+
 -- Record Picker
 -- nmap('<leader>R', ':RecordPicker<cr>')
 

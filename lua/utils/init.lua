@@ -21,11 +21,12 @@ end
 ---@param cname string? custom name
 ---@return table
 function Utils.miplugin(name, opts, use_custom_name, cname)
+    local plugin_dir = vim.fn.expand '~/Projects/'
     return vim.tbl_extend(
         'force',
         vim.deepcopy {
             dir = use_custom_name == true and name or table.concat {
-                'C:\\justcode\\alpha\\plugins\\',
+                plugin_dir,
                 name,
                 '.nvim\\',
             },

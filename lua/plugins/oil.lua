@@ -21,9 +21,9 @@ return {
             wrap = true,
         },
         float = {
-            padding = 2,
-            max_width = 60,
-            max_height = 25,
+            -- padding = 2,
+            max_width = 0.3,
+            max_height = 0.6,
             border = 'rounded',
         },
     },

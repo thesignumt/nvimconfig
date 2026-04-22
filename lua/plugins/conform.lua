@@ -28,7 +28,9 @@ return {
             },
 
             clang_format = {
-                args = { '--style={IndentWidth: 4, TabWidth: 4, UseTab: Never}' },
+                args = {
+                    '--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}',
+                },
             },
         },
     },
