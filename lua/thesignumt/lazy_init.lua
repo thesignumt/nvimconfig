@@ -17,3 +17,26 @@ if not uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup({
+    { import = 'thesignumt.plugins' },
+    { import = 'thesignumt.utils.miplugins' },
+}, {
+    ui = {
+        icons = {
+            cmd = '⌘',
+            config = '🛠',
+            event = '📅',
+            ft = '📂',
+            init = '⚙',
+            keys = '🗝',
+            plugin = '🔌',
+            runtime = '💻',
+            require = '🌙',
+            source = '📄',
+            start = '🚀',
+            task = '📌',
+            lazy = '💤 ',
+        },
+    },
+})
