@@ -1,30 +1,35 @@
 return {
-    'ThePrimeagen/harpoon',
-    branch = 'harpoon2',
-    dependencies = { 'nvim-lua/plenary.nvim' },
+    "ThePrimeagen/harpoon",
+    lazy = false,
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function()
-        local nmap = require('thesignumt.utils.map').nmap
-        local obj = require('thesignumt.utils.f').inst_fn
-        local harpoon = require 'harpoon'
+        local nmap = require("thesignumt.utils.map").nmap
+        local harpoon = require "harpoon"
         harpoon:setup()
 
-        nmap('<leader>a', obj(harpoon:list(), 'add')(), 'Harpoon: Mark File')
-        nmap('<leader>A', obj(harpoon:list(), 'remove')(), 'Harpoon: RM File')
+        nmap("<leader>A", function()
+            harpoon:list():prepend()
+        end)
+        nmap("<leader>a", function()
+            harpoon:list():add()
+        end)
 
-        nmap('<leader>h', function()
+        nmap("<C-h>", function()
             harpoon.ui:toggle_quick_menu(harpoon:list(), {
-                border = 'rounded',
-                title_pos = 'center',
+                border = "rounded",
+                title_pos = "center",
                 ui_max_width = 60,
                 height_in_lines = 8,
             })
-        end, 'harpoon quickmenu')
+        end, "harpoon quickmenu")
 
-        local keys = { h = 1, j = 2, k = 3, l = 4, u = 5, i = 6 }
+        -- use m for 6
+        local keys = { j = 1, k = 2, l = 3, [";"] = 4, ["'"] = 5 }
         for key, idx in pairs(keys) do
-            nmap('g' .. key, function()
+            nmap("<C-" .. key .. ">", function()
                 harpoon:list():select(idx)
-            end, 'Harpoon File ' .. idx)
+            end, "Harpoon File " .. idx)
         end
 
         -- for key, idx in pairs(keys) do

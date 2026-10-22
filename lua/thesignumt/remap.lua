@@ -1,14 +1,10 @@
----@diagnostic disable: missing-parameter
-
 -- +-------------------------------------------------------+
 -- [                        helpers                        ]
 -- +-------------------------------------------------------+
 
 local api = vim.api
-local fn = vim.fn
 local kc = vim.keycode
-local tc = api.nvim_replace_termcodes
-local m = require("thesignumt.utils.map")
+local m = require "thesignumt.utils.map"
 local imap = m.imap
 local nmap = m.nmap
 local vmap = m.vmap
@@ -29,10 +25,10 @@ nmap("<down>", "<NOP>")
 -- nmap('<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- See `:help wincmd` for a list of all window commands
-nmap("<C-h>", "<C-w><C-h>", "focus left window")
-nmap("<C-l>", "<C-w><C-l>", "focus right window")
-nmap("<C-j>", "<C-w><C-j>", "focus lower window")
-nmap("<C-k>", "<C-w><C-k>", "focus upper window")
+-- nmap("<C-h>", "<C-w><C-h>", "focus left window")
+-- nmap("<C-l>", "<C-w><C-l>", "focus right window")
+-- nmap("<C-j>", "<C-w><C-j>", "focus lower window")
+-- nmap("<C-k>", "<C-w><C-k>", "focus upper window")
 
 nmap("<C-Up>", ":resize -2<CR>")
 nmap("<C-Down>", ":resize +2<CR>")
@@ -65,7 +61,8 @@ nmap("<leader>.", "yyp", "dupe below")
 vmap("<leader>.", "ygv<Esc>p", "dupe below")
 
 -- Yank buffer
-nmap("yA", "<cmd>%yank+<cr>", 'yank buffer to "+')
+nmap("yA", ":%y+<cr>", 'yank buffer to "+')
+nmap("vag", "ggVG")
 
 nmap("<leader>Y", '"+Y')
 m.modes("nx", "<leader>y", '"+y')
@@ -138,7 +135,7 @@ imap("<C-u>", "<C-g>u")
 imap("<C-r>", "<C-g>U")
 
 -- Break undo at punctuation
-for _, ch in ipairs({ ",", ".", "!", "?", ";", ":" }) do
+for _, ch in ipairs { ",", ".", "!", "?", ";", ":" } do
     imap(ch, ch .. "<c-g>u")
 end
 
@@ -146,36 +143,42 @@ end
 -- [                         other                         ]
 -- +-------------------------------------------------------+
 
-local situtils = require("thesignumt.situtils")
-nmap(dblL("q"), situtils.pick, "handy utils")
-nmap(dblL("w"), situtils.fetch_raw_url, "wget")
-nmap(dblL("g"), situtils.open_git_origin, "open git origin")
+nmap(dblL "q", function()
+    require("thesignumt.situtils").pick()
+end, "handy utils")
+nmap(dblL "w", function()
+    require("thesignumt.situtils").fetch_raw_url()
+end, "wget")
+nmap(dblL "g", function()
+    require("thesignumt.situtils").open_git_origin()
+end, "open git origin")
 
 -- manpage
 nmap("<leader>im", function()
-    local topic = vim.fn.input("Man topic (<cword>): ")
-    topic = topic ~= "" and topic or vim.fn.expand("<cword>")
+    local topic = vim.fn.input "Man topic (<cword>): "
+    topic = topic ~= "" and topic or vim.fn.expand "<cword>"
     vim.cmd.Man(vim.fn.escape(topic, " "))
 end, "open manpage sec 3")
 
 m.modes("ni", "<C-z>", function()
     local cs = vim.bo.commentstring
-    if not cs or cs == "" or not cs:find("%%s") then
+    if not cs or cs == "" or not cs:find "%%s" then
         return
     end
 
-    local next_key = fn.getcharstr()
-    if next_key == kc("<Esc>") then
+    local next_key = Getch()
+    if next_key == "<Esc>" then
         return
     end
     local is = {
-        x = next_key == kc("<C-x>"),
-        match_ascii = next_key:match("^[ -~]$"),
-        colorscheme = next_key == kc("<C-k>"),
+        x = next_key == "<C-X>",
+        match_ascii = next_key:match "^[ -~]$",
+        colorscheme = next_key == "<C-K>",
+        see_key = next_key == "<C-L>",
     }
 
     -- extract comment prefix (trimmed)
-    local prefix = cs:gsub("%%s", ""):match("^%s*(.-)%s*$")
+    local prefix = cs:gsub("%%s", ""):match "^%s*(.-)%s*$"
     if not prefix or prefix == "" then
         return
     end
@@ -183,9 +186,7 @@ m.modes("ni", "<C-z>", function()
     local row, col = unpack(api.nvim_win_get_cursor(0))
     row = row - 1
 
-    local min_len, max_len = 30, 40
-    local fixed_len = 30 -- fixed length for <C-z>/<C-x>
-    local repeat_len = 30 -- fixed repeat for printable ASCII
+    local repeat_len = 30
 
     local fill_char
     local fill_len
@@ -194,7 +195,7 @@ m.modes("ni", "<C-z>", function()
     if is.x then
         fill_char = prefix:sub(1, 1)
         cs = cs:gsub(" ", "", 1)
-        fill_len = fixed_len - 2
+        fill_len = repeat_len - 2
 
     -- printable ASCII: fixed repeat_len
     elseif is.match_ascii then
@@ -202,50 +203,43 @@ m.modes("ni", "<C-z>", function()
         fill_len = repeat_len
 
     -- colorscheme
-    elseif next_key == kc("<C-k>") then
+    elseif is.colorscheme then
         local cur_color = vim.g.colors_name
         local gd = "gruber-darker"
         local tnn = "tokyonight-night"
-        local to_set = (cur_color == gd and tnn)
-            or (cur_color == tnn and gd)
-            or gd
+        local to_set = (cur_color == gd and tnn) or (cur_color == tnn and gd) or gd
 
         vim.cmd.colorscheme(to_set)
 
         return
+
+    -- see key
+    elseif is.see_key then
+        Getch(true)
+        return
     else
+        print(next_key .. " is not recognized")
         return
     end
 
-    local text = string.rep(fill_char, fill_len)
+    local text = fill_char:rep(fill_len)
     local formatted = cs:format(text)
 
-    -- clamp to max_len just in case
-    if #formatted > max_len then
-        formatted = formatted:sub(1, max_len)
-    end
-
     api.nvim_buf_set_text(0, row, col, row, col, { formatted })
-
-    api.nvim_feedkeys(tc("<C-g>u", true, false, true), "n", false)
 end)
 
 -- Toggle hlsearch on Enter keypress
 nmap("<cr>", function()
-    vim.cmd([[ echon '' ]])
+    vim.cmd [[ echon '' ]]
     if vim.v.hlsearch == 1 then
         vim.cmd.nohl()
         return ""
     else
-        return kc("<cr>")
+        return kc "<cr>"
     end
 end, { expr = true })
 
-nmap(
-    "<leader>S",
-    [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
-    "search & replace"
-)
+nmap("<leader>S", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "search & replace")
 m.modes("nv", "<C-s>", [[:s/\V]])
 
 -- Record Picker

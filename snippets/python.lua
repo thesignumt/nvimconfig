@@ -1,8 +1,8 @@
 return {
-    s('ifmain', {
+    s("ifmain", {
         t {
             'if __name__ == "__main__":',
-            '\t',
+            "\t",
         },
         i(1),
     }),

@@ -1,15 +1,15 @@
 return {
-    {
-        'thesignumt/gruber-darker.nvim',
-        lazy = false,
-        priority = 1000,
-        config = function()
-            vim.cmd 'colorscheme gruber-darker'
-        end,
-    },
+    -- {
+    --     'thesignumt/gruber-darker.nvim',
+    --     lazy = false,
+    --     priority = 1000,
+    --     config = function()
+    --         vim.cmd 'colorscheme gruber-darker'
+    --     end,
+    -- },
 
     {
-        'folke/tokyonight.nvim',
+        "folke/tokyonight.nvim",
         opts = {
             styles = {
                 comments = { italic = false },
@@ -18,7 +18,7 @@ return {
             on_highlights = function(highlights, colors) end,
         },
         config = function(_, opts)
-            require('tokyonight').setup(opts)
+            require("tokyonight").setup(opts)
         end,
     },
 

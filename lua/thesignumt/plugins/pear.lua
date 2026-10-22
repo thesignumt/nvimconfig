@@ -1,4 +1,4 @@
-local modes = require('thesignumt.utils.map').modes
+local modes = require("thesignumt.utils.map").modes
 
 return {
     -- {
@@ -9,17 +9,23 @@ return {
     --   end,
     -- },
     {
-        'jakemason/ouroboros',
-        dependencies = { 'nvim-lua/plenary.nvim' },
+        "jakemason/ouroboros",
+        dependencies = { "nvim-lua/plenary.nvim" },
         opts = {},
         config = function(_, opts)
-            local ouroboros = require 'ouroboros'
+            local ouroboros = require "ouroboros"
             ouroboros.setup(opts)
 
-            vim.api.nvim_create_autocmd('FileType', {
-                pattern = { 'c', 'cpp' },
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = { "c", "cpp" },
                 callback = function()
-                    modes('ni', '<C-e>', ouroboros.switch, 'switch hdr & impl', { buffer = true })
+                    modes(
+                        "ni",
+                        "<C-e>",
+                        ouroboros.switch,
+                        "switch hdr & impl",
+                        { buffer = true }
+                    )
                 end,
             })
         end,

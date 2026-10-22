@@ -1,29 +1,65 @@
 return {
     { -- Autocompletion
-        'hrsh7th/nvim-cmp',
-        event = 'InsertEnter',
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
         dependencies = {
             {
-                'L3MON4D3/LuaSnip',
-                build = 'make install_jsregexp',
+                "L3MON4D3/LuaSnip",
+                build = "make install_jsregexp",
                 dependencies = {
                     {
-                        'rafamadriz/friendly-snippets',
+                        "rafamadriz/friendly-snippets",
                         config = function()
-                            require('luasnip.loaders.from_vscode').lazy_load()
+                            require("luasnip.loaders.from_vscode").lazy_load()
                         end,
                     },
                 },
+                config = function()
+                    require("luasnip").setup {
+                        history = true,
+                        updateevents = "TextChanged,TextChangedI",
+                        enable_autosnippets = true,
+                        ext_opts = {
+                            [require("luasnip.util.types").choiceNode] = {
+                                active = { virt_text = { { "<-", "Error" } } },
+                            },
+                        },
+                    }
+
+                    local snippets_dir = vim.fn.stdpath "config" .. "\\snippets"
+                    require("luasnip.loaders.from_lua").load {
+                        paths = snippets_dir,
+                    }
+
+                    -- +-------------------------------------------------------+
+                    -- [                        keymaps                        ]
+                    -- +-------------------------------------------------------+
+
+                    local ls = require "luasnip"
+                    local m = require "thesignumt.utils.map"
+
+                    m.modes("is", "<C-l>", function()
+                        if ls.jumpable(1) then
+                            ls.jump(1)
+                        end
+                    end)
+
+                    m.modes("is", "<C-j>", function()
+                        if ls.jumpable(-1) then
+                            ls.jump(-1)
+                        end
+                    end)
+                end,
             },
-            'saadparwaiz1/cmp_luasnip',
-            'hrsh7th/cmp-nvim-lsp',
-            'hrsh7th/cmp-path',
-            'hrsh7th/cmp-nvim-lsp-signature-help',
-            'hrsh7th/cmp-cmdline',
+            "saadparwaiz1/cmp_luasnip",
+            "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
+            "hrsh7th/cmp-cmdline",
         },
         config = function()
-            local cmp = require 'cmp'
-            local luasnip = require 'luasnip'
+            local cmp = require "cmp"
+            local luasnip = require "luasnip"
             luasnip.config.setup {}
 
             cmp.setup {
@@ -32,24 +68,22 @@ return {
                         luasnip.lsp_expand(args.body)
                     end,
                 },
-                completion = { completeopt = 'menu,menuone,noinsert,noselect' },
+                completion = { completeopt = "menu,menuone,noinsert,noselect" },
                 -- completion = { autocomplete = false },
                 window = {
                     completion = {
-                        border = vim.g.cmp_winborder,
-                        winhighlight = 'FloatBorder:ThesignumtBd',
+                        border = false,
                     },
                     documentation = {
-                        border = vim.g.cmp_winborder,
-                        winhighlight = 'FloatBorder:ThesignumtDocBd',
+                        border = "rounded",
                     },
                 },
                 mapping = cmp.mapping.preset.insert {
-                    ['<C-n>'] = cmp.mapping.select_next_item(),
-                    ['<C-p>'] = cmp.mapping.select_prev_item(),
-                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-                    ['<Tab>'] = cmp.mapping.confirm { select = true },
+                    ["<C-n>"] = cmp.mapping.select_next_item(),
+                    ["<C-p>"] = cmp.mapping.select_prev_item(),
+                    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+                    ["<Tab>"] = cmp.mapping.confirm { select = true },
 
                     -- ['<CR>'] = cmp.mapping.confirm { select = true },
                     -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
@@ -58,11 +92,11 @@ return {
                     -- ['<C-h>'] = function() if luasnip.locally_jumpable(-1) then luasnip.jump(-1) end end,
                 },
                 sources = {
-                    { name = 'lazydev', group_index = 0 },
-                    { name = 'nvim_lsp' },
-                    { name = 'luasnip' },
-                    { name = 'path' },
-                    { name = 'nvim_lsp_signature_help' },
+                    { name = "lazydev", group_index = 0 },
+                    { name = "nvim_lsp" },
+                    { name = "luasnip" },
+                    { name = "path" },
+                    { name = "nvim_lsp_signature_help" },
                 },
             }
         end,

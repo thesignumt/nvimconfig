@@ -1,48 +1,34 @@
 return {
-    'stevearc/conform.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {
-        formatters_by_ft = {
-            lua = { 'stylua' },
-            python = { 'ruff_format' },
-            c = { 'clang_format' },
-        },
+    "stevearc/conform.nvim",
+    event = { "BufReadPre", "BufNewFile" },
 
-        format_on_save = function(bufnr)
-            if not vim.g.autoformat then
-                return
-            end
-            return { timeout_ms = 1500, lsp_fallback = true, bufnr = bufnr }
-        end,
-
-        formatters = {
-            stylua = {
-                prepend_args = {
-                    '--indent-type',
-                    'Spaces',
-                    '--indent-width',
-                    '4',
-                    '--column-width',
-                    '80',
+    config = function()
+        require("conform").setup {
+            format_on_save = {
+                timeout_ms = 5000,
+                lsp_format = "fallback",
+            },
+            formatters_by_ft = {
+                c = { "clang-format" },
+                lua = { "stylua" },
+                python = { "ruff_format" },
+                zig = { "zigfmt" },
+            },
+            formatters = {
+                stylua = {
+                    prepend_args = {
+                        "--indent-type",
+                        "Spaces",
+                        "--indent-width",
+                        "4",
+                    },
+                },
+                ["clang-format"] = {
+                    prepend_args = {
+                        "--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}",
+                    },
                 },
             },
-
-            clang_format = {
-                args = {
-                    '--style={BasedOnStyle: LLVM, IndentWidth: 4, TabWidth: 4, UseTab: Never}',
-                },
-            },
-        },
-    },
-
-    config = function(_, opts)
-        vim.g.autoformat = true
-
-        require('conform').setup(opts)
-
-        vim.keymap.set('n', '<leader>2', function()
-            vim.g.autoformat = not vim.g.autoformat
-            print(('autoformat: %s'):format(tostring(vim.g.autoformat)))
-        end, { desc = 'toggle format on save' })
+        }
     end,
 }

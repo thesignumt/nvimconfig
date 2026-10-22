@@ -1,7 +1,7 @@
 ---@module "compile-mode"
 ---@type CompileModeOpts
 vim.g.compile_mode = {
-    default_command = '',
+    default_command = "",
     bang_expansion = true,
     baleia_setup = true,
     auto_scroll = true,
@@ -11,16 +11,16 @@ vim.g.compile_mode = {
 }
 
 return {
-    'ej-shafran/compile-mode.nvim',
-    version = '^5.0.0',
+    "ej-shafran/compile-mode.nvim",
+    version = "^5.0.0",
     dependencies = {
-        'nvim-lua/plenary.nvim',
-        { 'm00qek/baleia.nvim', tag = 'v1.4.0' },
+        "nvim-lua/plenary.nvim",
+        { "m00qek/baleia.nvim", tag = "v1.4.0" },
     },
     config = function()
-        local nmap = require('thesignumt.utils.map').nmap
-        nmap('<leader>e', '<cmd>Compile<cr>', 'compile mode')
-        nmap('<leader>r', '<cmd>Recompile<cr>', 'recompile')
-        nmap('<leader>3', '<cmd>bd! *compilation*<cr>', 'del compile buf')
+        local nmap = require("thesignumt.utils.map").nmap
+        nmap("<leader>e", "<cmd>Compile<cr>", "compile mode")
+        nmap("<leader>r", "<cmd>Recompile<cr>", "recompile")
+        nmap("<leader>3", "<cmd>bd! *compilation*<cr>", "del compile buf")
     end,
 }

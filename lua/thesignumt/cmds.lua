@@ -1,84 +1,84 @@
-vim.api.nvim_create_user_command('ListPlugins', function()
+vim.api.nvim_create_user_command("ListPlugins", function()
     local home = vim.uv.os_homedir()
-    local filepath = home .. '\\lazy_plugins.txt' -- Windows path
+    local filepath = home .. "\\lazy_plugins.txt" -- Windows path
 
-    local f = io.open(filepath, 'w')
+    local f = io.open(filepath, "w")
     if f then
-        for _, p in pairs(require('lazy').plugins()) do
-            f:write(p.name .. '\n')
+        for _, p in pairs(require("lazy").plugins()) do
+            f:write(p.name .. "\n")
         end
         f:close()
-        print('Plugin list written to: ' .. filepath)
+        print("Plugin list written to: " .. filepath)
     else
-        print 'Error: could not write file'
+        print "Error: could not write file"
     end
 end, {})
 
 local function free_remaps(prefix)
     local api = vim.api
-    local modes = { 'n', 'v', 'x', 'o', 'i', 'c' }
+    local modes = { "n", "v", "x", "o", "i", "c" }
 
     -- US keyboard keys (letters, numbers, symbols)
     local keys = {}
     for _, k in ipairs {
-        'a',
-        'b',
-        'c',
-        'd',
-        'e',
-        'f',
-        'g',
-        'h',
-        'i',
-        'j',
-        'k',
-        'l',
-        'm',
-        'n',
-        'o',
-        'p',
-        'q',
-        'r',
-        's',
-        't',
-        'u',
-        'v',
-        'w',
-        'x',
-        'y',
-        'z',
-        '0',
-        '1',
-        '2',
-        '3',
-        '4',
-        '5',
-        '6',
-        '7',
-        '8',
-        '9',
-        '!',
-        '@',
-        '#',
-        '$',
-        '%',
-        '^',
-        '&',
-        '*',
-        '(',
-        ')',
-        '-',
-        '=',
-        '[',
-        ']',
-        '\\',
-        ';',
+        "a",
+        "b",
+        "c",
+        "d",
+        "e",
+        "f",
+        "g",
+        "h",
+        "i",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
+        "p",
+        "q",
+        "r",
+        "s",
+        "t",
+        "u",
+        "v",
+        "w",
+        "x",
+        "y",
+        "z",
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "!",
+        "@",
+        "#",
+        "$",
+        "%",
+        "^",
+        "&",
+        "*",
+        "(",
+        ")",
+        "-",
+        "=",
+        "[",
+        "]",
+        "\\",
+        ";",
         "'",
-        ',',
-        '.',
-        '/',
-        '`',
-        '~',
+        ",",
+        ".",
+        "/",
+        "`",
+        "~",
     } do
         keys[k] = true
     end
@@ -102,17 +102,17 @@ local function free_remaps(prefix)
     table.sort(free)
 
     if #free == 0 then
-        print('No free keys under ' .. prefix)
+        print("No free keys under " .. prefix)
     else
-        print('Free keys under ' .. prefix .. ': ' .. table.concat(free, ' '))
+        print("Free keys under " .. prefix .. ": " .. table.concat(free, " "))
     end
 end
 
 -- Create user command
-vim.api.nvim_create_user_command('FreeRemaps', function(opts)
-    local arg = opts.args ~= '' and opts.args or '<leader>'
+vim.api.nvim_create_user_command("FreeRemaps", function(opts)
+    local arg = opts.args ~= "" and opts.args or "<leader>"
     free_remaps(arg)
-end, { nargs = '?' })
+end, { nargs = "?" })
 
 -- vim.api.nvim_create_autocmd('FileType', {
 --   pattern = 'man',

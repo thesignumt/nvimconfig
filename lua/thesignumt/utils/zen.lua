@@ -1,4 +1,4 @@
-local zen_mode = require("zen-mode")
+local zen_mode = require "zen-mode"
 
 local Zen = {}
 Zen.__index = Zen
@@ -50,7 +50,7 @@ function Zen:toggle(settings)
         end
     end
 
-    zen_mode.setup({ window = { width = settings.width, options = {} } })
+    zen_mode.setup { window = { width = settings.width, options = {} } }
 
     if not self.active then
         self:save_opts()
@@ -70,17 +70,17 @@ end
 -- [                        presets                        ]
 -- +-------------------------------------------------------+
 function Zen:zen()
-    self:toggle({ width = 90, wrap = false, number = true, rnu = true })
+    self:toggle { width = 90, wrap = false, number = true, rnu = true }
 end
 
 function Zen:ZEN()
-    self:toggle({
+    self:toggle {
         width = 80,
         wrap = false,
         number = false,
         rnu = false,
         colorcolumn = "0",
-    })
+    }
 end
 
 return Zen

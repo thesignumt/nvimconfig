@@ -1,25 +1,30 @@
-local nmap = require('thesignumt.utils.map').nmap
+local nmap = require("thesignumt.utils.map").nmap
 return {
     {
-        'tpope/vim-fugitive',
+        "tpope/vim-fugitive",
         config = function()
-            nmap('<leader>d', vim.cmd.Git)
+            nmap("<leader>d", vim.cmd.Git)
+            nmap("<leader>gln", "<cmd>G log<cr>")
+            nmap("<leader>glo", function()
+                local count = vim.v.count
+                vim.cmd("G log --oneline" .. (count > 0 and " -" .. count or ""))
+            end)
 
-            local Thesignumt_Fugitive = vim.api.nvim_create_augroup('Thesignumt_Fugitive', {})
+            local Thesignumt_Fugitive = vim.api.nvim_create_augroup("Thesignumt_Fugitive", {})
 
-            vim.api.nvim_create_autocmd('FileType', {
+            vim.api.nvim_create_autocmd("FileType", {
                 group = Thesignumt_Fugitive,
-                pattern = 'fugitive',
+                pattern = "fugitive",
                 callback = function(args)
                     local opts = { buffer = args.buf }
 
-                    nmap('<leader>p', function()
-                        vim.cmd.Git 'push'
+                    nmap("<leader>p", function()
+                        vim.cmd.Git "push"
                     end, opts)
 
                     -- rebase always
-                    nmap('<leader>P', function()
-                        vim.cmd.Git 'pull --rebase'
+                    nmap("<leader>P", function()
+                        vim.cmd.Git "pull --rebase"
                     end, opts)
                 end,
             })
@@ -27,20 +32,20 @@ return {
     },
 
     {
-        'kdheepak/lazygit.nvim',
-        enabled = false,
+        "kdheepak/lazygit.nvim",
+        -- enabled = false,
         cmd = {
-            'LazyGit',
-            'LazyGitConfig',
-            'LazyGitCurrentFile',
-            'LazyGitFilter',
-            'LazyGitFilterCurrentFile',
+            "LazyGit",
+            "LazyGitConfig",
+            "LazyGitCurrentFile",
+            "LazyGitFilter",
+            "LazyGitFilterCurrentFile",
         },
         -- keys = {
         --     { '<leader>d', '<cmd>LazyGit<cr>', desc = 'Open LazyGit' },
         -- },
         dependencies = {
-            'nvim-lua/plenary.nvim', -- required
+            "nvim-lua/plenary.nvim", -- required
         },
         config = function()
             -- optional: if you want LazyGit to always open in the root of your git repo
@@ -51,17 +56,17 @@ return {
         end,
     },
     {
-        'lewis6991/gitsigns.nvim',
+        "lewis6991/gitsigns.nvim",
         opts = {
             signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
+                add = { text = "+" },
+                change = { text = "~" },
+                delete = { text = "_" },
+                topdelete = { text = "‾" },
+                changedelete = { text = "~" },
             },
             on_attach = function(bufnr)
-                local gitsigns = require 'gitsigns'
+                local gitsigns = require "gitsigns"
 
                 local function map(mode, l, r, opts)
                     opts = opts or {}
@@ -70,37 +75,37 @@ return {
                 end
 
                 -- Navigation
-                map('n', ']c', function()
+                map("n", "]c", function()
                     if vim.wo.diff then
-                        vim.cmd.normal { ']c', bang = true }
+                        vim.cmd.normal { "]c", bang = true }
                     else
-                        gitsigns.nav_hunk 'next'
+                        gitsigns.nav_hunk "next"
                     end
-                end, { desc = 'next git change' })
+                end, { desc = "next git change" })
 
-                map('n', '[c', function()
+                map("n", "[c", function()
                     if vim.wo.diff then
-                        vim.cmd.normal { '[c', bang = true }
+                        vim.cmd.normal { "[c", bang = true }
                     else
-                        gitsigns.nav_hunk 'prev'
+                        gitsigns.nav_hunk "prev"
                     end
-                end, { desc = 'prev git change' })
+                end, { desc = "prev git change" })
 
-                map('v', '<leader>gs', function()
-                    gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-                end, { desc = 'git stage hunk' })
-                map('v', '<leader>gr', function()
-                    gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-                end, { desc = 'git reset hunk' })
-                map('n', '<leader>gs', gitsigns.stage_hunk, { desc = 'git stage hunk' })
-                map('n', '<leader>gr', gitsigns.reset_hunk, { desc = 'git reset hunk' })
+                map("v", "<leader>gs", function()
+                    gitsigns.stage_hunk { vim.fn.line ".", vim.fn.line "v" }
+                end, { desc = "git stage hunk" })
+                map("v", "<leader>gr", function()
+                    gitsigns.reset_hunk { vim.fn.line ".", vim.fn.line "v" }
+                end, { desc = "git reset hunk" })
+                map("n", "<leader>gs", gitsigns.stage_hunk, { desc = "git stage hunk" })
+                map("n", "<leader>gr", gitsigns.reset_hunk, { desc = "git reset hunk" })
             end,
         },
         config = function(_, opts)
-            local gitsigns = require 'gitsigns'
+            local gitsigns = require "gitsigns"
             gitsigns.setup(opts)
-            nmap('<leader>gh', gitsigns.preview_hunk, 'preview hunk')
-            nmap('<leader>gt', gitsigns.toggle_current_line_blame, 'toggle blame')
+            nmap("<leader>gh", gitsigns.preview_hunk, "preview hunk")
+            nmap("<leader>gt", gitsigns.toggle_current_line_blame, "toggle blame")
         end,
     },
 }

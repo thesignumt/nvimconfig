@@ -4,12 +4,8 @@ local nmap = require("thesignumt.utils.map").nmap
 return {
     "eandrju/cellular-automaton.nvim",
     config = function()
-        local ca = require("cellular-automaton")
-        nmap(
-            "<leader>m",
-            fn(ca.start_animation, "make_it_rain"),
-            "make it rain"
-        )
+        local ca = require "cellular-automaton"
+        nmap("<leader>m", fn(ca.start_animation, "make_it_rain"), "make it rain")
 
         -- ca.register_animation(require 'ca_anims.donut')
         --

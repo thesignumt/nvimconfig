@@ -1,14 +1,14 @@
 return {
     {
-        'atiladefreitas/dooing',
+        "atiladefreitas/dooing",
         config = function()
-            require('dooing').setup {
+            require("dooing").setup {
                 quick_keys = false,
             }
 
-            local nmap = require('thesignumt.utils.map').nmap
-            nmap('<leader>k', ':Dooing<cr>', 'todo')
-            nmap('<leader>K', ':DooingLocal<cr>', 'todo local')
+            local nmap = require("thesignumt.utils.map").nmap
+            nmap("<leader>k", ":Dooing<cr>", "todo")
+            nmap("<leader>K", ":DooingLocal<cr>", "todo local")
         end,
     },
 }

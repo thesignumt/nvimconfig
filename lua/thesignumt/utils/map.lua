@@ -5,12 +5,12 @@ local M = {}
 ---@param lhs string The key sequence to unmap
 ---@param opts? vim.keymap.del.Opts
 function M.unmap(modes, lhs, opts)
-    vim.validate('modes', modes, { 'string', 'table' })
-    vim.validate('lhs', lhs, 'string')
-    vim.validate('opts', opts, 'table', true)
+    vim.validate("modes", modes, { "string", "table" })
+    vim.validate("lhs", lhs, "string")
+    vim.validate("opts", opts, "table", true)
 
     opts = opts or {}
-    modes = type(modes) == 'string' and { modes } or modes
+    modes = type(modes) == "string" and { modes } or modes
     --- @cast modes string[]
 
     for _, mode in ipairs(modes) do
@@ -25,19 +25,19 @@ end
 --- @param desc_or_opts? string|vim.keymap.set.Opts
 --- @param opts? vim.keymap.set.Opts
 function M.map(mode, lhs, rhs, desc_or_opts, opts)
-    vim.validate('mode', mode, { 'string', 'table' })
-    vim.validate('lhs', lhs, 'string')
-    vim.validate('rhs', rhs, { 'string', 'function' })
-    vim.validate('desc_or_opts', desc_or_opts, { 'string', 'table' }, true)
-    vim.validate('opts', opts, 'table', true)
+    vim.validate("mode", mode, { "string", "table" })
+    vim.validate("lhs", lhs, "string")
+    vim.validate("rhs", rhs, { "string", "function" })
+    vim.validate("desc_or_opts", desc_or_opts, { "string", "table" }, true)
+    vim.validate("opts", opts, "table", true)
 
     ---@cast mode string[]
-    mode = type(mode) == 'string' and { mode } or mode
+    mode = type(mode) == "string" and { mode } or mode
 
     local base_opts = vim.tbl_extend(
-        'force',
-        vim.tbl_extend('force', { noremap = true, silent = true }, opts or {}),
-        type(desc_or_opts) == 'string' and { desc = desc_or_opts } or desc_or_opts or {}
+        "force",
+        vim.tbl_extend("force", { noremap = true, silent = true }, opts or {}),
+        type(desc_or_opts) == "string" and { desc = desc_or_opts } or desc_or_opts or {}
     )
 
     for _, m in ipairs(mode) do
@@ -54,14 +54,14 @@ local function create_mapper(mode)
     end
 end
 
-M.nmap = create_mapper 'n'
-M.imap = create_mapper 'i'
-M.vmap = create_mapper 'v'
-M.xmap = create_mapper 'x'
-M.smap = create_mapper 's'
-M.cmap = create_mapper 'c'
-M.omap = create_mapper 'o'
-M.tmap = create_mapper 't'
+M.nmap = create_mapper "n"
+M.imap = create_mapper "i"
+M.vmap = create_mapper "v"
+M.xmap = create_mapper "x"
+M.smap = create_mapper "s"
+M.cmap = create_mapper "c"
+M.omap = create_mapper "o"
+M.tmap = create_mapper "t"
 
 --- safely map keymaps in multiple modes
 --- @param modes_str string Modes to set remaps to.
@@ -75,7 +75,7 @@ function M.modes(modes_str, lhs, rhs, desc_or_opts, opts)
     -- check_type(rhs, 'string_or_fun', 'rhs')
 
     local modes = {}
-    for c in modes_str:gmatch '.' do
+    for c in modes_str:gmatch "." do
         table.insert(modes, c)
     end
 
@@ -84,7 +84,7 @@ end
 
 ---@param key string
 function M.dblL(key)
-    return '<leader><leader>' .. key
+    return "<leader><leader>" .. key
 end
 
 return M

@@ -1,11 +1,11 @@
 return {
-    'stevearc/oil.nvim',
+    "stevearc/oil.nvim",
     ---@module 'oil'
     ---@type oil.SetupOpts
     opts = {
         default_file_explorer = true,
         columns = {
-            'icon',
+            "icon",
             -- 'size',
             -- 'mtime',
         },
@@ -14,25 +14,27 @@ return {
             show_hidden = true,
             natural_order = true,
             is_always_hidden = function(name, _)
-                return name == '..' or name == '.git'
+                return vim.tbl_contains({ ".." }, name)
             end,
         },
         win_options = {
             wrap = true,
+            number = false,
+            relativenumber = false,
         },
         float = {
             -- padding = 2,
             max_width = 0.3,
             max_height = 0.6,
-            border = 'rounded',
+            border = "rounded",
         },
     },
     dependencies = {
-        'nvim-tree/nvim-web-devicons',
+        "nvim-tree/nvim-web-devicons",
     },
     config = function(_, opts)
-        require('oil').setup(opts)
-        local nmap = require('thesignumt.utils.map').nmap
-        nmap('<leader>f', ':Oil --float<cr>', { desc = 'oil' })
+        require("oil").setup(opts)
+        local nmap = require("thesignumt.utils.map").nmap
+        nmap("<leader>f", ":Oil --float<cr>", "oil")
     end,
 }

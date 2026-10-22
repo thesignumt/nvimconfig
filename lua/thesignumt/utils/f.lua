@@ -1,5 +1,6 @@
 local M = {}
 
+--- NOTE: lazy loaded
 ---@param f function
 ---@param ... any
 ---@return function
@@ -20,11 +21,12 @@ M.inst_fn = function(inst, method)
     ---@param is_fn boolean?
     ---@return fun(...:any): any
     return function(_args, is_fn)
-        local args = (type(_args) == 'table' and _args) or (_args and { _args } or {})
+        local args = (type(_args) == "table" and _args)
+            or (_args and { _args } or {})
         return function(...)
             local f = inst[method]
             if f == nil then
-                error('function not found: ' .. tostring(method))
+                error("function not found: " .. tostring(method))
             end
 
             if is_fn == true then

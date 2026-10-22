@@ -1,12 +1,12 @@
 return {
-    'nvzone/showkeys',
-    cmd = 'ShowkeysToggle',
+    "nvzone/showkeys",
+    cmd = "ShowkeysToggle",
     config = function()
-        require('showkeys').setup {
+        require("showkeys").setup {
             timeout = 1,
-            position = 'top-right',
+            position = "top-right",
             winopts = {
-                border = 'rounded',
+                border = "rounded",
             },
         }
     end,

@@ -1,14 +1,14 @@
 return {
-    'tversteeg/registers.nvim',
-    cmd = 'Registers',
+    url = "https://codeberg.org/fosk/registers.nvim",
+    cmd = "Registers",
     config = true,
     keys = {
-        { '"', mode = { 'n', 'v' } },
-        { '<C-R>', mode = 'i' },
+        { '"', mode = { "n", "v" } },
+        { "<C-R>", mode = "i" },
     },
-    name = 'registers',
+    name = "registers",
     init = function()
         ---@diagnostic disable-next-line: missing-fields
-        require('registers').setup {}
+        require("registers").setup {}
     end,
 }
