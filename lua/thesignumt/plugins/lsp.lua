@@ -14,22 +14,19 @@ return {
                 },
             },
             {
-                "williamboman/mason.nvim",
+                "mason-org/mason.nvim",
                 ---@module 'mason.settings'
                 ---@type MasonSettings
                 opts = {},
             },
-            "williamboman/mason-lspconfig.nvim",
+            "mason-org/mason-lspconfig.nvim",
             "WhoIsSethDaniel/mason-tool-installer.nvim",
             { "j-hui/fidget.nvim", opts = {} },
             "hrsh7th/cmp-nvim-lsp",
         },
         config = function()
             vim.api.nvim_create_autocmd("LspAttach", {
-                group = vim.api.nvim_create_augroup(
-                    "lsp_attach",
-                    { clear = true }
-                ),
+                group = vim.api.nvim_create_augroup("lsp_attach", { clear = true }),
                 callback = function(event)
                     local map = function(keys, func, desc, mode)
                         mode = mode or "n"
@@ -41,26 +38,10 @@ return {
                         )
                     end
 
-                    map(
-                        "gd",
-                        require("telescope.builtin").lsp_definitions,
-                        "[G]oto [D]efinition"
-                    )
-                    map(
-                        "gr",
-                        require("telescope.builtin").lsp_references,
-                        "[G]oto [R]eferences"
-                    )
-                    map(
-                        "gI",
-                        require("telescope.builtin").lsp_implementations,
-                        "[G]oto [I]mplementation"
-                    )
-                    map(
-                        "gt",
-                        require("telescope.builtin").lsp_type_definitions,
-                        "Type [D]efinition"
-                    )
+                    map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+                    map("gr", require("telescope.builtin").lsp_references, "[G]oto [R]eferences")
+                    map("gI", require("telescope.builtin").lsp_implementations, "[G]oto [I]mplementation")
+                    map("gt", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
                     -- map(
                     --   '<leader>ed',
                     --   require('telescope.builtin').lsp_document_symbols,
@@ -95,10 +76,9 @@ return {
                 -- },
             }
 
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = vim.tbl_deep_extend(
+            local capabilities = vim.tbl_deep_extend(
                 "force",
-                capabilities,
+                vim.lsp.protocol.make_client_capabilities(),
                 require("cmp_nvim_lsp").default_capabilities()
             )
 
@@ -106,64 +86,63 @@ return {
                 clangd = {
                     cmd = {
                         "clangd",
-                        "--background-index", -- indexing for code navigation
-                        "--clang-tidy", -- linting
-                        "--cross-file-rename", -- rename across files
-                        "--compile-commands-dir=.", -- where compile_commands.json lives
-                        "--all-scopes-completion", -- better completion suggestions
-                        "--completion-style=detailed", -- include types in completion
-                        "--pch-storage=memory", -- faster precompiled headers
-                        "--header-insertion=never", -- optional: avoid auto-inserting headers
+                        "--background-index",
+                        "--clang-tidy",
+                        "--cross-file-rename",
+                        "--compile-commands-dir=.",
+                        "--all-scopes-completion",
+                        "--completion-style=detailed",
+                        "--pch-storage=memory",
+                        "--header-insertion=never",
                     },
-                    filetypes = { "c", "objc" },
-                    root_dir = require("lspconfig").util.root_pattern(
+                    filetypes = { "c", "cpp", "objc", "objcpp" },
+                    root_markers = {
                         "compile_commands.json",
                         "Makefile",
-                        ".git"
-                    ),
-                    capabilities = require("cmp_nvim_lsp").default_capabilities(),
-                    settings = {
-                        clangd = {
-                            fallbackFlags = { "-std=c17" }, -- ensures standard if compile_commands.json missing
-                            diagnostics = { suppress = { "unused-parameter" } },
-                        },
+                        ".git",
+                    },
+                    capabilities = capabilities,
+                    init_options = {
+                        fallbackFlags = { "-std=c17" },
                     },
                 },
                 zls = {
                     cmd = { "zls" },
                     filetypes = { "zig", "zir" },
-                    root_dir = require("lspconfig").util.root_pattern(
+                    root_markers = {
                         "build.zig",
                         "build.zig.zon",
-                        ".git"
-                    ),
+                        ".git",
+                    },
+                    capabilities = capabilities,
                 },
             }
 
-            local ensure_installed = vim.tbl_keys(servers)
-            vim.list_extend(
-                ensure_installed,
-                { "stylua", "lua_ls", "rust_analyzer" }
-            )
+            for name, config in pairs(servers) do
+                vim.lsp.config(name, config)
+            end
+
+            -- Reuse the capabilities configured for nvim-cmp.
+            vim.lsp.config("lua_ls", {
+                capabilities = capabilities,
+            })
+
             require("mason-tool-installer").setup {
-                ensure_installed = ensure_installed,
+                ensure_installed = { "stylua" },
             }
 
             require("mason-lspconfig").setup {
-                -- ensure_installed = { 'clangd', 'lua_ls', 'rust_analyzer' },
-                automatic_installation = false,
-                handlers = {
-                    function(server_name)
-                        local server = servers[server_name] or {}
-                        server.capabilities = vim.tbl_deep_extend(
-                            "force",
-                            {},
-                            capabilities,
-                            server.capabilities or {}
-                        )
-                        require("lspconfig")[server_name].setup(server)
-                        -- vim.lsp.config(server_name, server)
-                    end,
+                ensure_installed = {
+                    "clangd",
+                    "zls",
+                    "lua_ls",
+                    "rust_analyzer",
+                },
+                automatic_enable = {
+                    "clangd",
+                    "zls",
+                    "lua_ls",
+                    "rust_analyzer",
                 },
             }
         end,
