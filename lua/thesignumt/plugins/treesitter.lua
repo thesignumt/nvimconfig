@@ -1,31 +1,43 @@
 return {
     {
         "nvim-treesitter/nvim-treesitter",
+        branch = "main",
         lazy = false,
-        branch = "master",
         build = ":TSUpdate",
+
         config = function()
-            require("nvim-treesitter.configs").setup {
-                ensure_installed = {
+            require("nvim-treesitter").setup()
+
+            require("nvim-treesitter").install {
+                "python",
+                "c",
+                "diff",
+                "lua",
+                "luadoc",
+                "markdown",
+                "markdown_inline",
+                "query",
+                "vim",
+                "vimdoc",
+                "zig",
+            }
+
+            vim.api.nvim_create_autocmd("FileType", {
+                pattern = {
                     "python",
                     "c",
                     "diff",
                     "lua",
-                    "luadoc",
                     "markdown",
-                    "markdown_inline",
                     "query",
                     "vim",
                     "vimdoc",
                     "zig",
                 },
-                sync_install = false,
-                auto_install = true,
-                highlight = {
-                    enable = true,
-                    additional_vim_regex_highlighting = false,
-                },
-            }
+                callback = function(args)
+                    vim.treesitter.start(args.buf)
+                end,
+            })
         end,
     },
 }
