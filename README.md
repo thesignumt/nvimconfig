@@ -1,0 +1,3 @@
+# thesignumt's nvim config
+
+Hello! This is my personal config so if you clone my config it most likely won't work...
